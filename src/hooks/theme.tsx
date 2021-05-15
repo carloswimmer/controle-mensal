@@ -11,7 +11,7 @@ import '@fontsource/open-sans/700.css'
 
 import { useDarkMode } from './darkMode'
 
-const ThemeProvider = ({ children }: PropsWithChildren<{}>) => {
+export const ThemeProvider = ({ children }: PropsWithChildren<{}>) => {
   const { darkMode } = useDarkMode()
 
   const theme = useMemo(() => {
@@ -58,5 +58,3 @@ const ThemeProvider = ({ children }: PropsWithChildren<{}>) => {
     </MuiThemeProvider>
   )
 }
-
-export default ThemeProvider

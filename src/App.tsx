@@ -1,7 +1,7 @@
-import React from 'react'
+import AppProvider from './hooks'
 
 function App() {
-  return <h1>Controle Mensal</h1>
+  return <AppProvider>Controle Mensal</AppProvider>
 }
 
 export default App
