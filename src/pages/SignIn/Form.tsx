@@ -8,14 +8,15 @@ import {
   styled,
   Theme,
 } from '@material-ui/core'
+import { Visibility, VisibilityOff } from '@material-ui/icons'
 import { Formik, FormikHelpers } from 'formik'
+import * as Yup from 'yup'
 
 import { Input, Button } from '../../components/controls'
 import handleFieldProps from '../../components/controls/utils/handleFieldProps'
 
 import { useToast } from '../../hooks/toast'
 import { useDarkMode } from '../../hooks/darkMode'
-import { Visibility, VisibilityOff } from '@material-ui/icons'
 
 export interface SignInData {
   email: string
@@ -26,6 +27,11 @@ const initialValues: SignInData = {
   email: '',
   password: '',
 }
+
+const signInSchema = Yup.object({
+  email: Yup.string().email('E-mail inválido').required('Campo obrigatório'),
+  password: Yup.string().required('Campo obrigatório'),
+})
 
 const Form = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -46,8 +52,6 @@ const Form = () => {
   const handleSignInSubmit = useCallback(
     (values: SignInData, actions: FormikHelpers<SignInData>) => {
       try {
-        actions.setSubmitting(true)
-
         console.log(values)
         addToast({
           text: 'Autenticação efetuado com sucesso',
@@ -56,7 +60,9 @@ const Form = () => {
       } catch (error) {
         addToast({ text: error })
       } finally {
-        actions.setSubmitting(false)
+        setTimeout(() => {
+          actions.setSubmitting(false)
+        }, 2000)
       }
     },
     [addToast],
@@ -65,6 +71,7 @@ const Form = () => {
   return (
     <Formik
       initialValues={initialValues}
+      validationSchema={signInSchema}
       onSubmit={(values, actions) => handleSignInSubmit(values, actions)}
     >
       {formik => (
