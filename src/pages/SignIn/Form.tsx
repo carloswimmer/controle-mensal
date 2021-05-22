@@ -1,4 +1,5 @@
 import { useCallback, useState, MouseEvent } from 'react'
+import { useHistory } from 'react-router-dom'
 import {
   Backdrop,
   Box,
@@ -13,17 +14,18 @@ import { Formik, FormikHelpers } from 'formik'
 import * as Yup from 'yup'
 
 import { Input, Button } from '../../components/controls'
-import handleFieldProps from '../../components/controls/utils/handleFieldProps'
+import { handleError, handleFieldProps } from '../../components/controls/utils'
 
 import { useToast } from '../../hooks/toast'
 import { useDarkMode } from '../../hooks/darkMode'
+import { useAuth } from '../../hooks/auth'
 
-export interface SignInData {
+export interface AuthData {
   email: string
   password: string
 }
 
-const initialValues: SignInData = {
+const initialValues: AuthData = {
   email: '',
   password: '',
 }
@@ -37,6 +39,8 @@ const Form = () => {
   const [showPassword, setShowPassword] = useState(false)
   const { addToast } = useToast()
   const { darkMode } = useDarkMode()
+  const { signIn } = useAuth()
+  const history = useHistory()
 
   const handleClickShowPassword = useCallback(() => {
     setShowPassword(state => !state)
@@ -50,22 +54,22 @@ const Form = () => {
   )
 
   const handleSignInSubmit = useCallback(
-    (values: SignInData, actions: FormikHelpers<SignInData>) => {
+    async (values: AuthData, actions: FormikHelpers<AuthData>) => {
       try {
-        console.log(values)
+        await signIn(values)
         addToast({
           text: 'Autenticação efetuado com sucesso',
           severity: 'success',
         })
+        history.push('/dashboard')
       } catch (error) {
-        addToast({ text: error })
+        const message = handleError(error)
+        addToast({ text: message })
       } finally {
-        setTimeout(() => {
-          actions.setSubmitting(false)
-        }, 2000)
+        history.location.pathname === '/' && actions.setSubmitting(false)
       }
     },
-    [addToast],
+    [addToast, history, signIn],
   )
 
   return (
@@ -141,7 +145,6 @@ const SignInForm = styled('form')(() => ({
 
 const ButtonContainer = styled(Box)(() => ({
   marginTop: 8,
-  marginBottom: 56,
 
   '& button': {
     height: 48,
