@@ -45,7 +45,7 @@ const Toast = ({ messages }: ToastProps) => {
     <Snackbar
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={open}
-      autoHideDuration={6000}
+      autoHideDuration={5000}
       TransitionComponent={SlideTransition}
       onClose={handleClose}
       onExited={handleExited}
