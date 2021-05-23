@@ -6,6 +6,7 @@ import {
   Typography,
   Link,
   Box,
+  Grid,
 } from '@material-ui/core'
 import { styled, Theme } from '@material-ui/core/styles'
 import Logo from './Logo'
@@ -24,21 +25,22 @@ const SignIn = () => {
             <Form />
           </CardContent>
         </Card>
-
-        <Box mt={4}>
-          <Typography align="center">
-            <Link component={RouterLink} to="/sign-up">
-              Cadastre-se
-            </Link>
-          </Typography>
-        </Box>
-        <Box mt={2}>
-          <Typography align="center">
-            <Link component={RouterLink} to="/">
-              Faça Login
-            </Link>
-          </Typography>
-        </Box>
+        <Grid container justify="space-between">
+          <Box mt={3}>
+            <Typography align="center">
+              <Link component={RouterLink} to="/sign-up">
+                Crie uma conta
+              </Link>
+            </Typography>
+          </Box>
+          <Box mt={3}>
+            <Typography align="center">
+              <Link component={RouterLink} to="/">
+                Faça Login
+              </Link>
+            </Typography>
+          </Box>
+        </Grid>
       </Container>
     </Viewport>
   )
