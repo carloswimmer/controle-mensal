@@ -1,10 +1,30 @@
-import { styled, Theme } from '@material-ui/core'
+import { Box, styled, Theme, Grid } from '@material-ui/core'
+
+import Logo from '../../components/Logo'
 import Menu from './Menu'
+import CreditCard from './CreditCard'
+import DebitCard from './DebitCard'
+import BalanceCard from './BalanceCard'
 
 const Dashboard = () => {
   return (
     <>
-      <LeftAside></LeftAside>
+      <LeftAside>
+        <Box width={200}>
+          <Logo />
+        </Box>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <CreditCard />
+          </Grid>
+          <Grid item xs={12}>
+            <DebitCard />
+          </Grid>
+          <Grid item xs={12}>
+            <BalanceCard />
+          </Grid>
+        </Grid>
+      </LeftAside>
       <MainContent></MainContent>
       <RightAside>
         <Menu />
@@ -13,13 +33,14 @@ const Dashboard = () => {
   )
 }
 
-const LeftAside = styled('aside')(() => ({
+const LeftAside = styled('aside')<Theme>(({ theme }) => ({
   backgroundColor: '#ffffff20',
   position: 'fixed',
   top: 0,
   left: 0,
-  width: 200,
+  width: 310,
   height: '100vh',
+  padding: theme.spacing(2),
 }))
 
 const MainContent = styled('main')(() => ({
@@ -31,7 +52,7 @@ const RightAside = styled('aside')<Theme>(({ theme }) => ({
   position: 'fixed',
   top: 0,
   right: 0,
-  minWidth: 200,
+  width: 310,
   height: '100vh',
   padding: theme.spacing(2),
 }))
