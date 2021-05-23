@@ -1,5 +1,5 @@
 import { SyntheticEvent, useCallback, useEffect, useState } from 'react'
-import { Slide, Snackbar } from '@material-ui/core'
+import { Box, Slide, Snackbar } from '@material-ui/core'
 import { TransitionProps } from '@material-ui/core/transitions/transition'
 import { Alert } from '@material-ui/lab'
 import { ToastMessage } from '../hooks/toast'
@@ -50,14 +50,16 @@ const Toast = ({ messages }: ToastProps) => {
       onClose={handleClose}
       onExited={handleExited}
     >
-      <Alert
-        severity={message.severity || 'error'}
-        variant="filled"
-        elevation={6}
-        onClose={handleClose}
-      >
-        {message.text}
-      </Alert>
+      <Box maxWidth={375}>
+        <Alert
+          severity={message.severity || 'error'}
+          variant="filled"
+          elevation={6}
+          onClose={handleClose}
+        >
+          {message.text}
+        </Alert>
+      </Box>
     </Snackbar>
   )
 }
