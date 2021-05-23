@@ -19,7 +19,7 @@ const SignIn = () => {
         <Card>
           <CardContent>
             <Box mb={2}>
-              <Typography variant="h5">Fazer Login</Typography>
+              <Typography variant="h5">Redefinir Senha</Typography>
             </Box>
             <Form />
           </CardContent>
@@ -27,15 +27,15 @@ const SignIn = () => {
 
         <Box mt={4}>
           <Typography align="center">
-            <Link component={RouterLink} to="/forgot-password">
-              Esqueceu sua senha?
+            <Link component={RouterLink} to="/sign-up">
+              Cadastre-se
             </Link>
           </Typography>
         </Box>
         <Box mt={2}>
           <Typography align="center">
-            <Link component={RouterLink} to="/sign-up">
-              Cadastre-se
+            <Link component={RouterLink} to="/">
+              Faça Login
             </Link>
           </Typography>
         </Box>
