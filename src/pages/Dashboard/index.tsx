@@ -1,11 +1,33 @@
-import { styled } from '@material-ui/core'
+import { useCallback } from 'react'
+import { useHistory } from 'react-router-dom'
+import { Button, styled } from '@material-ui/core'
+
+import { useAuth } from '../../hooks/auth'
+import { useToast } from '../../hooks/toast'
+import { handleError } from '../../components/controls/utils'
 
 const Dashboard = () => {
+  const { signOut } = useAuth()
+  const { addToast } = useToast()
+  const history = useHistory()
+
+  const handleLogOut = useCallback(async () => {
+    try {
+      await signOut()
+      history.push('/')
+    } catch (error) {
+      const message = handleError(error)
+      addToast({ text: message })
+    }
+  }, [addToast, history, signOut])
+
   return (
     <>
       <LeftAside></LeftAside>
       <MainContent></MainContent>
-      <RightAside></RightAside>
+      <RightAside>
+        <Button onClick={handleLogOut}>Sair</Button>
+      </RightAside>
     </>
   )
 }

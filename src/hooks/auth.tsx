@@ -18,6 +18,7 @@ interface AuthContextData {
   user: User
   signUp(data: AuthData): void
   signIn(data: AuthData): void
+  signOut(): void
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -42,8 +43,12 @@ const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
     return auth.signInWithEmailAndPassword(email, password)
   }, [])
 
+  const signOut = useCallback(() => {
+    return auth.signOut()
+  }, [])
+
   return (
-    <AuthContext.Provider value={{ user, signUp, signIn }}>
+    <AuthContext.Provider value={{ user, signUp, signIn, signOut }}>
       {!loading && children}
     </AuthContext.Provider>
   )
