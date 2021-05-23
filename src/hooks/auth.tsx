@@ -20,6 +20,8 @@ interface AuthContextData {
   signIn(data: AuthData): Promise<UserCredential>
   signOut(): Promise<void>
   resetPassword(email: string): Promise<void>
+  updateEmail(email: string): void
+  updatePassword(password: string): void
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -52,9 +54,31 @@ const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
     return auth.sendPasswordResetEmail(email)
   }, [])
 
+  const updateEmail = useCallback(
+    (email: string) => {
+      user.updateEmail(email)
+    },
+    [user],
+  )
+
+  const updatePassword = useCallback(
+    (password: string) => {
+      user.updatePassword(password)
+    },
+    [user],
+  )
+
   return (
     <AuthContext.Provider
-      value={{ user, signUp, signIn, signOut, resetPassword }}
+      value={{
+        user,
+        signUp,
+        signIn,
+        signOut,
+        resetPassword,
+        updateEmail,
+        updatePassword,
+      }}
     >
       {!loading && children}
     </AuthContext.Provider>
