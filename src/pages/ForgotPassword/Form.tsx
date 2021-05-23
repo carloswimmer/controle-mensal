@@ -15,36 +15,37 @@ import { handleFieldProps, handleError } from '../../components/controls/utils'
 
 import { useToast } from '../../hooks/toast'
 import { useDarkMode } from '../../hooks/darkMode'
-import { useAuth, AuthData } from '../../hooks/auth'
+import { useAuth } from '../../hooks/auth'
 
-interface SignUpData extends AuthData {
-  passwordConfirm: string
+interface ResetPasswordData {
+  email: string
 }
 
-const initialValues: SignUpData = {
+const initialValues: ResetPasswordData = {
   email: '',
-  password: '',
-  passwordConfirm: '',
 }
 
-const signUpSchema = Yup.object({
+const resetPasswordSchema = Yup.object({
   email: Yup.string().email('E-mail inválido').required('Campo obrigatório'),
 })
 
 const Form = () => {
   const { addToast } = useToast()
   const { darkMode } = useDarkMode()
-  const { signUp } = useAuth()
+  const { resetPassword } = useAuth()
   const history = useHistory()
 
-  const handleSignUpSubmit = useCallback(
-    async (values: SignUpData, actions: FormikHelpers<SignUpData>) => {
-      const { email, password } = values
+  const handleResetPasswordSubmit = useCallback(
+    async (
+      values: ResetPasswordData,
+      actions: FormikHelpers<ResetPasswordData>,
+    ) => {
+      const { email } = values
 
       try {
-        await signUp({ email, password })
+        await resetPassword(email)
         addToast({
-          text: 'Cadastro efetuado com sucesso',
+          text: 'Acesse seu e-mail para saber como redefinir sua senha',
           severity: 'success',
         })
         history.push('/')
@@ -52,20 +53,21 @@ const Form = () => {
         const message = handleError(error)
         addToast({ text: message })
       } finally {
-        history.location.pathname === '/sign-up' && actions.setSubmitting(false)
+        history.location.pathname === '/forgot-password' &&
+          actions.setSubmitting(false)
       }
     },
-    [signUp, addToast, history],
+    [resetPassword, addToast, history],
   )
 
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={signUpSchema}
-      onSubmit={(values, actions) => handleSignUpSubmit(values, actions)}
+      validationSchema={resetPasswordSchema}
+      onSubmit={(values, actions) => handleResetPasswordSubmit(values, actions)}
     >
       {formik => (
-        <SignUpForm onSubmit={formik.handleSubmit}>
+        <ResetPasswordForm onSubmit={formik.handleSubmit}>
           <Input
             label="E-mail"
             id="email"
@@ -88,13 +90,13 @@ const Form = () => {
               disabled={formik.isSubmitting}
             />
           </ButtonContainer>
-        </SignUpForm>
+        </ResetPasswordForm>
       )}
     </Formik>
   )
 }
 
-const SignUpForm = styled('form')(() => ({
+const ResetPasswordForm = styled('form')(() => ({
   '& .MuiTextField-root': {
     marginTop: 4,
     marginBottom: 24,

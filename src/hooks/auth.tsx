@@ -6,7 +6,7 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { User } from '@firebase/auth-types'
+import { User, UserCredential } from '@firebase/auth-types'
 import { auth } from '../firebase'
 
 export interface AuthData {
@@ -16,9 +16,10 @@ export interface AuthData {
 
 interface AuthContextData {
   user: User
-  signUp(data: AuthData): void
-  signIn(data: AuthData): void
-  signOut(): void
+  signUp(data: AuthData): Promise<UserCredential>
+  signIn(data: AuthData): Promise<UserCredential>
+  signOut(): Promise<void>
+  resetPassword(email: string): Promise<void>
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -47,8 +48,14 @@ const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
     return auth.signOut()
   }, [])
 
+  const resetPassword = useCallback((email: string) => {
+    return auth.sendPasswordResetEmail(email)
+  }, [])
+
   return (
-    <AuthContext.Provider value={{ user, signUp, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ user, signUp, signIn, signOut, resetPassword }}
+    >
       {!loading && children}
     </AuthContext.Provider>
   )

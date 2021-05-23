@@ -12,7 +12,7 @@ import { styled, Theme } from '@material-ui/core/styles'
 import Logo from './Logo'
 import Form from './Form'
 
-const SignIn = () => {
+const ForgotPassword = () => {
   return (
     <Viewport>
       <Container>
@@ -64,4 +64,4 @@ const CardContent = styled(MuiCardContent)<Theme>(({ theme }) => ({
   },
 }))
 
-export default SignIn
+export default ForgotPassword
