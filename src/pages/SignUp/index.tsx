@@ -9,8 +9,9 @@ import {
 } from '@material-ui/core'
 import { styled, Theme } from '@material-ui/core/styles'
 
-import Logo from './Logo'
+import Logo from '../../components/Logo'
 import Form from './Form'
+import Footer from './Footer'
 
 const SignUp = () => {
   return (
@@ -25,14 +26,7 @@ const SignUp = () => {
             <Form />
           </CardContent>
         </Card>
-        <Box mt={4}>
-          <Typography align="center" color="textSecondary">
-            Já tem uma conta? &nbsp;
-            <Link component={RouterLink} to="/">
-              Faça LogIn
-            </Link>
-          </Typography>
-        </Box>
+        <Footer />
       </Container>
     </Viewport>
   )

@@ -9,8 +9,9 @@ import {
 } from '@material-ui/core'
 import { styled, Theme } from '@material-ui/core/styles'
 
-import Logo from './Logo'
+import Logo from '../../components/Logo'
 import Form from './Form'
+import Footer from './Footer'
 
 const UpdateProfile = () => {
   return (
@@ -25,13 +26,7 @@ const UpdateProfile = () => {
             <Form />
           </CardContent>
         </Card>
-        <Box mt={4}>
-          <Typography align="center" color="textSecondary">
-            <Link component={RouterLink} to="/dashboard">
-              Cancelar
-            </Link>
-          </Typography>
-        </Box>
+        <Footer />
       </Container>
     </Viewport>
   )

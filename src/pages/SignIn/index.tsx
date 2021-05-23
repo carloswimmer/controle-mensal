@@ -9,8 +9,9 @@ import {
   Grid,
 } from '@material-ui/core'
 import { styled, Theme } from '@material-ui/core/styles'
-import Logo from './Logo'
+import Logo from '../../components/Logo'
 import Form from './Form'
+import Footer from './Footer'
 
 const SignIn = () => {
   return (
@@ -25,22 +26,7 @@ const SignIn = () => {
             <Form />
           </CardContent>
         </Card>
-        <Grid container justify="space-between">
-          <Box mt={3}>
-            <Typography align="center">
-              <Link component={RouterLink} to="/forgot-password">
-                Esqueceu sua senha?
-              </Link>
-            </Typography>
-          </Box>
-          <Box mt={3}>
-            <Typography align="center">
-              <Link component={RouterLink} to="/sign-up">
-                Crie uma conta
-              </Link>
-            </Typography>
-          </Box>
-        </Grid>
+        <Footer />
       </Container>
     </Viewport>
   )

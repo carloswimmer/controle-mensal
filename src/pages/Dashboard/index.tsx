@@ -48,7 +48,7 @@ const Dashboard = () => {
 }
 
 const LeftAside = styled('aside')(() => ({
-  backgroundColor: '#ffffff40',
+  backgroundColor: '#ffffff20',
   position: 'fixed',
   top: 0,
   left: 0,
@@ -57,12 +57,11 @@ const LeftAside = styled('aside')(() => ({
 }))
 
 const MainContent = styled('main')(() => ({
-  backgroundColor: '#0000ff11',
   height: '100vh',
 }))
 
 const RightAside = styled('aside')<Theme>(({ theme }) => ({
-  backgroundColor: '#ffffff40',
+  backgroundColor: '#ffffff20',
   position: 'fixed',
   top: 0,
   right: 0,
