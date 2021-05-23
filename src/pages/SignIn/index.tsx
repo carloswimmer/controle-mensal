@@ -15,9 +15,12 @@ const SignIn = () => {
   return (
     <Viewport>
       <Container>
+        <Logo />
         <Card>
           <CardContent>
-            <Logo />
+            <Box mb={2}>
+              <Typography variant="h5">Fazer Login</Typography>
+            </Box>
             <Form />
           </CardContent>
         </Card>

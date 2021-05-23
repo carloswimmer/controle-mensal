@@ -16,16 +16,20 @@ const SignUp = () => {
   return (
     <Viewport>
       <Container>
+        <Logo />
         <Card>
           <CardContent>
-            <Logo />
+            <Box mb={2}>
+              <Typography variant="h5">Criar Conta</Typography>
+            </Box>
             <Form />
           </CardContent>
         </Card>
         <Box mt={4}>
-          <Typography align="center">
+          <Typography align="center" color="textSecondary">
+            Já tem uma conta? &nbsp;
             <Link component={RouterLink} to="/">
-              Já tem uma conta? Faça LogIn
+              Faça LogIn
             </Link>
           </Typography>
         </Box>
