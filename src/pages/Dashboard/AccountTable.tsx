@@ -8,27 +8,11 @@ import TableRow from '@material-ui/core/TableRow'
 import IconButton from '@material-ui/core/IconButton'
 import { DeleteRounded, EditRounded } from '@material-ui/icons'
 import Paper from '@material-ui/core/Paper'
-
-function createData(
-  id: number,
-  description: string,
-  bank: string,
-  payDay: string,
-  amount: number,
-  credit: boolean,
-) {
-  return { id, description, bank, payDay, amount, credit }
-}
-
-const rows = [
-  createData(1, 'Elektro', 'Nubank', '02/06/2021', 240.3, false),
-  createData(2, 'Nextel', 'Nubank', '03/06/2021', 70, false),
-  createData(3, 'CC Santander', 'Santander', '05/06/2021', 2044.0, false),
-  createData(4, 'Salário', 'Nubank', '15/06/2021', 3280.44, true),
-  createData(5, 'Salário', 'Santander', '15/06/2021', 5640.3, true),
-]
+import { useCashBook } from '../../hooks/cashBook'
 
 const AccountTable = () => {
+  const { movements } = useCashBook()
+
   return (
     <Container>
       <TableContainer component={Paper}>
@@ -44,15 +28,15 @@ const AccountTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map(row => (
-              <TableRow key={row.id}>
+            {movements.map(item => (
+              <TableRow key={item.id}>
                 <TableCell component="th" scope="row" variant="head">
-                  {row.description}
+                  {item.description}
                 </TableCell>
-                <TableCell align="right">{row.bank}</TableCell>
-                <TableCell align="right">{row.payDay}</TableCell>
-                <TableCell align="right">{row.amount}</TableCell>
-                {row.credit ? (
+                <TableCell align="right">{item.bank}</TableCell>
+                <TableCell align="right">{item.payDay}</TableCell>
+                <TableCell align="right">{item.amount}</TableCell>
+                {item.credit ? (
                   <CreditCell align="right">Crédito</CreditCell>
                 ) : (
                   <DebitCell align="right">Débito</DebitCell>

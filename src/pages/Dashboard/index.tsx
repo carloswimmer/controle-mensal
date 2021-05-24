@@ -1,5 +1,6 @@
 import { Box, styled, Theme, Grid, Typography } from '@material-ui/core'
 
+import { CashBookProvider } from '../../hooks/cashBook'
 import Logo from '../../components/Logo'
 import Menu from './Menu'
 import CreditCard from './CreditCard'
@@ -9,7 +10,7 @@ import AccountTable from './AccountTable'
 
 const Dashboard = () => {
   return (
-    <>
+    <CashBookProvider>
       <LeftAside>
         <Box width={200}>
           <Logo />
@@ -35,7 +36,7 @@ const Dashboard = () => {
       <RightAside>
         <Menu />
       </RightAside>
-    </>
+    </CashBookProvider>
   )
 }
 
