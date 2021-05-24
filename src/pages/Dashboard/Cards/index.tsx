@@ -3,6 +3,7 @@ import { Grid } from '@material-ui/core'
 import CreditCard from './CreditCard'
 import DebitCard from './DebitCard'
 import BalanceCard from './BalanceCard'
+import InvestmentCard from './InvestmentCard'
 
 const CardsContainer = () => {
   return (
@@ -15,6 +16,9 @@ const CardsContainer = () => {
       </Grid>
       <Grid item xs={12}>
         <BalanceCard />
+      </Grid>
+      <Grid item xs={12}>
+        <InvestmentCard />
       </Grid>
     </Grid>
   )
