@@ -6,7 +6,7 @@ import {
   useState,
 } from 'react'
 
-interface MovementData {
+interface EntryData {
   id: number
   description: string
   bank: string
@@ -16,7 +16,7 @@ interface MovementData {
 }
 
 interface CashBookContextData {
-  movements: MovementData[]
+  entries: EntryData[]
 }
 
 function createData(
@@ -31,11 +31,11 @@ function createData(
 }
 
 const rows = [
-  createData(1, 'Elektro', 'Nubank', '02/06/2021', 240.3, false),
-  createData(2, 'Nextel', 'Nubank', '03/06/2021', 70, false),
-  createData(3, 'CC Santander', 'Santander', '05/06/2021', 2044.0, false),
-  createData(4, 'Salário', 'Nubank', '15/06/2021', 3280.44, true),
-  createData(5, 'Salário', 'Santander', '15/06/2021', 5640.3, true),
+  createData(1, 'Elektro', 'Nubank', '2021-06-02', 240.3, false),
+  createData(2, 'Nextel', 'Nubank', '2021-06-03', 70, false),
+  createData(3, 'CC Santander', 'Santander', '2021-06-05', 2044.0, false),
+  createData(4, 'Salário', 'Nubank', '2021-06-15', 3280.44, true),
+  createData(5, 'Salário', 'Santander', '2021-06-15', 5640.3, true),
 ]
 
 const CashBookContext = createContext<CashBookContextData>(
@@ -43,14 +43,14 @@ const CashBookContext = createContext<CashBookContextData>(
 )
 
 const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
-  const [movements, setMovements] = useState<MovementData[]>([])
+  const [entries, setEntries] = useState<EntryData[]>([])
 
   useEffect(() => {
-    setMovements([...rows])
+    setEntries([...rows])
   }, [])
 
   return (
-    <CashBookContext.Provider value={{ movements }}>
+    <CashBookContext.Provider value={{ entries }}>
       {children}
     </CashBookContext.Provider>
   )

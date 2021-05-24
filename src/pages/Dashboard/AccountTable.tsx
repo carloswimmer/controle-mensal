@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper'
 import { useCashBook } from '../../hooks/cashBook'
 
 const AccountTable = () => {
-  const { movements } = useCashBook()
+  const { entries } = useCashBook()
 
   return (
     <Container>
@@ -28,15 +28,15 @@ const AccountTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {movements.map(item => (
-              <TableRow key={item.id}>
+            {entries.map(entry => (
+              <TableRow key={entry.id}>
                 <TableCell component="th" scope="row" variant="head">
-                  {item.description}
+                  {entry.description}
                 </TableCell>
-                <TableCell align="right">{item.bank}</TableCell>
-                <TableCell align="right">{item.payDay}</TableCell>
-                <TableCell align="right">{item.amount}</TableCell>
-                {item.credit ? (
+                <TableCell align="right">{entry.bank}</TableCell>
+                <TableCell align="right">{entry.payDay}</TableCell>
+                <TableCell align="right">{entry.amount}</TableCell>
+                {entry.credit ? (
                   <CreditCell align="right">Crédito</CreditCell>
                 ) : (
                   <DebitCell align="right">Débito</DebitCell>
