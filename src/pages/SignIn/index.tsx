@@ -1,12 +1,9 @@
-import { Link as RouterLink } from 'react-router-dom'
 import {
   Container as MuiContainer,
   Card,
   CardContent as MuiCardContent,
   Typography,
-  Link,
   Box,
-  Grid,
 } from '@material-ui/core'
 import { styled, Theme } from '@material-ui/core/styles'
 import Logo from '../../components/Logo'
