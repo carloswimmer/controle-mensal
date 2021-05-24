@@ -50,7 +50,9 @@ const Filters = () => {
   return (
     <Grid container spacing={5}>
       <Box px={3} py={1}>
-        <Typography variant="h5">Filtros</Typography>
+        <Typography variant="h4" style={{ fontSize: '1.8rem' }}>
+          Filtros
+        </Typography>
       </Box>
       <Grid item xs={12}>
         <Autocomplete
@@ -102,6 +104,16 @@ const Filters = () => {
           getOptionLabel={option => option}
           renderInput={params => (
             <TextField {...params} label="Banco" variant="outlined" />
+          )}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <Autocomplete
+          id="sort-select"
+          options={['Descrição', 'Dia', 'Cred/Deb']}
+          getOptionLabel={option => option}
+          renderInput={params => (
+            <TextField {...params} label="Ordenar por" variant="outlined" />
           )}
         />
       </Grid>
