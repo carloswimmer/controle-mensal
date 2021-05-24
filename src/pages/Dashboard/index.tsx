@@ -1,11 +1,9 @@
-import { Box, styled, Theme, Grid, Typography } from '@material-ui/core'
+import { Box, styled, Theme, Typography } from '@material-ui/core'
 
 import { CashBookProvider } from '../../hooks/cashBook'
 import Logo from '../../components/Logo'
 import Menu from './Menu'
-import CreditCard from './CreditCard'
-import DebitCard from './DebitCard'
-import BalanceCard from './BalanceCard'
+import CardsContainer from './CardsContainer'
 import AccountTable from './AccountTable'
 
 const Dashboard = () => {
@@ -15,17 +13,7 @@ const Dashboard = () => {
         <Box width={200}>
           <Logo />
         </Box>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <CreditCard />
-          </Grid>
-          <Grid item xs={12}>
-            <DebitCard />
-          </Grid>
-          <Grid item xs={12}>
-            <BalanceCard />
-          </Grid>
-        </Grid>
+        <CardsContainer />
       </LeftAside>
       <MainContent>
         <Box m={4} display="flex" justifyContent="center">
