@@ -1,10 +1,11 @@
-import { Box, styled, Theme, Grid } from '@material-ui/core'
+import { Box, styled, Theme, Grid, Typography } from '@material-ui/core'
 
 import Logo from '../../components/Logo'
 import Menu from './Menu'
 import CreditCard from './CreditCard'
 import DebitCard from './DebitCard'
 import BalanceCard from './BalanceCard'
+import AccountTable from './AccountTable'
 
 const Dashboard = () => {
   return (
@@ -25,7 +26,12 @@ const Dashboard = () => {
           </Grid>
         </Grid>
       </LeftAside>
-      <MainContent></MainContent>
+      <MainContent>
+        <Box m={4} display="flex" justifyContent="center">
+          <Typography variant="h1">Junho</Typography>
+        </Box>
+        <AccountTable />
+      </MainContent>
       <RightAside>
         <Menu />
       </RightAside>
