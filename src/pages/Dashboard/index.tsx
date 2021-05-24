@@ -3,8 +3,9 @@ import { Box, styled, Theme, Typography } from '@material-ui/core'
 import { CashBookProvider } from '../../hooks/cashBook'
 import Logo from '../../components/Logo'
 import Menu from './Menu'
-import CardsContainer from './CardsContainer'
+import Cards from './Cards'
 import AccountTable from './AccountTable'
+import Filters from './Filters'
 
 const Dashboard = () => {
   return (
@@ -13,7 +14,7 @@ const Dashboard = () => {
         <Box width={200}>
           <Logo />
         </Box>
-        <CardsContainer />
+        <Cards />
       </LeftAside>
       <MainContent>
         <Box m={4} display="flex" justifyContent="center">
@@ -22,7 +23,10 @@ const Dashboard = () => {
         <AccountTable />
       </MainContent>
       <RightAside>
-        <Menu />
+        <Box mb={4}>
+          <Menu />
+        </Box>
+        <Filters />
       </RightAside>
     </CashBookProvider>
   )
@@ -39,7 +43,7 @@ const LeftAside = styled('aside')<Theme>(({ theme }) => ({
 }))
 
 const MainContent = styled('main')(() => ({
-  height: '100vh',
+  height: '100%',
 }))
 
 const RightAside = styled('aside')<Theme>(({ theme }) => ({
