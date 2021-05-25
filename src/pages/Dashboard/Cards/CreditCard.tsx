@@ -9,7 +9,9 @@ const CreditCard = () => {
 
   const value = useMemo(() => {
     return entries
-      .map(entry => (entry.credit ? entry.amount : 0))
+      .map(entry =>
+        entry.credit && entry.description !== 'Investimento' ? entry.amount : 0,
+      )
       .reduce((acc, value) => acc + value, 0)
   }, [entries])
 

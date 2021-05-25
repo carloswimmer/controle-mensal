@@ -9,7 +9,11 @@ const DebitCard = () => {
 
   const value = useMemo(() => {
     return entries
-      .map(entry => (entry.credit ? entry.amount : entry.amount * -1))
+      .map(entry => {
+        if (entry.description === 'Investimento') return 0
+        if (entry.credit) return entry.amount
+        return entry.amount * -1
+      })
       .reduce((acc, value) => acc + value, 0)
   }, [entries])
 
