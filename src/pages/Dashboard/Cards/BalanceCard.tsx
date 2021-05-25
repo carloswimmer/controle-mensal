@@ -1,8 +1,18 @@
+import { useMemo } from 'react'
 import { Paper as MuiPaper, Box, Typography, Chip } from '@material-ui/core'
 import { styled, Theme } from '@material-ui/core/styles'
 import { TimelineRounded, MonetizationOnRounded } from '@material-ui/icons'
+import { useCashBook } from '../../../hooks/cashBook'
 
 const DebitCard = () => {
+  const { entries } = useCashBook()
+
+  const value = useMemo(() => {
+    return entries
+      .map(entry => (entry.credit ? entry.amount : entry.amount * -1))
+      .reduce((acc, value) => acc + value, 0)
+  }, [entries])
+
   return (
     <Paper>
       <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -17,7 +27,7 @@ const DebitCard = () => {
         alignItems="center"
         marginTop={2}
       >
-        <Chip icon={<MonetizationOnRounded />} label="8.000,00" />
+        <Chip icon={<MonetizationOnRounded />} label={value.toFixed(2)} />
       </Box>
     </Paper>
   )
