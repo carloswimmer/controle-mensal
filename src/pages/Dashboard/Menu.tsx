@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { Grid, Button } from '@material-ui/core'
 import { useAuth } from '../../hooks/auth'
 import { useToast } from '../../hooks/toast'
-import { handleError } from '../../components/controls/utils'
+import handleError from '../../utils/handleError'
 
 const Menu = () => {
   const { signOut } = useAuth()

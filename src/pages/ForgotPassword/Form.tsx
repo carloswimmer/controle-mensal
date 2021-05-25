@@ -11,8 +11,8 @@ import { Formik, FormikHelpers } from 'formik'
 import * as Yup from 'yup'
 
 import { Input, Button } from '../../components/controls'
-import { handleFieldProps, handleError } from '../../components/controls/utils'
-
+import { handleFieldProps } from '../../components/controls/utils'
+import handleError from '../../utils/handleError'
 import { useToast } from '../../hooks/toast'
 import { useDarkMode } from '../../hooks/darkMode'
 import { useAuth } from '../../hooks/auth'
