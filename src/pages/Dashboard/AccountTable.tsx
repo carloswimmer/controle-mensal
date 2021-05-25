@@ -1,17 +1,20 @@
 import { styled } from '@material-ui/core/styles'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
-import IconButton from '@material-ui/core/IconButton'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  IconButton,
+  Checkbox,
+} from '@material-ui/core'
 import { DeleteRounded, EditRounded } from '@material-ui/icons'
 import Paper from '@material-ui/core/Paper'
 import { useCashBook } from '../../hooks/cashBook'
 
 const AccountTable = () => {
-  const { entries } = useCashBook()
+  const { entries, checkEntry } = useCashBook()
 
   return (
     <Container>
@@ -19,29 +22,38 @@ const AccountTable = () => {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
+              <TableCell>Ok</TableCell>
+              <TableCell>Dia</TableCell>
               <TableCell>Descrição</TableCell>
-              <TableCell align="right">Banco</TableCell>
-              <TableCell align="right">Pagamento</TableCell>
-              <TableCell align="right">Valor</TableCell>
-              <TableCell align="right">Cred/Deb</TableCell>
+              <TableCell>Banco</TableCell>
+              <TableCell align="center">Valor</TableCell>
+              <TableCell align="center">Cred/Deb</TableCell>
               <TableCell align="center">Ação</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {entries.map(entry => (
               <TableRow key={entry.id}>
-                <TableCell component="th" scope="row" variant="head">
-                  {entry.description}
+                <TableCell padding="checkbox">
+                  <Checkbox
+                    color="primary"
+                    checked={entry.paid}
+                    onChange={() => checkEntry(entry.id)}
+                    inputProps={{ 'aria-labelledby': 'entry' + entry.id }}
+                  />
                 </TableCell>
-                <TableCell align="right">{entry.bank}</TableCell>
-                <TableCell align="right">{entry.payDay}</TableCell>
-                <TableCell align="right">{entry.amount}</TableCell>
+                <TableCell component="th" scope="row">
+                  {entry.payDay.substr(-2, 2)}
+                </TableCell>
+                <TableCell variant="head">{entry.description}</TableCell>
+                <TableCell>{entry.bank}</TableCell>
+                <TableCell align="center">{entry.amount.toFixed(2)}</TableCell>
                 {entry.credit ? (
-                  <CreditCell align="right">Crédito</CreditCell>
+                  <CreditCell align="center">Crédito</CreditCell>
                 ) : (
-                  <DebitCell align="right">Débito</DebitCell>
+                  <DebitCell align="center">Débito</DebitCell>
                 )}
-                <TableCell align="right">
+                <TableCell align="center">
                   <IconButton aria-label="delete">
                     <EditRounded fontSize="small" color="primary" />
                   </IconButton>
