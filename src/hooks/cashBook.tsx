@@ -6,9 +6,10 @@ import {
   useEffect,
   useState,
 } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 export interface EntryData {
-  id: number
+  id: string
   paid: boolean
   description: string
   bank: string
@@ -21,12 +22,12 @@ interface CashBookContextData {
   entries: EntryData[]
   banks: string[]
   years: string[]
-  checkEntry(id: number): void
+  checkEntry(id: string): void
   filterByBank(value: string | null): void
 }
 
 function createData(
-  id: number,
+  id: string,
   paid: boolean,
   description: string,
   bank: string,
@@ -38,13 +39,29 @@ function createData(
 }
 
 const rows = [
-  createData(1, false, 'Elektro', 'Nubank', '2021-06-02', 240.3, false),
-  createData(2, true, 'Nextel', 'Nubank', '2021-06-03', 70, false),
-  createData(3, true, 'CC Santander', 'Santander', '2021-06-05', 2044.0, false),
-  createData(4, false, 'Salário', 'Nubank', '2021-06-15', 3280.44, true),
-  createData(5, false, 'Salário', 'Santander', '2021-06-15', 5640.3, true),
+  createData(uuidv4(), false, 'Elektro', 'Nubank', '2021-06-02', 240.3, false),
+  createData(uuidv4(), true, 'Nextel', 'Nubank', '2021-06-03', 70, false),
   createData(
-    6,
+    uuidv4(),
+    true,
+    'CC Santander',
+    'Santander',
+    '2021-06-05',
+    2044.0,
+    false,
+  ),
+  createData(uuidv4(), false, 'Salário', 'Nubank', '2021-06-15', 3280.44, true),
+  createData(
+    uuidv4(),
+    false,
+    'Salário',
+    'Santander',
+    '2021-06-15',
+    5640.3,
+    true,
+  ),
+  createData(
+    uuidv4(),
     false,
     'Investimento',
     'Santander',
@@ -52,7 +69,15 @@ const rows = [
     14702.3,
     true,
   ),
-  createData(7, false, 'Investimento', 'Nubank', '2021-06-15', 35640.3, true),
+  createData(
+    uuidv4(),
+    false,
+    'Investimento',
+    'Nubank',
+    '2021-06-15',
+    35640.3,
+    true,
+  ),
 ]
 
 const CashBookContext = createContext<CashBookContextData>(
@@ -79,7 +104,7 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
   }, [])
 
   const checkEntry = useCallback(
-    (id: number) => {
+    (id: string) => {
       const index = entries.findIndex(entry => entry.id === id)
       entries[index].paid = !entries[index].paid
       setEntries([...entries])
