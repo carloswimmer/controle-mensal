@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react'
 
-interface EntryData {
+export interface EntryData {
   id: number
   paid: boolean
   description: string
@@ -19,7 +19,10 @@ interface EntryData {
 
 interface CashBookContextData {
   entries: EntryData[]
+  banks: string[]
+  years: string[]
   checkEntry(id: number): void
+  filterByBank(value: string | null): void
 }
 
 function createData(
@@ -58,6 +61,22 @@ const CashBookContext = createContext<CashBookContextData>(
 
 const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
   const [entries, setEntries] = useState<EntryData[]>([])
+  const [years, setYears] = useState<string[]>([])
+  const [banks, setBanks] = useState<string[]>([])
+
+  useEffect(() => {
+    const onlyYears = rows.map(item =>
+      new Date(item.payDay).getFullYear().toString(),
+    )
+    const uniqueYears = new Set(onlyYears)
+    setYears(Array.from(uniqueYears))
+
+    const onlyBanks = rows.map(entry => entry.bank)
+    const uniqueBanks = new Set(onlyBanks)
+    setBanks(Array.from(uniqueBanks))
+
+    setEntries([...rows])
+  }, [])
 
   const checkEntry = useCallback(
     (id: number) => {
@@ -69,12 +88,15 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
     [entries],
   )
 
-  useEffect(() => {
-    setEntries([...rows])
+  const filterByBank = useCallback((value: string | null) => {
+    const result = rows.filter(item => item.bank === value)
+    value ? setEntries([...result]) : setEntries([...rows])
   }, [])
 
   return (
-    <CashBookContext.Provider value={{ entries, checkEntry }}>
+    <CashBookContext.Provider
+      value={{ entries, years, banks, checkEntry, filterByBank }}
+    >
       {children}
     </CashBookContext.Provider>
   )

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect } from 'react'
 import { Grid, TextField, Checkbox, Typography, Box } from '@material-ui/core'
 import {
   CheckBoxOutlineBlankRounded,
@@ -27,25 +27,9 @@ const icon = <CheckBoxOutlineBlankRounded fontSize="small" />
 const checkedIcon = <CheckBoxRounded fontSize="small" />
 
 const Filters = () => {
-  const [years, setYears] = useState<string[]>([])
-  const [banks, setBanks] = useState<string[]>([])
-  const { entries } = useCashBook()
+  const { entries, years, banks, filterByBank } = useCashBook()
 
-  useEffect(() => {
-    const onlyYears = entries.map(entry =>
-      new Date(entry.payDay).getFullYear().toString(),
-    )
-    const uniqueYears = new Set(onlyYears)
-
-    setYears(Array.from(uniqueYears))
-  }, [entries])
-
-  useEffect(() => {
-    const onlyBanks = entries.map(entry => entry.bank)
-    const uniqueBanks = new Set(onlyBanks)
-
-    setBanks(Array.from(uniqueBanks))
-  }, [entries])
+  useEffect(() => {}, [entries])
 
   return (
     <Grid container spacing={5}>
@@ -102,6 +86,9 @@ const Filters = () => {
           id="bank-select"
           options={banks}
           getOptionLabel={option => option}
+          onChange={(event: ChangeEvent<{}>, value: string | null) =>
+            filterByBank(value)
+          }
           renderInput={params => (
             <TextField {...params} label="Banco" variant="outlined" />
           )}
