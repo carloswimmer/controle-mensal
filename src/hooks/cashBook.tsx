@@ -6,7 +6,10 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+import { db } from '../firebase'
+import handleError from '../utils/handleError'
+import { useToast } from './toast'
+// import { v4 as uuidv4 } from 'uuid'
 
 export interface EntryData {
   id: string
@@ -26,59 +29,9 @@ interface CashBookContextData {
   filterByBank(value: string | null): void
 }
 
-function createData(
-  id: string,
-  paid: boolean,
-  description: string,
-  bank: string,
-  payDay: string,
-  amount: number,
-  credit: boolean,
-) {
-  return { id, paid, description, bank, payDay, amount, credit }
-}
+const entriesRef = db.collection('entries')
 
-const rows = [
-  createData(uuidv4(), false, 'Elektro', 'Nubank', '2021-06-02', 240.3, false),
-  createData(uuidv4(), true, 'Nextel', 'Nubank', '2021-06-03', 70, false),
-  createData(
-    uuidv4(),
-    true,
-    'CC Santander',
-    'Santander',
-    '2021-06-05',
-    2044.0,
-    false,
-  ),
-  createData(uuidv4(), false, 'Salário', 'Nubank', '2021-06-15', 3280.44, true),
-  createData(
-    uuidv4(),
-    false,
-    'Salário',
-    'Santander',
-    '2021-06-15',
-    5640.3,
-    true,
-  ),
-  createData(
-    uuidv4(),
-    false,
-    'Investimento',
-    'Santander',
-    '2021-06-15',
-    14702.3,
-    true,
-  ),
-  createData(
-    uuidv4(),
-    false,
-    'Investimento',
-    'Nubank',
-    '2021-06-15',
-    35640.3,
-    true,
-  ),
-]
+const rows: EntryData[] = []
 
 const CashBookContext = createContext<CashBookContextData>(
   {} as CashBookContextData,
@@ -88,6 +41,29 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
   const [entries, setEntries] = useState<EntryData[]>([])
   const [years, setYears] = useState<string[]>([])
   const [banks, setBanks] = useState<string[]>([])
+  const { addToast } = useToast()
+
+  useEffect(() => {
+    async function getEntries() {
+      try {
+        const response = await entriesRef.get()
+
+        const docs: EntryData[] = []
+        response.forEach(doc => {
+          const entry = doc.data() as EntryData
+          docs.push(entry)
+        })
+
+        setEntries([...docs])
+      } catch (error) {
+        const message = handleError(error)
+        addToast({ text: message })
+      }
+    }
+
+    getEntries()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     const onlyYears = rows.map(item =>
