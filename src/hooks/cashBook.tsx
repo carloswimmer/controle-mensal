@@ -23,15 +23,22 @@ export interface EntryData {
 
 interface CashBookContextData {
   entries: EntryData[]
-  banks: string[]
+  filterResults: EntryData[]
   years: string[]
+  months: number[]
+  descriptions: string[]
+  banks: string[]
   checkEntry(id: string): void
-  filterByBank(value: string | null): void
+  addFilter(filter: FilterData): void
+  removeFilters(): void
+}
+
+export interface FilterData {
+  type: string
+  value: string | number | null
 }
 
 const entriesRef = db.collection('entries')
-
-const rows: EntryData[] = []
 
 const CashBookContext = createContext<CashBookContextData>(
   {} as CashBookContextData,
@@ -39,8 +46,12 @@ const CashBookContext = createContext<CashBookContextData>(
 
 const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
   const [entries, setEntries] = useState<EntryData[]>([])
+  const [filterResults, setFilterResults] = useState<EntryData[]>([])
   const [years, setYears] = useState<string[]>([])
+  const [months, setMonths] = useState<number[]>([])
+  const [descriptions, setDescriptions] = useState<string[]>([])
   const [banks, setBanks] = useState<string[]>([])
+  const [filters, setFilters] = useState<FilterData[]>([])
   const { addToast } = useToast()
 
   useEffect(() => {
@@ -55,6 +66,7 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
         })
 
         setEntries([...docs])
+        setFilterResults([...docs])
       } catch (error) {
         const message = handleError(error)
         addToast({ text: message })
@@ -66,18 +78,63 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
   }, [])
 
   useEffect(() => {
-    const onlyYears = rows.map(item =>
+    const onlyYears = entries.map(item =>
       new Date(item.payDay).getFullYear().toString(),
     )
     const uniqueYears = new Set(onlyYears)
     setYears(Array.from(uniqueYears))
 
-    const onlyBanks = rows.map(entry => entry.bank)
+    const onlyMonths = entries.map(item => new Date(item.payDay).getMonth())
+    const uniqueMonths = new Set(onlyMonths)
+    setMonths(Array.from(uniqueMonths))
+
+    const onlyDescriptions = entries.map(entry => entry.description)
+    const uniqueDescriptions = new Set(onlyDescriptions)
+    setDescriptions(Array.from(uniqueDescriptions))
+
+    const onlyBanks = entries.map(entry => entry.bank)
     const uniqueBanks = new Set(onlyBanks)
     setBanks(Array.from(uniqueBanks))
+  }, [entries])
 
-    setEntries([...rows])
-  }, [])
+  useEffect(() => {
+    let results = [...entries]
+
+    const yearFilter = filters.find(filter => filter.type === 'year')
+    if (yearFilter && yearFilter.value) {
+      const filtered = results.filter(
+        entry =>
+          new Date(entry.payDay).getFullYear().toString() === yearFilter.value,
+      )
+      results = [...filtered]
+    }
+
+    const monthFilter = filters.find(filter => filter.type === 'month')
+    if (monthFilter && monthFilter.value) {
+      const filtered = results.filter(
+        entry => new Date(entry.payDay).getMonth() === monthFilter.value,
+      )
+      results = [...filtered]
+    }
+
+    const bankFilter = filters.find(filter => filter.type === 'bank')
+    if (bankFilter && bankFilter.value) {
+      const filtered = results.filter(entry => entry.bank === bankFilter.value)
+      results = [...filtered]
+    }
+
+    const descriptionFilter = filters.find(
+      filter => filter.type === 'description',
+    )
+    if (descriptionFilter && descriptionFilter.value) {
+      const filtered = results.filter(
+        entry => entry.description === descriptionFilter.value,
+      )
+      results = [...filtered]
+    }
+
+    setFilterResults([...results])
+  }, [filters, entries])
 
   const checkEntry = useCallback(
     (id: string) => {
@@ -89,14 +146,32 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
     [entries],
   )
 
-  const filterByBank = useCallback((value: string | null) => {
-    const result = rows.filter(item => item.bank === value)
-    value ? setEntries([...result]) : setEntries([...rows])
+  const addFilter = useCallback(
+    (filter: FilterData) => {
+      const newFilters = filters.filter(item => item.type !== filter.type)
+      newFilters.push(filter)
+      setFilters([...newFilters])
+    },
+    [filters],
+  )
+
+  const removeFilters = useCallback(() => {
+    setFilters([])
   }, [])
 
   return (
     <CashBookContext.Provider
-      value={{ entries, years, banks, checkEntry, filterByBank }}
+      value={{
+        entries,
+        filterResults,
+        years,
+        months,
+        descriptions,
+        banks,
+        checkEntry,
+        addFilter,
+        removeFilters,
+      }}
     >
       {children}
     </CashBookContext.Provider>

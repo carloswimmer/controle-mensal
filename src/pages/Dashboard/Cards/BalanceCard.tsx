@@ -5,17 +5,17 @@ import { TimelineRounded, MonetizationOnRounded } from '@material-ui/icons'
 import { useCashBook } from '../../../hooks/cashBook'
 
 const DebitCard = () => {
-  const { entries } = useCashBook()
+  const { filterResults } = useCashBook()
 
   const value = useMemo(() => {
-    return entries
+    return filterResults
       .map(entry => {
         if (entry.description === 'Investimento') return 0
         if (entry.credit) return entry.amount
         return entry.amount * -1
       })
       .reduce((acc, value) => acc + value, 0)
-  }, [entries])
+  }, [filterResults])
 
   return (
     <Paper>

@@ -8,13 +8,13 @@ import {
 import { useCashBook } from '../../../hooks/cashBook'
 
 const InvestmentCard = () => {
-  const { entries } = useCashBook()
+  const { filterResults } = useCashBook()
 
   const value = useMemo(() => {
-    return entries
+    return filterResults
       .map(entry => (entry.description === 'Investimento' ? entry.amount : 0))
       .reduce((acc, value) => acc + value, 0)
-  }, [entries])
+  }, [filterResults])
 
   return (
     <Paper>

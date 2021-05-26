@@ -1,14 +1,11 @@
-import { ChangeEvent, useEffect } from 'react'
-import { Grid, TextField, Checkbox, Typography, Box } from '@material-ui/core'
-import {
-  CheckBoxOutlineBlankRounded,
-  CheckBoxRounded,
-} from '@material-ui/icons'
+import { ChangeEvent, useCallback, useState } from 'react'
+import { Grid, TextField, Typography, Box, Button } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
+import { v4 as uuidv4 } from 'uuid'
 
 import { useCashBook } from '../../hooks/cashBook'
 
-const months = [
+const monthNames = [
   'Janeiro',
   'Fevereiro',
   'Março',
@@ -23,13 +20,19 @@ const months = [
   'Dezembro',
 ]
 
-const icon = <CheckBoxOutlineBlankRounded fontSize="small" />
-const checkedIcon = <CheckBoxRounded fontSize="small" />
+const currentYear = new Date().getFullYear().toString()
+
+const currentMonth = new Date().getMonth() + 1
 
 const Filters = () => {
-  const { entries, years, banks, filterByBank } = useCashBook()
+  const { years, months, descriptions, banks, addFilter, removeFilters } =
+    useCashBook()
+  const [selectValue, setSelectValue] = useState(uuidv4())
 
-  useEffect(() => {}, [entries])
+  const clearFilters = useCallback(() => {
+    setSelectValue(uuidv4())
+    removeFilters()
+  }, [removeFilters])
 
   return (
     <Grid container spacing={5}>
@@ -41,8 +44,13 @@ const Filters = () => {
       <Grid item xs={12}>
         <Autocomplete
           id="year-select"
+          key={selectValue}
           options={years}
           getOptionLabel={option => option}
+          defaultValue={currentYear}
+          onChange={(event: ChangeEvent<{}>, value: string | null) =>
+            addFilter({ type: 'year', value })
+          }
           renderInput={params => (
             <TextField {...params} label="Ano" variant="outlined" />
           )}
@@ -51,8 +59,13 @@ const Filters = () => {
       <Grid item xs={12}>
         <Autocomplete
           id="month-select"
+          key={selectValue}
           options={months}
-          getOptionLabel={option => option}
+          getOptionLabel={option => monthNames[option]}
+          defaultValue={currentMonth}
+          onChange={(event: ChangeEvent<{}>, value: number | null) =>
+            addFilter({ type: 'month', value })
+          }
           renderInput={params => (
             <TextField {...params} label="Mês" variant="outlined" />
           )}
@@ -60,22 +73,13 @@ const Filters = () => {
       </Grid>
       <Grid item xs={12}>
         <Autocomplete
-          multiple
           id="description-select"
-          options={entries}
-          disableCloseOnSelect
-          getOptionLabel={option => option.description}
-          renderOption={(option, { selected }) => (
-            <>
-              <Checkbox
-                icon={icon}
-                checkedIcon={checkedIcon}
-                style={{ marginRight: 8 }}
-                checked={selected}
-              />
-              {option.description}
-            </>
-          )}
+          key={selectValue}
+          options={descriptions}
+          getOptionLabel={option => option}
+          onChange={(event: ChangeEvent<{}>, value: string | null) =>
+            addFilter({ type: 'description', value })
+          }
           renderInput={params => (
             <TextField {...params} variant="outlined" label="Descrição" />
           )}
@@ -84,10 +88,11 @@ const Filters = () => {
       <Grid item xs={12}>
         <Autocomplete
           id="bank-select"
+          key={selectValue}
           options={banks}
           getOptionLabel={option => option}
           onChange={(event: ChangeEvent<{}>, value: string | null) =>
-            filterByBank(value)
+            addFilter({ type: 'bank', value })
           }
           renderInput={params => (
             <TextField {...params} label="Banco" variant="outlined" />
@@ -97,12 +102,20 @@ const Filters = () => {
       <Grid item xs={12}>
         <Autocomplete
           id="sort-select"
+          key={selectValue}
           options={['Descrição', 'Dia', 'Cred/Deb']}
           getOptionLabel={option => option}
           renderInput={params => (
             <TextField {...params} label="Ordenar por" variant="outlined" />
           )}
         />
+      </Grid>
+      <Grid container item xs={12} justify="flex-end">
+        <Grid item>
+          <Button variant="contained" color="primary" onClick={clearFilters}>
+            Limpar
+          </Button>
+        </Grid>
       </Grid>
     </Grid>
   )

@@ -14,7 +14,7 @@ import Paper from '@material-ui/core/Paper'
 import { useCashBook } from '../../hooks/cashBook'
 
 const AccountTable = () => {
-  const { entries, checkEntry } = useCashBook()
+  const { filterResults, checkEntry } = useCashBook()
 
   return (
     <Container>
@@ -32,7 +32,7 @@ const AccountTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {entries.map(entry => (
+            {filterResults.map(entry => (
               <TableRow key={entry.id}>
                 <TableCell padding="checkbox">
                   <Checkbox

@@ -32,7 +32,7 @@ const Menu = () => {
         </Button>
       </Grid>
       <Grid item>
-        <Button variant="contained" color="primary" onClick={handleLogOut}>
+        <Button variant="outlined" color="primary" onClick={handleLogOut}>
           Sair
         </Button>
       </Grid>
