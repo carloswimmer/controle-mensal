@@ -70,10 +70,7 @@ const AccountTable = () => {
   )
 }
 
-const Container = styled('div')(() => ({
-  width: 'calc(100vw - 670px)',
-  margin: '0 auto',
-}))
+const Container = styled('div')(() => ({}))
 
 const CreditCell = styled(TableCell)({
   color: '#57dd57',

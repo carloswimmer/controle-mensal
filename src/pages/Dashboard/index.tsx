@@ -5,6 +5,7 @@ import Logo from '../../components/Logo'
 import Menu from './Menu'
 import Cards from './Cards'
 import AccountTable from './AccountTable'
+import SpeedDial from './SpeedDial'
 import Filters from './Filters'
 
 const Dashboard = () => {
@@ -21,6 +22,7 @@ const Dashboard = () => {
           <Typography variant="h1">Junho</Typography>
         </Box>
         <AccountTable />
+        <SpeedDial />
       </MainContent>
       <RightAside>
         <Box mb={4}>
@@ -42,8 +44,12 @@ const LeftAside = styled('aside')<Theme>(({ theme }) => ({
   padding: theme.spacing(2),
 }))
 
-const MainContent = styled('main')(() => ({
-  height: '100%',
+const MainContent = styled('main')<Theme>(({ theme }) => ({
+  height: 'calc(100vh - 32px)',
+  width: 'calc(100vw - 620px)',
+  margin: '0 auto',
+  paddingLeft: theme.spacing(3),
+  paddingRight: theme.spacing(3),
 }))
 
 const RightAside = styled('aside')<Theme>(({ theme }) => ({
