@@ -3,30 +3,12 @@ import { Grid, TextField, Typography, Box, Button } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import { v4 as uuidv4 } from 'uuid'
 
-import { useCashBook } from '../../hooks/cashBook'
-
-const monthNames = [
-  'Janeiro',
-  'Fevereiro',
-  'Março',
-  'Abril',
-  'Maio',
-  'Junho',
-  'Julho',
-  'Agosto',
-  'Setembro',
-  'Outubro',
-  'Novembro',
-  'Dezembro',
-]
-
-const currentYear = new Date().getFullYear().toString()
-
-const currentMonth = new Date().getMonth() + 1
+import { initialFilterValues, useFilter } from '../../hooks/filter'
 
 const Filters = () => {
   const { years, months, descriptions, banks, addFilter, removeFilters } =
-    useCashBook()
+    useFilter()
+
   const [selectValue, setSelectValue] = useState(uuidv4())
 
   const clearFilters = useCallback(() => {
@@ -47,7 +29,7 @@ const Filters = () => {
           key={selectValue}
           options={years}
           getOptionLabel={option => option}
-          defaultValue={currentYear}
+          defaultValue={initialFilterValues[0].value}
           onChange={(event: ChangeEvent<{}>, value: string | null) =>
             addFilter({ type: 'year', value })
           }
@@ -61,9 +43,9 @@ const Filters = () => {
           id="month-select"
           key={selectValue}
           options={months}
-          getOptionLabel={option => monthNames[option]}
-          defaultValue={currentMonth}
-          onChange={(event: ChangeEvent<{}>, value: number | null) =>
+          getOptionLabel={option => option}
+          defaultValue={initialFilterValues[1].value}
+          onChange={(event: ChangeEvent<{}>, value: string | null) =>
             addFilter({ type: 'month', value })
           }
           renderInput={params => (

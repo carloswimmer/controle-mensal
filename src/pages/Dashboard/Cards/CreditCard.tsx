@@ -2,10 +2,10 @@ import { useMemo } from 'react'
 import { Paper as MuiPaper, Box, Typography, Chip } from '@material-ui/core'
 import { styled, Theme } from '@material-ui/core/styles'
 import { TrendingUpRounded, MonetizationOnRounded } from '@material-ui/icons'
-import { useCashBook } from '../../../hooks/cashBook'
+import { useFilter } from '../../../hooks/filter'
 
 const CreditCard = () => {
-  const { filterResults } = useCashBook()
+  const { filterResults } = useFilter()
 
   const value = useMemo(() => {
     return filterResults

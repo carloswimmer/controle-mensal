@@ -12,9 +12,11 @@ import {
 import { DeleteRounded, EditRounded } from '@material-ui/icons'
 import Paper from '@material-ui/core/Paper'
 import { useCashBook } from '../../hooks/cashBook'
+import { useFilter } from '../../hooks/filter'
 
 const AccountTable = () => {
-  const { filterResults, checkEntry } = useCashBook()
+  const { checkEntry } = useCashBook()
+  const { filterResults } = useFilter()
 
   return (
     <Container>
@@ -43,7 +45,7 @@ const AccountTable = () => {
                   />
                 </TableCell>
                 <TableCell component="th" scope="row">
-                  {entry.payDay.substr(-2, 2)}
+                  {entry.payDay.getDate().toString()}
                 </TableCell>
                 <TableCell variant="head">{entry.description}</TableCell>
                 <TableCell>{entry.bank}</TableCell>
