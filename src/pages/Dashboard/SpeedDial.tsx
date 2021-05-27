@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Theme, styled } from '@material-ui/core/styles'
 import {
   SpeedDial as MuiSpeedDial,
@@ -6,14 +6,11 @@ import {
   SpeedDialAction,
 } from '@material-ui/lab'
 import { AddRounded, MoreVert, EventNoteRounded } from '@material-ui/icons'
-
-const actions = [
-  { icon: <AddRounded />, name: 'Lançamento' },
-  { icon: <EventNoteRounded />, name: 'Clonar Mês' },
-]
+import { useDialogControl } from '../../hooks/dialogControl'
 
 const SpeedDials = (): JSX.Element => {
   const [open, setOpen] = useState(false)
+  const { handleOpenDialog } = useDialogControl()
 
   const handleClose = () => {
     setOpen(false)
@@ -22,6 +19,10 @@ const SpeedDials = (): JSX.Element => {
   const handleOpen = () => {
     setOpen(true)
   }
+
+  const handleOpenFormDialog = useCallback(() => {
+    handleOpenDialog()
+  }, [handleOpenDialog])
 
   return (
     <SpeedDial
@@ -33,14 +34,18 @@ const SpeedDials = (): JSX.Element => {
       direction="up"
       FabProps={{ color: 'secondary' }}
     >
-      {actions.map(action => (
-        <SpeedDialAction
-          key={action.name}
-          icon={action.icon}
-          tooltipTitle={action.name}
-          onClick={handleClose}
-        />
-      ))}
+      <SpeedDialAction
+        key={'Lançamento'}
+        icon={<AddRounded />}
+        tooltipTitle={'Lançamento'}
+        onClick={handleOpenFormDialog}
+      />
+      <SpeedDialAction
+        key={'Clonar Mês'}
+        icon={<EventNoteRounded />}
+        tooltipTitle={'Clonar Mês'}
+        onClick={handleClose}
+      />
     </SpeedDial>
   )
 }

@@ -1,35 +1,42 @@
-import { Box, styled, Theme, Typography } from '@material-ui/core'
+import { Box, styled, Theme } from '@material-ui/core'
 
 import { CashBookProvider } from '../../hooks/cashBook'
+import { FilterProvider } from '../../hooks/filter'
+import { DialogControlProvider } from '../../hooks/dialogControl'
 import Logo from '../../components/Logo'
 import Menu from './Menu'
 import Cards from './Cards'
 import AccountTable from './AccountTable'
 import SpeedDial from './SpeedDial'
 import Filters from './Filters'
+import FormDialog from './FormDialog'
+import Header from './Header'
 
 const Dashboard = () => {
   return (
     <CashBookProvider>
-      <LeftAside>
-        <Box width={200}>
-          <Logo />
-        </Box>
-        <Cards />
-      </LeftAside>
-      <MainContent>
-        <Box m={4} display="flex" justifyContent="center">
-          <Typography variant="h1">Junho</Typography>
-        </Box>
-        <AccountTable />
-        <SpeedDial />
-      </MainContent>
-      <RightAside>
-        <Box mb={4}>
-          <Menu />
-        </Box>
-        <Filters />
-      </RightAside>
+      <FilterProvider>
+        <LeftAside>
+          <Box width={200}>
+            <Logo />
+          </Box>
+          <Cards />
+        </LeftAside>
+        <MainContent>
+          <DialogControlProvider>
+            <Header />
+            <AccountTable />
+            <SpeedDial />
+            <FormDialog />
+          </DialogControlProvider>
+        </MainContent>
+        <RightAside>
+          <Box mb={4}>
+            <Menu />
+          </Box>
+          <Filters />
+        </RightAside>
+      </FilterProvider>
     </CashBookProvider>
   )
 }
