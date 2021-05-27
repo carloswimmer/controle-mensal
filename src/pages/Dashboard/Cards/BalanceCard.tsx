@@ -11,7 +11,7 @@ const DebitCard = () => {
     return filterResults
       .map(entry => {
         if (entry.description === 'Investimento') return 0
-        if (entry.credit) return entry.amount
+        if (entry.payType === 'credit') return entry.amount
         return entry.amount * -1
       })
       .reduce((acc, value) => acc + value, 0)

@@ -9,7 +9,7 @@ const DebitCard = () => {
 
   const value = useMemo(() => {
     return filterResults
-      .map(entry => (!entry.credit ? entry.amount : 0))
+      .map(entry => (entry.payType === 'debit' ? entry.amount : 0))
       .reduce((acc, value) => acc + value, 0)
   }, [filterResults])
 

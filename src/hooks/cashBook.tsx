@@ -7,9 +7,10 @@ import {
   useState,
 } from 'react'
 import { db } from '../firebase'
+import { EntryFormData } from '../pages/Dashboard/FormDialog/Form'
 import handleError from '../utils/handleError'
 import { useToast } from './toast'
-// import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 
 export interface EntryData {
   id: string
@@ -18,12 +19,13 @@ export interface EntryData {
   bank: string
   payDay: Date
   amount: number
-  credit: boolean
+  payType: 'credit' | 'debit'
 }
 
 interface CashBookContextData {
   entries: EntryData[]
   checkEntry(id: string): void
+  addEntry(values: EntryFormData): Promise<void>
 }
 
 const entriesRef = db.collection('entries')
@@ -58,6 +60,13 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const addEntry = useCallback((values: EntryFormData) => {
+    const id = uuidv4()
+    const payDay = values.payDay.toISOString().split('T')[0]
+    const payload = { ...values, id, payDay, paid: false }
+    return entriesRef.doc(id).set(payload)
+  }, [])
+
   const checkEntry = useCallback(
     (id: string) => {
       const index = entries.findIndex(entry => entry.id === id)
@@ -73,6 +82,7 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
       value={{
         entries,
         checkEntry,
+        addEntry,
       }}
     >
       {children}

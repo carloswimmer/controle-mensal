@@ -11,20 +11,22 @@ import {
   Radio,
 } from '../../../components/controls'
 import { handleFieldProps } from '../../../components/controls/utils'
-import { EntryData } from '../../../hooks/cashBook'
+import { EntryData, useCashBook } from '../../../hooks/cashBook'
 import { useDialogControl } from '../../../hooks/dialogControl'
 import { useFilter } from '../../../hooks/filter'
+import { useToast } from '../../../hooks/toast'
+import handleError from '../../../utils/handleError'
 
-type EntryFormData = Omit<EntryData, 'id' | 'paid'>
+export type EntryFormData = Omit<EntryData, 'id' | 'paid'>
 
-const creditItems = [
-  { id: 1, title: 'Crédito', value: true },
-  { id: 2, title: 'Débito', value: false },
+const payTypeItems = [
+  { id: 'credit', title: 'Crédito' },
+  { id: 'debit', title: 'Débito' },
 ]
 
 const initialValues: EntryFormData = {
   payDay: new Date(),
-  credit: false,
+  payType: 'debit',
   description: '',
   bank: '',
   amount: 0,
@@ -40,12 +42,21 @@ const EntrySchema = Yup.object({
 const Form = () => {
   const { handleCloseDialog } = useDialogControl()
   const { descriptions, banks } = useFilter()
+  const { addEntry } = useCashBook()
+  const { addToast } = useToast()
 
   const handleEntrySubmit = useCallback(
-    (values: EntryFormData, actions: FormikHelpers<EntryFormData>) => {
-      handleCloseDialog()
+    async (values: EntryFormData, actions: FormikHelpers<EntryFormData>) => {
+      try {
+        await addEntry(values)
+        addToast({ severity: 'success', text: 'Lançamento salvo com sucesso' })
+        handleCloseDialog()
+      } catch (error) {
+        const message = handleError(error)
+        addToast({ text: message })
+      }
     },
-    [handleCloseDialog],
+    [addEntry, addToast, handleCloseDialog],
   )
 
   return (
@@ -75,9 +86,9 @@ const Form = () => {
               >
                 <Radio
                   label=""
-                  id="credit"
-                  items={creditItems}
-                  {...handleFieldProps(formik, 'credit')}
+                  id="payType"
+                  items={payTypeItems}
+                  {...handleFieldProps(formik, 'payType')}
                 />
               </Grid>
               <Grid item xs={12} sm={12}>
@@ -98,6 +109,7 @@ const Form = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Input
+                  type="number"
                   label="Valor"
                   id="amount"
                   {...handleFieldProps(formik, 'amount')}

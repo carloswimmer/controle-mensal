@@ -43,7 +43,7 @@ const Radio = (props: RadioProps) => {
         {items.map((item: any) => (
           <FormControlLabel
             key={item.id}
-            value={item.value}
+            value={item.id}
             control={<MuiRadio color="secondary" />}
             label={item.title}
           />

@@ -50,7 +50,7 @@ const AccountTable = () => {
                 <TableCell variant="head">{entry.description}</TableCell>
                 <TableCell>{entry.bank}</TableCell>
                 <TableCell align="center">{entry.amount.toFixed(2)}</TableCell>
-                {entry.credit ? (
+                {entry.payType === 'credit' ? (
                   <CreditCell align="center">Crédito</CreditCell>
                 ) : (
                   <DebitCell align="center">Débito</DebitCell>
