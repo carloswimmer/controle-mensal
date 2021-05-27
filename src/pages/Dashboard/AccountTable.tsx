@@ -45,7 +45,7 @@ const AccountTable = () => {
                   />
                 </TableCell>
                 <TableCell component="th" scope="row">
-                  {entry.payDay.getDate().toString()}
+                  {entry.payDay.getUTCDate().toString()}
                 </TableCell>
                 <TableCell variant="head">{entry.description}</TableCell>
                 <TableCell>{entry.bank}</TableCell>
