@@ -1,15 +1,26 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import { DialogContent, DialogActions, Grid } from '@material-ui/core'
 import { Formik, FormikHelpers } from 'formik'
 import * as Yup from 'yup'
 
-import { Input, Button } from '../../../components/controls'
+import {
+  Input,
+  Button,
+  DatePicker,
+  Select,
+  Radio,
+} from '../../../components/controls'
+import { handleFieldProps } from '../../../components/controls/utils'
 import { EntryData } from '../../../hooks/cashBook'
 import { useDialogControl } from '../../../hooks/dialogControl'
-import { handleFieldProps } from '../../../components/controls/utils'
-import DatePicker from '../../../components/controls/DatePicker'
+import { useFilter } from '../../../hooks/filter'
 
 type EntryFormData = Omit<EntryData, 'id' | 'paid'>
+
+const creditItems = [
+  { id: 1, title: 'Crédito', value: true },
+  { id: 2, title: 'Débito', value: false },
+]
 
 const initialValues: EntryFormData = {
   payDay: new Date(),
@@ -28,6 +39,7 @@ const EntrySchema = Yup.object({
 
 const Form = () => {
   const { handleCloseDialog } = useDialogControl()
+  const { descriptions, banks } = useFilter()
 
   const handleEntrySubmit = useCallback(
     (values: EntryFormData, actions: FormikHelpers<EntryFormData>) => {
@@ -53,24 +65,34 @@ const Form = () => {
                   {...handleFieldProps(formik, 'payDay')}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <Input
-                  label="Crédito"
+              <Grid
+                item
+                container
+                xs={12}
+                sm={6}
+                justify="center"
+                alignItems="center"
+              >
+                <Radio
+                  label=""
                   id="credit"
+                  items={creditItems}
                   {...handleFieldProps(formik, 'credit')}
                 />
               </Grid>
               <Grid item xs={12} sm={12}>
-                <Input
+                <Select
                   label="Descrição"
                   id="description"
+                  options={descriptions}
                   {...handleFieldProps(formik, 'description')}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Input
+                <Select
                   label="Banco"
                   id="bank"
+                  options={banks}
                   {...handleFieldProps(formik, 'bank')}
                 />
               </Grid>

@@ -28,7 +28,7 @@ const Menu = () => {
           color="primary"
           onClick={() => history.push('/update-profile')}
         >
-          Profile
+          Perfil
         </Button>
       </Grid>
       <Grid item>
