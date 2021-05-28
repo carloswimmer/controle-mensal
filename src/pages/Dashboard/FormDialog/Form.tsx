@@ -50,10 +50,11 @@ const Form = () => {
       try {
         await saveEntry(values)
         addToast({ severity: 'success', text: 'Lançamento salvo com sucesso' })
-        toggleEntryForm(false)
       } catch (error) {
         const message = handleError(error)
         addToast({ text: message })
+      } finally {
+        toggleEntryForm(false)
       }
     },
     [saveEntry, addToast, toggleEntryForm],
@@ -68,7 +69,7 @@ const Form = () => {
       {formik => (
         <form onSubmit={formik.handleSubmit}>
           <DialogContent>
-            <Grid container spacing={2} style={{ width: 500 }}>
+            <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <DatePicker
                   label="Dia do pagamento"

@@ -18,7 +18,7 @@ import { useDialogControl } from '../../hooks/dialogControl'
 const AccountTable = () => {
   const { checkEntry } = useCashBook()
   const { filterResults } = useFilter()
-  const { toggleEntryForm } = useDialogControl()
+  const { toggleEntryForm, toggleDeleteConfirm } = useDialogControl()
 
   return (
     <Container>
@@ -66,7 +66,7 @@ const AccountTable = () => {
                   </IconButton>
                   <IconButton
                     aria-label="delete"
-                    onClick={() => toggleEntryForm(true, entry)}
+                    onClick={() => toggleDeleteConfirm(true, entry.id)}
                   >
                     <DeleteRounded fontSize="small" color="primary" />
                   </IconButton>

@@ -1,7 +1,5 @@
 import { forwardRef, ReactElement, Ref } from 'react'
-import Dialog from '@material-ui/core/Dialog'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import { Slide } from '@material-ui/core'
+import { Dialog, DialogTitle, Slide } from '@material-ui/core'
 import { TransitionProps } from '@material-ui/core/transitions'
 import { useDialogControl } from '../../../hooks/dialogControl'
 import Form from './Form'
@@ -23,7 +21,8 @@ const FormDialog = (): JSX.Element => {
         onClose={() => toggleEntryForm(false)}
         TransitionComponent={Transition}
         aria-labelledby="form-dialog-title"
-        maxWidth="md"
+        fullWidth
+        maxWidth="sm"
       >
         <DialogTitle id="form-dialog-title">Novo Lançamento</DialogTitle>
         <Form />

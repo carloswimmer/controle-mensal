@@ -10,6 +10,7 @@ import AccountTable from './AccountTable'
 import SpeedDial from './SpeedDial'
 import Filters from './Filters'
 import FormDialog from './FormDialog'
+import DeleteDialog from './DeleteDialog'
 import Header from './Header'
 
 const Dashboard = () => {
@@ -28,6 +29,7 @@ const Dashboard = () => {
             <AccountTable />
             <SpeedDial />
             <FormDialog />
+            <DeleteDialog />
           </DialogControlProvider>
         </MainContent>
         <RightAside>

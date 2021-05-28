@@ -12,6 +12,9 @@ interface DialogControlContextData {
   openEntryForm: boolean
   payloadEntryForm: EntryData
   toggleEntryForm(state: boolean, payload?: EntryData): void
+  openDeleteConfirm: boolean
+  entryIdToDelete: string
+  toggleDeleteConfirm(state: boolean, id?: string): void
 }
 
 const DialogControlContext = createContext<DialogControlContextData>(
@@ -20,8 +23,10 @@ const DialogControlContext = createContext<DialogControlContextData>(
 
 const DialogControlProvider = ({ children }: PropsWithChildren<{}>) => {
   const [openEntryForm, setOpenEntryForm] = useState(false)
+  const [openDeleteConfirm, setOpenDeleteConfirm] = useState(false)
   const [payloadEntryForm, setPayloadEntryForm] =
     useState<EntryData>(initialValues)
+  const [entryIdToDelete, setEntryToDelete] = useState('')
 
   const toggleEntryForm = useCallback((state: boolean, payload?: EntryData) => {
     setOpenEntryForm(state)
@@ -29,9 +34,21 @@ const DialogControlProvider = ({ children }: PropsWithChildren<{}>) => {
     if (!state) setPayloadEntryForm(initialValues)
   }, [])
 
+  const toggleDeleteConfirm = useCallback((state: boolean, id?: string) => {
+    setOpenDeleteConfirm(state)
+    if (id) setEntryToDelete(id)
+  }, [])
+
   return (
     <DialogControlContext.Provider
-      value={{ openEntryForm, payloadEntryForm, toggleEntryForm }}
+      value={{
+        openEntryForm,
+        payloadEntryForm,
+        toggleEntryForm,
+        openDeleteConfirm,
+        entryIdToDelete,
+        toggleDeleteConfirm,
+      }}
     >
       {children}
     </DialogControlContext.Provider>
