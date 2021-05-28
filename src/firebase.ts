@@ -11,6 +11,8 @@ const app = firebase.initializeApp({
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
 })
 
+export type DocumentReference = firebase.firestore.DocumentReference
+
 export const auth = app.auth()
 
 export const db = app.firestore()

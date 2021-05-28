@@ -1,4 +1,3 @@
-import { formatISO } from 'date-fns'
 import {
   createContext,
   PropsWithChildren,
@@ -7,11 +6,12 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { db } from '../firebase'
-import { EntryFormData } from '../pages/Dashboard/FormDialog/Form'
+import { formatISO } from 'date-fns'
+
+import { db, DocumentReference } from '../firebase'
 
 export interface EntryData {
-  id: string
+  id?: string
   paid: boolean
   description: string
   bank: string
@@ -22,8 +22,10 @@ export interface EntryData {
 
 interface CashBookContextData {
   entries: EntryData[]
-  checkEntry(id: string): void
-  addEntry(values: EntryFormData): Promise<void>
+  checkEntry(id: string, value: boolean): Promise<void>
+  addEntry(values: EntryData): Promise<DocumentReference>
+  editEntry(values: EntryData): Promise<void>
+  deleteEntry(id: string): Promise<void>
 }
 
 const entriesRef = db.collection('entries')
@@ -54,29 +56,38 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
     }
   }, [])
 
-  const addEntry = useCallback((values: EntryFormData) => {
+  const addEntry = useCallback((values: EntryData) => {
     const payDay = formatISO(values.payDay, { representation: 'date' })
-    const payload = { ...values, payDay, paid: false }
+    const payload = { ...values, payDay }
+    delete payload.id
 
-    return entriesRef.doc().set(payload)
+    return entriesRef.add(payload)
   }, [])
 
-  const checkEntry = useCallback(
-    (id: string) => {
-      const index = entries.findIndex(entry => entry.id === id)
-      entries[index].paid = !entries[index].paid
-      setEntries([...entries])
-      console.log('entries', entries)
-    },
-    [entries],
-  )
+  const checkEntry = useCallback((id: string, value: boolean) => {
+    return entriesRef.doc(id).update({ paid: value })
+  }, [])
+
+  const editEntry = useCallback((values: EntryData) => {
+    const payDay = formatISO(values.payDay, { representation: 'date' })
+    const payload = { ...values, payDay }
+    delete payload.id
+
+    return entriesRef.doc(values.id).set(payload)
+  }, [])
+
+  const deleteEntry = useCallback((id: string) => {
+    return entriesRef.doc(id).delete()
+  }, [])
 
   return (
     <CashBookContext.Provider
       value={{
         entries,
-        checkEntry,
         addEntry,
+        checkEntry,
+        editEntry,
+        deleteEntry,
       }}
     >
       {children}
