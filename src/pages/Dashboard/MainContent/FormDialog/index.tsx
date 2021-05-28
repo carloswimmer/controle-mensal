@@ -1,7 +1,7 @@
 import { forwardRef, ReactElement, Ref } from 'react'
 import { Dialog, DialogTitle, Slide } from '@material-ui/core'
 import { TransitionProps } from '@material-ui/core/transitions'
-import { useDialogControl } from '../../../hooks/dialogControl'
+import { useDialogControl } from '../../../../hooks/dialogControl'
 import Form from './Form'
 
 const Transition = forwardRef(function Transition(

@@ -1,5 +1,5 @@
 import { Box, Typography } from '@material-ui/core'
-import { useFilter } from '../../hooks/filter'
+import { useFilter } from '../../../hooks/filter'
 
 const Header = () => {
   const { dashboardHeader } = useFilter()

@@ -6,7 +6,7 @@ import {
   SpeedDialAction,
 } from '@material-ui/lab'
 import { AddRounded, MoreVert, EventNoteRounded } from '@material-ui/icons'
-import { useDialogControl } from '../../hooks/dialogControl'
+import { useDialogControl } from '../../../hooks/dialogControl'
 
 const SpeedDials = (): JSX.Element => {
   const [open, setOpen] = useState(false)

@@ -3,7 +3,7 @@ import { Grid, TextField, Typography, Box, Button } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import { v4 as uuidv4 } from 'uuid'
 
-import { initialFilterValues, useFilter } from '../../hooks/filter'
+import { initialFilterValues, useFilter } from '../../../hooks/filter'
 
 const Filters = () => {
   const { years, months, descriptions, banks, addFilter, removeFilters } =

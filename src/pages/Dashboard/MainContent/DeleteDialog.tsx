@@ -6,11 +6,11 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@material-ui/core'
-import { Button } from '../../components/controls'
-import { useDialogControl } from '../../hooks/dialogControl'
-import { useCashBook } from '../../hooks/cashBook'
-import { useToast } from '../../hooks/toast'
-import handleError from '../../utils/handleError'
+import { Button } from '../../../components/controls'
+import { useDialogControl } from '../../../hooks/dialogControl'
+import { useCashBook } from '../../../hooks/cashBook'
+import { useToast } from '../../../hooks/toast'
+import handleError from '../../../utils/handleError'
 
 export default function AlertDialog() {
   const { toggleDeleteConfirm, openDeleteConfirm, entryIdToDelete } =
