@@ -14,13 +14,13 @@ const Transition = forwardRef(function Transition(
 })
 
 const FormDialog = (): JSX.Element => {
-  const { openDialog, handleCloseDialog } = useDialogControl()
+  const { openEntryForm, toggleEntryForm } = useDialogControl()
 
   return (
     <div>
       <Dialog
-        open={openDialog}
-        onClose={handleCloseDialog}
+        open={openEntryForm}
+        onClose={() => toggleEntryForm(false)}
         TransitionComponent={Transition}
         aria-labelledby="form-dialog-title"
         maxWidth="md"

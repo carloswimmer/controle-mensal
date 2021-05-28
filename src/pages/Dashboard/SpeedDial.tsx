@@ -10,7 +10,7 @@ import { useDialogControl } from '../../hooks/dialogControl'
 
 const SpeedDials = (): JSX.Element => {
   const [open, setOpen] = useState(false)
-  const { handleOpenDialog } = useDialogControl()
+  const { toggleEntryForm } = useDialogControl()
 
   const handleClose = () => {
     setOpen(false)
@@ -21,8 +21,8 @@ const SpeedDials = (): JSX.Element => {
   }
 
   const handleOpenFormDialog = useCallback(() => {
-    handleOpenDialog()
-  }, [handleOpenDialog])
+    toggleEntryForm(true)
+  }, [toggleEntryForm])
 
   return (
     <SpeedDial
