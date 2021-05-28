@@ -58,7 +58,7 @@ const Form = () => {
       try {
         await signIn(values)
         addToast({
-          text: 'Autenticação efetuado com sucesso',
+          text: 'Bem-vindo ao Controle Mensal',
           severity: 'success',
         })
         history.push('/dashboard')
