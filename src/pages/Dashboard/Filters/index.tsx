@@ -94,7 +94,7 @@ const Filters = () => {
       </Grid>
       <Grid container item xs={12} justify="flex-end">
         <Grid item>
-          <Button variant="contained" color="primary" onClick={clearFilters}>
+          <Button variant="outlined" color="primary" onClick={clearFilters}>
             Limpar
           </Button>
         </Grid>

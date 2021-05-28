@@ -1,6 +1,11 @@
 import { useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Grid, Button } from '@material-ui/core'
+import { Grid, IconButton } from '@material-ui/core'
+import {
+  PowerSettingsNewRounded,
+  AccountCircleRounded,
+} from '@material-ui/icons'
+
 import { useAuth } from '../../../hooks/auth'
 import { useToast } from '../../../hooks/toast'
 import handleError from '../../../utils/handleError'
@@ -23,18 +28,18 @@ const Menu = () => {
   return (
     <Grid container justify="flex-end" spacing={2}>
       <Grid item>
-        <Button
-          variant="outlined"
+        <IconButton
           color="primary"
           onClick={() => history.push('/update-profile')}
+          aria-label="perfil"
         >
-          Perfil
-        </Button>
+          <AccountCircleRounded fontSize="large" />
+        </IconButton>
       </Grid>
       <Grid item>
-        <Button variant="outlined" color="primary" onClick={handleLogOut}>
-          Sair
-        </Button>
+        <IconButton color="primary" onClick={handleLogOut} aria-label="sair">
+          <PowerSettingsNewRounded fontSize="large" />
+        </IconButton>
       </Grid>
     </Grid>
   )

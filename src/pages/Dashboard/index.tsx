@@ -33,7 +33,7 @@ const Dashboard = () => {
           </DialogControlProvider>
         </MainContent>
         <RightAside>
-          <Box mb={4}>
+          <Box mb={2}>
             <Menu />
           </Box>
           <Filters />
