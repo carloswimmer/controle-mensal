@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import DateFnsUtils from '@date-io/date-fns'
 import {
   KeyboardDatePicker,
@@ -8,8 +8,17 @@ import {
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date'
 
 const DatePicker = (props: KeyboardDatePickerProps) => {
-  const { name, label, value, onChange, onBlur, error, helperText, ...others } =
-    props
+  const {
+    name,
+    label,
+    value,
+    onChange,
+    onBlur,
+    error,
+    helperText,
+    maxDate,
+    ...others
+  } = props
 
   const convertDateToValue = useCallback(
     (date: MaterialUiPickersDate, name?: string): any => {
@@ -39,7 +48,7 @@ const DatePicker = (props: KeyboardDatePickerProps) => {
           KeyboardButtonProps={{
             'aria-label': 'change date',
           }}
-          maxDate={new Date()}
+          maxDate={maxDate}
           helperText={error && helperText}
           {...others}
         />

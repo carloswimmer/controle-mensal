@@ -1,3 +1,4 @@
+import { formatISO } from 'date-fns'
 import {
   createContext,
   PropsWithChildren,
@@ -8,9 +9,6 @@ import {
 } from 'react'
 import { db } from '../firebase'
 import { EntryFormData } from '../pages/Dashboard/FormDialog/Form'
-import handleError from '../utils/handleError'
-import { useToast } from './toast'
-import { v4 as uuidv4 } from 'uuid'
 
 export interface EntryData {
   id: string
@@ -36,35 +34,31 @@ const CashBookContext = createContext<CashBookContextData>(
 
 const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
   const [entries, setEntries] = useState<EntryData[]>([])
-  const { addToast } = useToast()
 
   useEffect(() => {
-    async function getEntries() {
-      try {
-        const response = await entriesRef.get()
+    const cleanup = entriesRef.orderBy('payDay').onSnapshot(snapshot => {
+      const dbEntries = snapshot.docs.map(doc => {
+        const entry = doc.data()
+        return {
+          ...entry,
+          id: doc.id,
+          payDay: new Date(entry.payDay),
+        } as EntryData
+      })
 
-        const docs: EntryData[] = []
-        response.forEach(doc => {
-          const entry = doc.data()
-          docs.push({ ...entry, payDay: new Date(entry.payDay) } as EntryData)
-        })
+      setEntries([...dbEntries])
+    })
 
-        setEntries([...docs])
-      } catch (error) {
-        const message = handleError(error)
-        addToast({ text: message })
-      }
+    return () => {
+      cleanup()
     }
-
-    getEntries()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const addEntry = useCallback((values: EntryFormData) => {
-    const id = uuidv4()
-    const payDay = values.payDay.toISOString().split('T')[0]
-    const payload = { ...values, id, payDay, paid: false }
-    return entriesRef.doc(id).set(payload)
+    const payDay = formatISO(values.payDay, { representation: 'date' })
+    const payload = { ...values, payDay, paid: false }
+
+    return entriesRef.doc().set(payload)
   }, [])
 
   const checkEntry = useCallback(
