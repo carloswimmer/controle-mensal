@@ -5,6 +5,7 @@ import {
   useContext,
   useState,
 } from 'react'
+import { initialValues } from '../pages/Dashboard/FormDialog/Form'
 import { EntryData } from './cashBook'
 
 interface DialogControlContextData {
@@ -19,12 +20,13 @@ const DialogControlContext = createContext<DialogControlContextData>(
 
 const DialogControlProvider = ({ children }: PropsWithChildren<{}>) => {
   const [openEntryForm, setOpenEntryForm] = useState(false)
-  const [payloadEntryForm, setPayloadEntryForm] = useState({} as EntryData)
+  const [payloadEntryForm, setPayloadEntryForm] =
+    useState<EntryData>(initialValues)
 
   const toggleEntryForm = useCallback((state: boolean, payload?: EntryData) => {
     setOpenEntryForm(state)
     if (payload?.id && state) setPayloadEntryForm(payload)
-    if (!state) setPayloadEntryForm({} as EntryData)
+    if (!state) setPayloadEntryForm(initialValues)
   }, [])
 
   return (

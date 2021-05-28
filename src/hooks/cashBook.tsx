@@ -6,7 +6,7 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { formatISO } from 'date-fns'
+import { formatISO, parseISO } from 'date-fns'
 
 import { db, DocumentReference } from '../firebase'
 
@@ -23,8 +23,7 @@ export interface EntryData {
 interface CashBookContextData {
   entries: EntryData[]
   checkEntry(id: string, value: boolean): Promise<void>
-  addEntry(values: EntryData): Promise<DocumentReference>
-  editEntry(values: EntryData): Promise<void>
+  saveEntry(values: EntryData): Promise<DocumentReference | void>
   deleteEntry(id: string): Promise<void>
 }
 
@@ -44,7 +43,7 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
         return {
           ...entry,
           id: doc.id,
-          payDay: new Date(entry.payDay),
+          payDay: parseISO(entry.payDay),
         } as EntryData
       })
 
@@ -56,24 +55,20 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
     }
   }, [])
 
-  const addEntry = useCallback((values: EntryData) => {
+  const saveEntry = useCallback((values: EntryData) => {
     const payDay = formatISO(values.payDay, { representation: 'date' })
     const payload = { ...values, payDay }
     delete payload.id
+
+    if (values.id) {
+      return entriesRef.doc(values.id).set(payload)
+    }
 
     return entriesRef.add(payload)
   }, [])
 
   const checkEntry = useCallback((id: string, value: boolean) => {
     return entriesRef.doc(id).update({ paid: value })
-  }, [])
-
-  const editEntry = useCallback((values: EntryData) => {
-    const payDay = formatISO(values.payDay, { representation: 'date' })
-    const payload = { ...values, payDay }
-    delete payload.id
-
-    return entriesRef.doc(values.id).set(payload)
   }, [])
 
   const deleteEntry = useCallback((id: string) => {
@@ -84,9 +79,8 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
     <CashBookContext.Provider
       value={{
         entries,
-        addEntry,
+        saveEntry,
         checkEntry,
-        editEntry,
         deleteEntry,
       }}
     >

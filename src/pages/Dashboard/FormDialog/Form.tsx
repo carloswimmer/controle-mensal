@@ -17,14 +17,14 @@ import { useFilter } from '../../../hooks/filter'
 import { useToast } from '../../../hooks/toast'
 import handleError from '../../../utils/handleError'
 
-export type EntryFormData = Omit<EntryData, 'id' | 'paid'>
-
 const payTypeItems = [
   { id: 'credit', title: 'Crédito' },
   { id: 'debit', title: 'Débito' },
 ]
 
-const initialValues: EntryFormData = {
+export const initialValues: EntryData = {
+  id: undefined,
+  paid: false,
   payDay: new Date(),
   payType: 'debit',
   description: '',
@@ -40,28 +40,28 @@ const EntrySchema = Yup.object({
 })
 
 const Form = () => {
-  const { handleCloseDialog } = useDialogControl()
+  const { payloadEntryForm, toggleEntryForm } = useDialogControl()
   const { descriptions, banks } = useFilter()
-  const { addEntry } = useCashBook()
+  const { saveEntry } = useCashBook()
   const { addToast } = useToast()
 
   const handleEntrySubmit = useCallback(
-    async (values: EntryFormData, actions: FormikHelpers<EntryFormData>) => {
+    async (values: EntryData, actions: FormikHelpers<EntryData>) => {
       try {
-        await addEntry(values)
+        await saveEntry(values)
         addToast({ severity: 'success', text: 'Lançamento salvo com sucesso' })
-        handleCloseDialog()
+        toggleEntryForm(false)
       } catch (error) {
         const message = handleError(error)
         addToast({ text: message })
       }
     },
-    [addEntry, addToast, handleCloseDialog],
+    [saveEntry, addToast, toggleEntryForm],
   )
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={payloadEntryForm || initialValues}
       validationSchema={EntrySchema}
       onSubmit={(values, actions) => handleEntrySubmit(values, actions)}
     >
@@ -122,7 +122,7 @@ const Form = () => {
               variant="text"
               color="primary"
               text="Cancelar"
-              onClick={handleCloseDialog}
+              onClick={() => toggleEntryForm(false)}
             />
             <Button
               type="submit"

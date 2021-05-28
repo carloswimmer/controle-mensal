@@ -13,10 +13,12 @@ import { DeleteRounded, EditRounded } from '@material-ui/icons'
 import Paper from '@material-ui/core/Paper'
 import { useCashBook } from '../../hooks/cashBook'
 import { useFilter } from '../../hooks/filter'
+import { useDialogControl } from '../../hooks/dialogControl'
 
 const AccountTable = () => {
   const { checkEntry } = useCashBook()
   const { filterResults } = useFilter()
+  const { toggleEntryForm } = useDialogControl()
 
   return (
     <Container>
@@ -40,7 +42,7 @@ const AccountTable = () => {
                   <Checkbox
                     color="primary"
                     checked={entry.paid}
-                    onChange={() => checkEntry(entry.id)}
+                    onChange={() => checkEntry(entry.id!, !entry.paid)}
                     inputProps={{ 'aria-labelledby': 'entry' + entry.id }}
                   />
                 </TableCell>
@@ -56,10 +58,16 @@ const AccountTable = () => {
                   <DebitCell align="center">Débito</DebitCell>
                 )}
                 <TableCell align="center">
-                  <IconButton aria-label="delete">
+                  <IconButton
+                    aria-label="edit"
+                    onClick={() => toggleEntryForm(true, entry)}
+                  >
                     <EditRounded fontSize="small" color="primary" />
                   </IconButton>
-                  <IconButton aria-label="delete">
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() => toggleEntryForm(true, entry)}
+                  >
                     <DeleteRounded fontSize="small" color="primary" />
                   </IconButton>
                 </TableCell>
