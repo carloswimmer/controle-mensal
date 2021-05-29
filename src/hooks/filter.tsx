@@ -6,6 +6,8 @@ import {
   useEffect,
   useState,
 } from 'react'
+import { format } from 'date-fns'
+import pt from 'date-fns/locale/pt-BR'
 import { EntryData, useCashBook } from './cashBook'
 
 interface FilterContextData {
@@ -26,24 +28,14 @@ export interface FilterData {
   value: string | null
 }
 
-const monthNames = [
-  'Janeiro',
-  'Fevereiro',
-  'Março',
-  'Abril',
-  'Maio',
-  'Junho',
-  'Julho',
-  'Agosto',
-  'Setembro',
-  'Outubro',
-  'Novembro',
-  'Dezembro',
-]
+function getCapitalizedMonth(date: Date) {
+  const month = format(date, 'MMMM', { locale: pt })
+  return month.charAt(0).toLocaleUpperCase() + month.slice(1)
+}
 
-const currentYear = new Date().getFullYear().toString()
+const currentYear = format(new Date(), 'yyyy')
 
-const currentMonth = monthNames[new Date().getMonth()]
+const currentMonth = getCapitalizedMonth(new Date())
 
 export const initialFilterValues: FilterData[] = [
   { type: 'year', value: currentYear },
@@ -63,21 +55,40 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
   const { entries } = useCashBook()
 
   useEffect(() => {
-    const onlyYears = entries.map(item => item.payDay.getFullYear().toString())
+    const onlyYears = entries.map(item => format(item.payDay, 'yyyy'))
     const uniqueYears = new Set(onlyYears)
-    setYears(Array.from(uniqueYears))
+    const arrayOfYears = Array.from(uniqueYears).sort().reverse()
+    setYears([...arrayOfYears])
+  }, [entries])
 
-    const onlyMonths = entries.map(item => monthNames[item.payDay.getMonth()])
-    const uniqueMonths = new Set(onlyMonths)
+  useEffect(() => {
+    console.log('criou nova lista de meses')
+    const onlyMonths = entries.map(item => ({
+      number: format(item.payDay, 'MM'),
+      name: getCapitalizedMonth(item.payDay),
+    }))
+    const sortedMonths = onlyMonths.sort((a, b) => {
+      if (a.number < b.number) return -1
+      if (a.number > b.number) return 1
+      return 0
+    })
+    const onlyMonthNames = sortedMonths.map(item => item.name)
+    const uniqueMonths = new Set(onlyMonthNames)
     setMonths(Array.from(uniqueMonths))
+  }, [entries])
 
+  useEffect(() => {
     const onlyDescriptions = entries.map(entry => entry.description)
     const uniqueDescriptions = new Set(onlyDescriptions)
-    setDescriptions(Array.from(uniqueDescriptions))
+    const arrayOfDescriptions = Array.from(uniqueDescriptions).sort()
+    setDescriptions([...arrayOfDescriptions])
+  }, [entries])
 
+  useEffect(() => {
     const onlyBanks = entries.map(entry => entry.bank)
     const uniqueBanks = new Set(onlyBanks)
-    setBanks(Array.from(uniqueBanks))
+    const arrayOfBanks = Array.from(uniqueBanks).sort()
+    setBanks([...arrayOfBanks])
   }, [entries])
 
   useEffect(() => {
