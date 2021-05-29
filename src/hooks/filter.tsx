@@ -18,6 +18,7 @@ interface FilterContextData {
   addFilter(filter: FilterData): void
   removeFilters(): void
   addDescription(description: string): void
+  addBank(bank: string): void
 }
 
 export interface FilterData {
@@ -153,6 +154,10 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
     setDescriptions(state => [...state, description])
   }, [])
 
+  const addBank = useCallback((bank: string) => {
+    setBanks(state => [...state, bank])
+  }, [])
+
   return (
     <FilterContext.Provider
       value={{
@@ -165,6 +170,7 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
         addFilter,
         removeFilters,
         addDescription,
+        addBank,
       }}
     >
       {children}

@@ -13,6 +13,7 @@ import FormDialog from './MainContent/FormDialog'
 import DeleteDialog from './MainContent/DeleteDialog'
 import Header from './MainContent/Header'
 import DescriptionDialog from './MainContent/DescriptionDialog'
+import BankDialog from './MainContent/BankDialog'
 
 const Dashboard = () => {
   return (
@@ -32,6 +33,7 @@ const Dashboard = () => {
             <FormDialog />
             <DeleteDialog />
             <DescriptionDialog />
+            <BankDialog />
           </DialogControlProvider>
         </MainContent>
         <RightAside>
