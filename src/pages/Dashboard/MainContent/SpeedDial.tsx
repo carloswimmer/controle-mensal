@@ -1,16 +1,28 @@
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { Theme, styled } from '@material-ui/core/styles'
 import {
   SpeedDial as MuiSpeedDial,
   SpeedDialIcon,
   SpeedDialAction,
 } from '@material-ui/lab'
-import { AddRounded, MoreVert, EventNoteRounded } from '@material-ui/icons'
+import {
+  AddRounded,
+  LocalAtmRounded,
+  MoreVert,
+  UpdateRounded,
+  AccountBalanceRounded,
+  FormatListBulletedRounded,
+} from '@material-ui/icons'
 import { useDialogControl } from '../../../hooks/dialogControl'
 
 const SpeedDials = (): JSX.Element => {
   const [open, setOpen] = useState(false)
-  const { toggleEntryForm } = useDialogControl()
+  const {
+    toggleEntryForm,
+    toggleCloneForm,
+    toggleDescriptionForm,
+    toggleBankForm,
+  } = useDialogControl()
 
   const handleClose = () => {
     setOpen(false)
@@ -19,10 +31,6 @@ const SpeedDials = (): JSX.Element => {
   const handleOpen = () => {
     setOpen(true)
   }
-
-  const handleOpenFormDialog = useCallback(() => {
-    toggleEntryForm(true)
-  }, [toggleEntryForm])
 
   return (
     <SpeedDial
@@ -35,16 +43,28 @@ const SpeedDials = (): JSX.Element => {
       FabProps={{ color: 'secondary' }}
     >
       <SpeedDialAction
-        key={'Lançamento'}
-        icon={<AddRounded />}
-        tooltipTitle={'Lançamento'}
-        onClick={handleOpenFormDialog}
+        key={'entry'}
+        icon={<LocalAtmRounded />}
+        tooltipTitle={'+ Lançamento'}
+        onClick={() => toggleEntryForm(true)}
       />
       <SpeedDialAction
-        key={'Clonar Mês'}
-        icon={<EventNoteRounded />}
+        key={'clone'}
+        icon={<UpdateRounded />}
         tooltipTitle={'Clonar Mês'}
-        onClick={handleClose}
+        onClick={() => toggleCloneForm(true)}
+      />
+      <SpeedDialAction
+        key={'description'}
+        icon={<FormatListBulletedRounded />}
+        tooltipTitle={'+ Descrição'}
+        onClick={() => toggleDescriptionForm(true)}
+      />
+      <SpeedDialAction
+        key={'bank'}
+        icon={<AccountBalanceRounded />}
+        tooltipTitle={'+ Banco'}
+        onClick={() => toggleBankForm(true)}
       />
     </SpeedDial>
   )

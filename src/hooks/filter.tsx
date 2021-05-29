@@ -17,6 +17,7 @@ interface FilterContextData {
   dashboardHeader: string
   addFilter(filter: FilterData): void
   removeFilters(): void
+  addDescription(description: string): void
 }
 
 export interface FilterData {
@@ -148,6 +149,10 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
     setFilters([...initialFilterValues])
   }, [])
 
+  const addDescription = useCallback((description: string) => {
+    setDescriptions(state => [...state, description])
+  }, [])
+
   return (
     <FilterContext.Provider
       value={{
@@ -159,6 +164,7 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
         dashboardHeader,
         addFilter,
         removeFilters,
+        addDescription,
       }}
     >
       {children}

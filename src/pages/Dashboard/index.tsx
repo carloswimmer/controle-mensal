@@ -12,6 +12,7 @@ import Filters from './Filters'
 import FormDialog from './MainContent/FormDialog'
 import DeleteDialog from './MainContent/DeleteDialog'
 import Header from './MainContent/Header'
+import DescriptionDialog from './MainContent/DescriptionDialog'
 
 const Dashboard = () => {
   return (
@@ -30,6 +31,7 @@ const Dashboard = () => {
             <SpeedDial />
             <FormDialog />
             <DeleteDialog />
+            <DescriptionDialog />
           </DialogControlProvider>
         </MainContent>
         <RightAside>
