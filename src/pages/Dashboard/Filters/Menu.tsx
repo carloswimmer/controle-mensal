@@ -26,7 +26,7 @@ const Menu = () => {
   }, [addToast, history, signOut])
 
   return (
-    <Grid container justify="flex-end" spacing={2}>
+    <Grid container justify="flex-end">
       <Grid item>
         <IconButton
           color="primary"

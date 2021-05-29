@@ -9,9 +9,9 @@ import {
   AddRounded,
   LocalAtmRounded,
   MoreVert,
-  UpdateRounded,
+  QueueRounded,
   AccountBalanceRounded,
-  FormatListBulletedRounded,
+  BallotRounded,
 } from '@material-ui/icons'
 import { useDialogControl } from '../../../hooks/dialogControl'
 
@@ -45,25 +45,25 @@ const SpeedDials = (): JSX.Element => {
       <SpeedDialAction
         key={'entry'}
         icon={<LocalAtmRounded />}
-        tooltipTitle={'+ Lançamento'}
+        tooltipTitle={'+ Lançamentos'}
         onClick={() => toggleEntryForm(true)}
       />
       <SpeedDialAction
         key={'clone'}
-        icon={<UpdateRounded />}
+        icon={<QueueRounded />}
         tooltipTitle={'Clonar Mês'}
         onClick={() => toggleCloneForm(true)}
       />
       <SpeedDialAction
         key={'description'}
-        icon={<FormatListBulletedRounded />}
-        tooltipTitle={'+ Descrição'}
+        icon={<BallotRounded />}
+        tooltipTitle={'+ Descrições'}
         onClick={() => toggleDescriptionForm(true)}
       />
       <SpeedDialAction
         key={'bank'}
         icon={<AccountBalanceRounded />}
-        tooltipTitle={'+ Banco'}
+        tooltipTitle={'+ Bancos'}
         onClick={() => toggleBankForm(true)}
       />
     </SpeedDial>

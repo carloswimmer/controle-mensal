@@ -14,6 +14,7 @@ import DeleteDialog from './MainContent/DeleteDialog'
 import Header from './MainContent/Header'
 import DescriptionDialog from './MainContent/DescriptionDialog'
 import BankDialog from './MainContent/BankDialog'
+import CloneDialog from './MainContent/CloneDialog'
 
 const Dashboard = () => {
   return (
@@ -34,6 +35,7 @@ const Dashboard = () => {
             <DeleteDialog />
             <DescriptionDialog />
             <BankDialog />
+            <CloneDialog />
           </DialogControlProvider>
         </MainContent>
         <RightAside>

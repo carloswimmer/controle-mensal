@@ -18,7 +18,7 @@ const Filters = () => {
 
   return (
     <Grid container spacing={5}>
-      <Box px={3} py={1}>
+      <Box px={3} pt={2} pb={1}>
         <Typography variant="h4" style={{ fontSize: '1.8rem' }}>
           Filtros
         </Typography>

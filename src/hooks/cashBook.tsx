@@ -25,6 +25,7 @@ interface CashBookContextData {
   checkEntry(id: string, value: boolean): Promise<void>
   saveEntry(values: EntryData): Promise<DocumentReference | void>
   deleteEntry(id: string): Promise<void>
+  createClone(year: string, month: string): void
 }
 
 const entriesRef = db.collection('entries')
@@ -75,6 +76,10 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
     return entriesRef.doc(id).delete()
   }, [])
 
+  const createClone = useCallback((year: string, month: string) => {
+    console.log(year, month)
+  }, [])
+
   return (
     <CashBookContext.Provider
       value={{
@@ -82,6 +87,7 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
         saveEntry,
         checkEntry,
         deleteEntry,
+        createClone,
       }}
     >
       {children}
