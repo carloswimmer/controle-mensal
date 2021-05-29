@@ -62,7 +62,6 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
   }, [entries])
 
   useEffect(() => {
-    console.log('criou nova lista de meses')
     const onlyMonths = entries.map(item => ({
       number: format(item.payDay, 'MM'),
       name: getCapitalizedMonth(item.payDay),
@@ -105,7 +104,7 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
     const monthFilter = filters.find(filter => filter.type === 'month')
     if (monthFilter && monthFilter.value) {
       const filtered = results.filter(
-        entry => monthNames[entry.payDay.getMonth()] === monthFilter.value,
+        entry => getCapitalizedMonth(entry.payDay) === monthFilter.value,
       )
       results = [...filtered]
     }
