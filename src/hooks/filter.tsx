@@ -7,8 +7,8 @@ import {
   useState,
 } from 'react'
 import { format } from 'date-fns'
-import pt from 'date-fns/locale/pt-BR'
 import { EntryData, useCashBook } from './cashBook'
+import getCapitalizedMonth from '../utils/getCapitalizedMonth'
 
 interface FilterContextData {
   filterResults: EntryData[]
@@ -26,11 +26,6 @@ interface FilterContextData {
 export interface FilterData {
   type: string
   value: string | null
-}
-
-function getCapitalizedMonth(date: Date) {
-  const month = format(date, 'MMMM', { locale: pt })
-  return month.charAt(0).toLocaleUpperCase() + month.slice(1)
 }
 
 const currentYear = format(new Date(), 'yyyy')

@@ -6,7 +6,7 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { formatISO, parseISO } from 'date-fns'
+import { addMonths, formatISO, parseISO } from 'date-fns'
 
 import { db, DocumentReference } from '../firebase'
 
@@ -25,7 +25,7 @@ interface CashBookContextData {
   checkEntry(id: string, value: boolean): Promise<void>
   saveEntry(values: EntryData): Promise<DocumentReference | void>
   deleteEntry(id: string): Promise<void>
-  createClone(): void
+  createClone(): Promise<Date>
 }
 
 const entriesRef = db.collection('entries')
@@ -77,22 +77,31 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
   }, [])
 
   const createClone = useCallback(async () => {
-    const querySnapshot = await entriesRef
-      .orderBy('payDay', 'desc')
-      .limit(1)
-      .get()
-    const maxDate = querySnapshot.docs[0].data().payDay
+    const lastDoc = await entriesRef.orderBy('payDay', 'desc').limit(1).get()
+    const lastPayDay = lastDoc.docs[0].data().payDay
+    const clonedDate = addMonths(parseISO(lastPayDay), 1)
 
-    console.log('search date', maxDate.substr(0, 8) + '01')
-
-    const snapshot = await entriesRef
-      .where('payDay', '>=', maxDate.substr(0, 8) + '01')
-      .where('payDay', '<=', maxDate.substr(0, 8) + '31')
+    const lastMonthDocs = await entriesRef
+      .where('payDay', '>=', lastPayDay.substr(0, 8) + '01')
+      .where('payDay', '<=', lastPayDay.substr(0, 8) + '31')
       .get()
 
-    snapshot.forEach(doc => {
-      console.log('doc', doc.data())
+    const batch = db.batch()
+
+    lastMonthDocs.forEach(doc => {
+      const entry = doc.data()
+      const newDate = addMonths(parseISO(entry.payDay), 1)
+      entry.payDay = formatISO(newDate, { representation: 'date' })
+      entry.paid = false
+      entry.amount = 0
+
+      const entryDoc = entriesRef.doc()
+      batch.set(entryDoc, entry)
     })
+
+    await batch.commit()
+
+    return clonedDate
   }, [])
 
   return (

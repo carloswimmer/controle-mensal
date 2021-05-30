@@ -21,6 +21,7 @@ export default function AlertDialog() {
   const handleDeleteEntry = useCallback(async () => {
     try {
       await deleteEntry(entryIdToDelete)
+      toggleDeleteConfirm(false)
       addToast({ severity: 'success', text: 'Lançamento removido com sucesso' })
     } catch (error) {
       const message = handleError(error)
