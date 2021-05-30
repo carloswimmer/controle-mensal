@@ -1,5 +1,11 @@
 import { useCallback } from 'react'
-import { DialogContent, DialogActions, Grid } from '@material-ui/core'
+import {
+  DialogContent,
+  DialogActions,
+  Grid,
+  Backdrop,
+  CircularProgress,
+} from '@material-ui/core'
 import { Formik, FormikHelpers } from 'formik'
 import * as Yup from 'yup'
 
@@ -132,6 +138,9 @@ const Form = () => {
               text="Salvar"
             />
           </DialogActions>
+          <Backdrop open={formik.isSubmitting} style={{ zIndex: 1 }}>
+            <CircularProgress color="secondary" size={70} />
+          </Backdrop>
         </form>
       )}
     </Formik>

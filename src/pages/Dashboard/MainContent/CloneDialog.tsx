@@ -1,10 +1,12 @@
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Backdrop,
+  CircularProgress,
 } from '@material-ui/core'
 import { Button } from '../../../components/controls'
 import { useDialogControl } from '../../../hooks/dialogControl'
@@ -15,7 +17,8 @@ import handleError from '../../../utils/handleError'
 import { format } from 'date-fns'
 import getCapitalizedMonth from '../../../utils/getCapitalizedMonth'
 
-export default function AlertDialog() {
+export default function CloneDialog() {
+  const [isLoading, setIsLoading] = useState(false)
   const { toggleCloneConfirm, openCloneConfirm } = useDialogControl()
   const { createClone } = useCashBook()
   const { addToast } = useToast()
@@ -23,6 +26,7 @@ export default function AlertDialog() {
 
   const handleCreateClone = useCallback(async () => {
     try {
+      setIsLoading(true)
       const clonedDate = await createClone()
 
       toggleCloneConfirm(false)
@@ -37,38 +41,44 @@ export default function AlertDialog() {
       addToast({ text: message })
     } finally {
       toggleCloneConfirm(false)
+      setIsLoading(false)
     }
   }, [addFilter, addToast, createClone, removeFilters, toggleCloneConfirm])
 
   return (
-    <Dialog
-      open={openCloneConfirm}
-      onClose={() => toggleCloneConfirm(false)}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-      fullWidth
-      maxWidth="xs"
-    >
-      <DialogTitle id="alert-dialog-title">Criar Clone</DialogTitle>
-      <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          Deseja criar uma cópia do último mês?
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button
-          variant="text"
-          color="primary"
-          text="Não"
-          onClick={() => toggleCloneConfirm(false)}
-        />
-        <Button
-          variant="text"
-          color="secondary"
-          text="Sim"
-          onClick={handleCreateClone}
-        />
-      </DialogActions>
-    </Dialog>
+    <>
+      <Dialog
+        open={openCloneConfirm}
+        onClose={() => toggleCloneConfirm(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        fullWidth
+        maxWidth="xs"
+      >
+        <DialogTitle id="alert-dialog-title">Criar Clone</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Deseja criar uma cópia do último mês?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant="text"
+            color="primary"
+            text="Não"
+            onClick={() => toggleCloneConfirm(false)}
+          />
+          <Button
+            variant="text"
+            color="secondary"
+            text="Sim"
+            onClick={handleCreateClone}
+          />
+        </DialogActions>
+      </Dialog>
+      <Backdrop open={isLoading} style={{ zIndex: 1 }}>
+        <CircularProgress color="secondary" size={70} />
+      </Backdrop>
+    </>
   )
 }
