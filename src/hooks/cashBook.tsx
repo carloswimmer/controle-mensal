@@ -58,7 +58,7 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
 
   const saveEntry = useCallback((values: EntryData) => {
     const payDay = formatISO(values.payDay, { representation: 'date' })
-    const payload = { ...values, payDay }
+    const payload = { ...values, payDay, amount: +values.amount }
     delete payload.id
 
     if (values.id) {

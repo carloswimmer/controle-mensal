@@ -4,11 +4,11 @@ import { Formik, FormikHelpers } from 'formik'
 import * as Yup from 'yup'
 
 import {
-  Input,
   Button,
   DatePicker,
   Select,
   Radio,
+  Currency,
 } from '../../../../components/controls'
 import { handleFieldProps } from '../../../../components/controls/utils'
 import { EntryData, useCashBook } from '../../../../hooks/cashBook'
@@ -109,8 +109,8 @@ const Form = () => {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Input
-                  type="number"
+                <Currency
+                  type="text"
                   label="Valor"
                   id="amount"
                   {...handleFieldProps(formik, 'amount')}
