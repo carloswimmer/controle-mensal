@@ -19,7 +19,7 @@ const SpeedDials = (): JSX.Element => {
   const [open, setOpen] = useState(false)
   const {
     toggleEntryForm,
-    toggleCloneForm,
+    toggleCloneConfirm,
     toggleDescriptionForm,
     toggleBankForm,
   } = useDialogControl()
@@ -52,7 +52,7 @@ const SpeedDials = (): JSX.Element => {
         key={'clone'}
         icon={<QueueRounded />}
         tooltipTitle={'Clonar Mês'}
-        onClick={() => toggleCloneForm(true)}
+        onClick={() => toggleCloneConfirm(true)}
       />
       <SpeedDialAction
         key={'description'}

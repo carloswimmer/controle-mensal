@@ -25,7 +25,7 @@ interface CashBookContextData {
   checkEntry(id: string, value: boolean): Promise<void>
   saveEntry(values: EntryData): Promise<DocumentReference | void>
   deleteEntry(id: string): Promise<void>
-  createClone(year: string, month: string): void
+  createClone(): void
 }
 
 const entriesRef = db.collection('entries')
@@ -76,8 +76,23 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
     return entriesRef.doc(id).delete()
   }, [])
 
-  const createClone = useCallback((year: string, month: string) => {
-    console.log(year, month)
+  const createClone = useCallback(async () => {
+    const querySnapshot = await entriesRef
+      .orderBy('payDay', 'desc')
+      .limit(1)
+      .get()
+    const maxDate = querySnapshot.docs[0].data().payDay
+
+    console.log('search date', maxDate.substr(0, 8) + '01')
+
+    const snapshot = await entriesRef
+      .where('payDay', '>=', maxDate.substr(0, 8) + '01')
+      .where('payDay', '<=', maxDate.substr(0, 8) + '31')
+      .get()
+
+    snapshot.forEach(doc => {
+      console.log('doc', doc.data())
+    })
   }, [])
 
   return (

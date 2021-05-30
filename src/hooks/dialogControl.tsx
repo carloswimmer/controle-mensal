@@ -11,14 +11,14 @@ import { EntryData } from './cashBook'
 interface DialogControlContextData {
   openEntryForm: boolean
   openDeleteConfirm: boolean
-  openCloneForm: boolean
+  openCloneConfirm: boolean
   openDescriptionForm: boolean
   openBankForm: boolean
   payloadEntryForm: EntryData
   entryIdToDelete: string
   toggleEntryForm(state: boolean, payload?: EntryData): void
   toggleDeleteConfirm(state: boolean, id?: string): void
-  toggleCloneForm(state: boolean): void
+  toggleCloneConfirm(state: boolean): void
   toggleDescriptionForm(state: boolean): void
   toggleBankForm(state: boolean): void
 }
@@ -30,7 +30,7 @@ const DialogControlContext = createContext<DialogControlContextData>(
 const DialogControlProvider = ({ children }: PropsWithChildren<{}>) => {
   const [openEntryForm, setOpenEntryForm] = useState(false)
   const [openDeleteConfirm, setOpenDeleteConfirm] = useState(false)
-  const [openCloneForm, setOpenCloneForm] = useState(false)
+  const [openCloneConfirm, setOpenCloneConfirm] = useState(false)
   const [openDescriptionForm, setOpenDescriptionForm] = useState(false)
   const [openBankForm, setOpenBankForm] = useState(false)
   const [payloadEntryForm, setPayloadEntryForm] =
@@ -48,8 +48,8 @@ const DialogControlProvider = ({ children }: PropsWithChildren<{}>) => {
     if (id) setEntryIdToDelete(id)
   }, [])
 
-  const toggleCloneForm = useCallback((state: boolean) => {
-    setOpenCloneForm(state)
+  const toggleCloneConfirm = useCallback((state: boolean) => {
+    setOpenCloneConfirm(state)
   }, [])
 
   const toggleDescriptionForm = useCallback((state: boolean) => {
@@ -65,14 +65,14 @@ const DialogControlProvider = ({ children }: PropsWithChildren<{}>) => {
       value={{
         openEntryForm,
         openDeleteConfirm,
-        openCloneForm,
+        openCloneConfirm,
         openDescriptionForm,
         openBankForm,
         payloadEntryForm,
         entryIdToDelete,
         toggleEntryForm,
         toggleDeleteConfirm,
-        toggleCloneForm,
+        toggleCloneConfirm,
         toggleDescriptionForm,
         toggleBankForm,
       }}
