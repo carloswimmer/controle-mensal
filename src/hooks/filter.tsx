@@ -12,6 +12,7 @@ import getCapitalizedMonth from '../utils/getCapitalizedMonth'
 
 interface FilterContextData {
   filterResults: EntryData[]
+  filters: FilterData[]
   years: string[]
   months: string[]
   descriptions: string[]
@@ -167,6 +168,7 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
     <FilterContext.Provider
       value={{
         filterResults,
+        filters,
         years,
         months,
         descriptions,

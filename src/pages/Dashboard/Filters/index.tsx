@@ -3,11 +3,18 @@ import { Grid, TextField, Typography, Box, Button } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import { v4 as uuidv4 } from 'uuid'
 
-import { initialFilterValues, useFilter } from '../../../hooks/filter'
+import { useFilter } from '../../../hooks/filter'
 
 const Filters = () => {
-  const { years, months, descriptions, banks, addFilter, removeFilters } =
-    useFilter()
+  const {
+    filters,
+    years,
+    months,
+    descriptions,
+    banks,
+    addFilter,
+    removeFilters,
+  } = useFilter()
 
   const [selectValue, setSelectValue] = useState(uuidv4())
 
@@ -15,6 +22,15 @@ const Filters = () => {
     setSelectValue(uuidv4())
     removeFilters()
   }, [removeFilters])
+
+  const getSelectedValue = useCallback(
+    (selectedType: string) => {
+      const selected = filters.find(filter => filter.type === selectedType)
+
+      return selected ? selected.value : null
+    },
+    [filters],
+  )
 
   return (
     <Grid container spacing={5}>
@@ -29,7 +45,7 @@ const Filters = () => {
           key={selectValue}
           options={years}
           getOptionLabel={option => option}
-          defaultValue={initialFilterValues[0].value}
+          value={getSelectedValue('year')}
           onChange={(event: ChangeEvent<{}>, value: string | null) =>
             addFilter({ type: 'year', value })
           }
@@ -44,7 +60,7 @@ const Filters = () => {
           key={selectValue}
           options={months}
           getOptionLabel={option => option}
-          defaultValue={initialFilterValues[1].value}
+          value={getSelectedValue('month')}
           onChange={(event: ChangeEvent<{}>, value: string | null) =>
             addFilter({ type: 'month', value })
           }
@@ -59,6 +75,7 @@ const Filters = () => {
           key={selectValue}
           options={descriptions}
           getOptionLabel={option => option}
+          value={getSelectedValue('description')}
           onChange={(event: ChangeEvent<{}>, value: string | null) =>
             addFilter({ type: 'description', value })
           }
@@ -73,6 +90,7 @@ const Filters = () => {
           key={selectValue}
           options={banks}
           getOptionLabel={option => option}
+          value={getSelectedValue('bank')}
           onChange={(event: ChangeEvent<{}>, value: string | null) =>
             addFilter({ type: 'bank', value })
           }
