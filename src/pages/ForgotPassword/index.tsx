@@ -1,11 +1,12 @@
 import {
-  Container as MuiContainer,
   Card,
   CardContent as MuiCardContent,
   Typography,
   Box,
 } from '@material-ui/core'
 import { styled, Theme } from '@material-ui/core/styles'
+
+import { GlassContainer as Container } from '../../styles/GlassPaper'
 import Logo from '../../components/Logo'
 import Footer from './Footer'
 import Form from './Form'
@@ -33,15 +34,6 @@ const Viewport = styled('div')({
   display: 'flex',
   alignItems: 'center',
   height: '100vh',
-})
-
-const Container = styled(MuiContainer)({
-  maxWidth: 500,
-
-  '& .MuiPaper-root': {
-    backgroundColor: '#424242a8',
-    backdropFilter: 'blur(14px)',
-  },
 })
 
 const CardContent = styled(MuiCardContent)<Theme>(({ theme }) => ({
