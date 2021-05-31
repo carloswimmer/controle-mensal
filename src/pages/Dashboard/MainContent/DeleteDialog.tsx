@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react'
 import {
-  Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
@@ -9,6 +8,7 @@ import {
   CircularProgress,
 } from '@material-ui/core'
 import { Button } from '../../../components/controls'
+import { GlassDialog as Dialog } from '../../../styles/GlassPaper'
 import { useDialogControl } from '../../../hooks/dialogControl'
 import { useCashBook } from '../../../hooks/cashBook'
 import { useToast } from '../../../hooks/toast'

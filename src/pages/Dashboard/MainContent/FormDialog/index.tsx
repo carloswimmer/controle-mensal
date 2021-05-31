@@ -1,6 +1,8 @@
 import { forwardRef, ReactElement, Ref } from 'react'
-import { Dialog, DialogTitle, Slide } from '@material-ui/core'
+import { DialogTitle, Slide } from '@material-ui/core'
 import { TransitionProps } from '@material-ui/core/transitions'
+
+import { GlassDialog as Dialog } from '../../../../styles/GlassPaper'
 import { useDialogControl } from '../../../../hooks/dialogControl'
 import Form from './Form'
 
