@@ -109,11 +109,9 @@ const Form = () => {
             }}
           />
           <ButtonContainer>
-            {formik.isSubmitting && (
-              <ButtonBackdrop open>
-                <CircularProgress color="secondary" />
-              </ButtonBackdrop>
-            )}
+            <ButtonBackdrop open={formik.isSubmitting}>
+              <CircularProgress color="secondary" size={70} />
+            </ButtonBackdrop>
             <Button
               type="submit"
               size="large"
