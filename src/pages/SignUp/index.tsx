@@ -38,6 +38,11 @@ const Viewport = styled('div')({
 
 const Container = styled(MuiContainer)({
   maxWidth: 500,
+
+  '& .MuiPaper-root': {
+    backgroundColor: '#424242a8',
+    backdropFilter: 'blur(14px)',
+  },
 })
 
 const CardContent = styled(MuiCardContent)<Theme>(({ theme }) => ({

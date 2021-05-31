@@ -3,13 +3,17 @@ import { DarkModeProvider } from './darkMode'
 import { ThemeProvider } from './theme'
 import { AuthProvider } from './auth'
 import { ToastProvider } from './toast'
+import Background from '../components/Background'
 
 const AppProvider = ({ children }: PropsWithChildren<{}>) => {
   return (
     <DarkModeProvider>
       <ThemeProvider>
         <AuthProvider>
-          <ToastProvider>{children}</ToastProvider>
+          <ToastProvider>
+            <Background />
+            {children}
+          </ToastProvider>
         </AuthProvider>
       </ThemeProvider>
     </DarkModeProvider>

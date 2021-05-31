@@ -35,6 +35,8 @@ const DebitCard = () => {
 
 const Paper = styled(MuiPaper)<Theme>(({ theme }) => ({
   padding: theme.spacing(2),
+  backgroundColor: '#424242a8',
+  backdropFilter: 'blur(1px)',
 }))
 
 const IconContainer = styled('div')<Theme>(({ theme }) => ({

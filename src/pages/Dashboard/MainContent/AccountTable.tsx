@@ -21,8 +21,8 @@ const AccountTable = () => {
   const { toggleEntryForm, toggleDeleteConfirm } = useDialogControl()
 
   return (
-    <Container>
-      <TableContainer component={Paper}>
+    <div>
+      <TableContainer component={TableBackground}>
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -76,11 +76,14 @@ const AccountTable = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </Container>
+    </div>
   )
 }
 
-const Container = styled('div')(() => ({}))
+const TableBackground = styled(Paper)(() => ({
+  backgroundColor: '#424242a8',
+  backdropFilter: 'blur(14px)',
+}))
 
 const CreditCell = styled(TableCell)({
   color: '#57dd57',

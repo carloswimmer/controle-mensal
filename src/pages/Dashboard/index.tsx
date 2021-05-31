@@ -50,7 +50,8 @@ const Dashboard = () => {
 }
 
 const LeftAside = styled('aside')<Theme>(({ theme }) => ({
-  backgroundColor: '#ffffff20',
+  backgroundColor: '#1111114A',
+  backdropFilter: 'blur(10px)',
   position: 'fixed',
   top: 0,
   left: 0,
@@ -68,7 +69,8 @@ const MainContent = styled('main')<Theme>(({ theme }) => ({
 }))
 
 const RightAside = styled('aside')<Theme>(({ theme }) => ({
-  backgroundColor: '#ffffff20',
+  backgroundColor: '#1111114A',
+  backdropFilter: 'blur(10px)',
   position: 'fixed',
   top: 0,
   right: 0,
