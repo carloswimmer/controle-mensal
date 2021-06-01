@@ -35,11 +35,31 @@ const Filters = () => {
 
   return (
     <Grid container spacing={5}>
-      <Box px={3} pt={2} pb={1}>
+      <Box px={3} pt={2}>
         <Typography variant="h4" style={{ fontSize: '1.8rem' }}>
-          Filtros
+          Classificar
         </Typography>
       </Box>
+      <Grid item xs={12}>
+        <Autocomplete
+          id="sort-select"
+          key={selectValue}
+          options={['Dia', 'Descrição', 'Cred/Deb']}
+          getOptionLabel={option => option}
+          onChange={(event: ChangeEvent<{}>, value: string | null) =>
+            orderBy(value)
+          }
+          renderInput={params => (
+            <TextField {...params} label="Ordenar por" variant="outlined" />
+          )}
+        />
+      </Grid>
+      <Box px={3} pt={2}>
+        <Typography variant="h4" style={{ fontSize: '1.8rem' }}>
+          Filtrar
+        </Typography>
+      </Box>
+
       <Grid item xs={12}>
         <Autocomplete
           id="year-select"
@@ -97,20 +117,6 @@ const Filters = () => {
           }
           renderInput={params => (
             <TextField {...params} label="Banco" variant="outlined" />
-          )}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <Autocomplete
-          id="sort-select"
-          key={selectValue}
-          options={['Dia', 'Descrição', 'Cred/Deb']}
-          getOptionLabel={option => option}
-          onChange={(event: ChangeEvent<{}>, value: string | null) =>
-            orderBy(value)
-          }
-          renderInput={params => (
-            <TextField {...params} label="Ordenar por" variant="outlined" />
           )}
         />
       </Grid>
