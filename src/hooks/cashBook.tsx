@@ -9,6 +9,7 @@ import {
 import { addMonths, formatISO, parseISO } from 'date-fns'
 
 import { db, DocumentReference } from '../firebase'
+import { useAuth } from './auth'
 
 export interface EntryData {
   id?: string
@@ -28,14 +29,16 @@ interface CashBookContextData {
   createClone(): Promise<Date>
 }
 
-const entriesRef = db.collection('entries')
+const accountsRef = db.collection('accounts')
 
 const CashBookContext = createContext<CashBookContextData>(
   {} as CashBookContextData,
 )
 
 const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
+  const { user } = useAuth()
   const [entries, setEntries] = useState<EntryData[]>([])
+  const [entriesRef] = useState(accountsRef.doc(user.uid).collection('entries'))
 
   useEffect(() => {
     const cleanup = entriesRef.orderBy('payDay').onSnapshot(snapshot => {
@@ -54,27 +57,37 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
     return () => {
       cleanup()
     }
+    // eslint-disable-next-line
   }, [])
 
-  const saveEntry = useCallback((values: EntryData) => {
-    const payDay = formatISO(values.payDay, { representation: 'date' })
-    const payload = { ...values, payDay, amount: +values.amount }
-    delete payload.id
+  const saveEntry = useCallback(
+    (values: EntryData) => {
+      const payDay = formatISO(values.payDay, { representation: 'date' })
+      const payload = { ...values, payDay, amount: +values.amount }
+      delete payload.id
 
-    if (values.id) {
-      return entriesRef.doc(values.id).set(payload)
-    }
+      if (values.id) {
+        return entriesRef.doc(values.id).set(payload)
+      }
 
-    return entriesRef.add(payload)
-  }, [])
+      return entriesRef.add(payload)
+    },
+    [entriesRef],
+  )
 
-  const checkEntry = useCallback((id: string, value: boolean) => {
-    return entriesRef.doc(id).update({ paid: value })
-  }, [])
+  const checkEntry = useCallback(
+    (id: string, value: boolean) => {
+      return entriesRef.doc(id).update({ paid: value })
+    },
+    [entriesRef],
+  )
 
-  const deleteEntry = useCallback((id: string) => {
-    return entriesRef.doc(id).delete()
-  }, [])
+  const deleteEntry = useCallback(
+    (id: string) => {
+      return entriesRef.doc(id).delete()
+    },
+    [entriesRef],
+  )
 
   const createClone = useCallback(async () => {
     const lastDoc = await entriesRef.orderBy('payDay', 'desc').limit(1).get()
@@ -102,7 +115,7 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
     await batch.commit()
 
     return clonedDate
-  }, [])
+  }, [entriesRef])
 
   return (
     <CashBookContext.Provider
