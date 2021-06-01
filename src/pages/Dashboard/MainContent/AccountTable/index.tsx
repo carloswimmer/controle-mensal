@@ -42,6 +42,8 @@ const AccountTable = () => {
 const TableBackground = styled(Paper)(() => ({
   backgroundColor: '#424242a8',
   backdropFilter: 'blur(14px)',
+  maxWidth: 880,
+  margin: '0 auto',
 }))
 
 export default AccountTable

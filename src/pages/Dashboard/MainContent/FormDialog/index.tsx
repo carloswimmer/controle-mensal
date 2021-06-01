@@ -14,7 +14,8 @@ const Transition = forwardRef(function Transition(
 })
 
 const FormDialog = (): JSX.Element => {
-  const { openEntryForm, toggleEntryForm } = useDialogControl()
+  const { openEntryForm, toggleEntryForm, payloadEntryForm } =
+    useDialogControl()
 
   return (
     <div>
@@ -26,7 +27,9 @@ const FormDialog = (): JSX.Element => {
         fullWidth
         maxWidth="sm"
       >
-        <DialogTitle id="form-dialog-title">Novo Lançamento</DialogTitle>
+        <DialogTitle id="form-dialog-title">
+          {payloadEntryForm.id ? 'Editar Lançamento' : 'Novo Lançamento'}
+        </DialogTitle>
         <Form />
       </Dialog>
     </div>
