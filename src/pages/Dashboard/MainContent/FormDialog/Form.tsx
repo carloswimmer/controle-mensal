@@ -1,11 +1,5 @@
 import { useCallback } from 'react'
-import {
-  DialogContent,
-  DialogActions,
-  Grid,
-  Backdrop,
-  CircularProgress,
-} from '@material-ui/core'
+import { DialogContent, DialogActions, Grid } from '@material-ui/core'
 import { Formik, FormikHelpers } from 'formik'
 import * as Yup from 'yup'
 
@@ -22,6 +16,7 @@ import { useDialogControl } from '../../../../hooks/dialogControl'
 import { useFilter } from '../../../../hooks/filter'
 import { useToast } from '../../../../hooks/toast'
 import handleError from '../../../../utils/handleError'
+import Loading from '../../../../components/Loading'
 
 const payTypeItems = [
   { id: 'credit', title: 'Crédito' },
@@ -138,9 +133,7 @@ const Form = () => {
               text="Salvar"
             />
           </DialogActions>
-          <Backdrop open={formik.isSubmitting} style={{ zIndex: 1 }}>
-            <CircularProgress color="secondary" size={70} />
-          </Backdrop>
+          <Loading open={formik.isSubmitting} />
         </form>
       )}
     </Formik>

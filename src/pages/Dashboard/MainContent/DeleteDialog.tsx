@@ -4,8 +4,6 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Backdrop,
-  CircularProgress,
 } from '@material-ui/core'
 import { Button } from '../../../components/controls'
 import { GlassDialog as Dialog } from '../../../styles/GlassPaper'
@@ -13,6 +11,7 @@ import { useDialogControl } from '../../../hooks/dialogControl'
 import { useCashBook } from '../../../hooks/cashBook'
 import { useToast } from '../../../hooks/toast'
 import handleError from '../../../utils/handleError'
+import Loading from '../../../components/Loading'
 
 export default function DeleteDialog() {
   const [isLoading, setIsLoading] = useState(false)
@@ -66,10 +65,8 @@ export default function DeleteDialog() {
             onClick={handleDeleteEntry}
           />
         </DialogActions>
+        <Loading open={isLoading} />
       </Dialog>
-      <Backdrop open={isLoading} style={{ zIndex: 1 }}>
-        <CircularProgress color="secondary" size={70} />
-      </Backdrop>
     </>
   )
 }
