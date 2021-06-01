@@ -14,6 +14,7 @@ const Filters = () => {
     banks,
     addFilter,
     removeFilters,
+    orderBy,
   } = useFilter()
 
   const [selectValue, setSelectValue] = useState(uuidv4())
@@ -103,8 +104,11 @@ const Filters = () => {
         <Autocomplete
           id="sort-select"
           key={selectValue}
-          options={['Descrição', 'Dia', 'Cred/Deb']}
+          options={['Dia', 'Descrição', 'Cred/Deb']}
           getOptionLabel={option => option}
+          onChange={(event: ChangeEvent<{}>, value: string | null) =>
+            orderBy(value)
+          }
           renderInput={params => (
             <TextField {...params} label="Ordenar por" variant="outlined" />
           )}

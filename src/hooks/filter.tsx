@@ -22,6 +22,7 @@ interface FilterContextData {
   removeFilters(): void
   addDescription(description: string): void
   addBank(bank: string): void
+  orderBy(property: string | null): void
 }
 
 export interface FilterData {
@@ -150,6 +151,39 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
     setBanks(state => [...state, bank])
   }, [])
 
+  const orderBy = useCallback(
+    (property: string) => {
+      let sorted = [...filterResults]
+
+      if (property === 'Dia') {
+        sorted = filterResults.sort((a, b) => {
+          if (a.payDay > b.payDay) return 1
+          if (a.payDay < b.payDay) return -1
+          return 0
+        })
+      }
+
+      if (property === 'Descrição') {
+        sorted = filterResults.sort((a, b) => {
+          if (a.description > b.description) return 1
+          if (a.description < b.description) return -1
+          return 0
+        })
+      }
+
+      if (property === 'Cred/Deb') {
+        sorted = filterResults.sort((a, b) => {
+          if (a.payType > b.payType) return 1
+          if (a.payType < b.payType) return -1
+          return 0
+        })
+      }
+
+      setFilterResults([...sorted])
+    },
+    [filterResults],
+  )
+
   return (
     <FilterContext.Provider
       value={{
@@ -164,6 +198,7 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
         removeFilters,
         addDescription,
         addBank,
+        orderBy,
       }}
     >
       {children}
