@@ -15,7 +15,7 @@ import { useToast } from '../../../hooks/toast'
 import { useFilter } from '../../../hooks/filter'
 import handleError from '../../../utils/handleError'
 import { format } from 'date-fns'
-import getCapitalizedMonth from '../../../utils/getCapitalizedMonth'
+import { getCapitalizedMonth } from '../../../utils/handleMonths'
 
 export default function CloneDialog() {
   const [isLoading, setIsLoading] = useState(false)

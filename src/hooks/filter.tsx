@@ -8,8 +8,7 @@ import {
 } from 'react'
 import { format } from 'date-fns'
 import { EntryData, useCashBook } from './cashBook'
-import getCapitalizedMonth from '../utils/getCapitalizedMonth'
-import getMonthNames from '../utils/getMonthNames'
+import { getCapitalizedMonth, getMonthNames } from '../utils/handleMonths'
 
 interface FilterContextData {
   filterResults: EntryData[]
