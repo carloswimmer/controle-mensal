@@ -6,7 +6,7 @@ import {
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers'
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date'
-import { pt } from 'date-fns/locale'
+import pt from 'date-fns/locale/pt-BR'
 
 const DatePicker = (props: KeyboardDatePickerProps) => {
   const {

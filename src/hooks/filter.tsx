@@ -9,6 +9,7 @@ import {
 import { format } from 'date-fns'
 import { EntryData, useCashBook } from './cashBook'
 import getCapitalizedMonth from '../utils/getCapitalizedMonth'
+import getMonthNames from '../utils/getMonthNames'
 
 interface FilterContextData {
   filterResults: EntryData[]
@@ -33,6 +34,8 @@ const currentYear = format(new Date(), 'yyyy')
 
 const currentMonth = getCapitalizedMonth(new Date())
 
+const months = getMonthNames()
+
 export const initialFilterValues: FilterData[] = [
   { type: 'year', value: currentYear },
   { type: 'month', value: currentMonth },
@@ -43,7 +46,6 @@ const FilterContext = createContext<FilterContextData>({} as FilterContextData)
 const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
   const [filterResults, setFilterResults] = useState<EntryData[]>([])
   const [years, setYears] = useState<string[]>([])
-  const [months, setMonths] = useState<string[]>([])
   const [descriptions, setDescriptions] = useState<string[]>([])
   const [banks, setBanks] = useState<string[]>([])
   const [filters, setFilters] = useState<FilterData[]>(initialFilterValues)
@@ -55,21 +57,6 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
     const uniqueYears = new Set(onlyYears)
     const arrayOfYears = Array.from(uniqueYears).sort().reverse()
     setYears([...arrayOfYears])
-  }, [entries])
-
-  useEffect(() => {
-    const onlyMonths = entries.map(item => ({
-      number: format(item.payDay, 'MM'),
-      name: getCapitalizedMonth(item.payDay),
-    }))
-    const sortedMonths = onlyMonths.sort((a, b) => {
-      if (a.number < b.number) return -1
-      if (a.number > b.number) return 1
-      return 0
-    })
-    const onlyMonthNames = sortedMonths.map(item => item.name)
-    const uniqueMonths = new Set(onlyMonthNames)
-    setMonths(Array.from(uniqueMonths))
   }, [entries])
 
   useEffect(() => {
