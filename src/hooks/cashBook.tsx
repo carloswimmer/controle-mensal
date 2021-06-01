@@ -23,6 +23,7 @@ export interface EntryData {
 
 interface CashBookContextData {
   entries: EntryData[]
+  isLoading: boolean
   checkEntry(id: string, value: boolean): Promise<void>
   saveEntry(values: EntryData): Promise<DocumentReference | void>
   deleteEntry(id: string): Promise<void>
@@ -38,9 +39,11 @@ const CashBookContext = createContext<CashBookContextData>(
 const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
   const { user } = useAuth()
   const [entries, setEntries] = useState<EntryData[]>([])
+  const [isLoading, setIsLoading] = useState(false)
   const [entriesRef] = useState(accountsRef.doc(user.uid).collection('entries'))
 
   useEffect(() => {
+    setIsLoading(true)
     const cleanup = entriesRef.orderBy('payDay').onSnapshot(snapshot => {
       const dbEntries = snapshot.docs.map(doc => {
         const entry = doc.data()
@@ -52,6 +55,7 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
       })
 
       setEntries([...dbEntries])
+      setIsLoading(false)
     })
 
     return () => {
@@ -121,6 +125,7 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
     <CashBookContext.Provider
       value={{
         entries,
+        isLoading,
         saveEntry,
         checkEntry,
         deleteEntry,
