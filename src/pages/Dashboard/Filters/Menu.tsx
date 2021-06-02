@@ -1,4 +1,3 @@
-import { useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Grid, IconButton } from '@material-ui/core'
 import {
@@ -6,24 +5,11 @@ import {
   AccountCircleRounded,
 } from '@material-ui/icons'
 
-import { useAuth } from '../../../hooks/auth'
-import { useToast } from '../../../hooks/toast'
-import handleError from '../../../utils/handleError'
+import { useDialogControl } from '../../../hooks/dialogControl'
 
 const Menu = () => {
-  const { signOut } = useAuth()
-  const { addToast } = useToast()
+  const { toggleLogoutConfirm } = useDialogControl()
   const history = useHistory()
-
-  const handleLogOut = useCallback(async () => {
-    try {
-      await signOut()
-      history.push('/')
-    } catch (error) {
-      const message = handleError(error)
-      addToast({ text: message })
-    }
-  }, [addToast, history, signOut])
 
   return (
     <Grid container justify="flex-end">
@@ -37,7 +23,11 @@ const Menu = () => {
         </IconButton>
       </Grid>
       <Grid item>
-        <IconButton color="primary" onClick={handleLogOut} aria-label="sair">
+        <IconButton
+          color="primary"
+          onClick={() => toggleLogoutConfirm(true)}
+          aria-label="sair"
+        >
           <PowerSettingsNewRounded fontSize="large" />
         </IconButton>
       </Grid>

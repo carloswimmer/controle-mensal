@@ -15,19 +15,20 @@ import Header from './MainContent/Header'
 import DescriptionDialog from './MainContent/DescriptionDialog'
 import BankDialog from './MainContent/BankDialog'
 import CloneDialog from './MainContent/CloneDialog'
+import LogoutDialog from './Filters/LogoutDialog'
 
 const Dashboard = () => {
   return (
     <CashBookProvider>
       <FilterProvider>
-        <LeftAside>
-          <Box width={200}>
-            <Logo />
-          </Box>
-          <Cards />
-        </LeftAside>
-        <MainContent>
-          <DialogControlProvider>
+        <DialogControlProvider>
+          <LeftAside>
+            <Box width={200}>
+              <Logo />
+            </Box>
+            <Cards />
+          </LeftAside>
+          <MainContent>
             <Header />
             <AccountTable />
             <SpeedDial />
@@ -36,14 +37,15 @@ const Dashboard = () => {
             <DescriptionDialog />
             <BankDialog />
             <CloneDialog />
-          </DialogControlProvider>
-        </MainContent>
-        <RightAside>
-          <Box mb={2}>
-            <Menu />
-          </Box>
-          <Filters />
-        </RightAside>
+            <LogoutDialog />
+          </MainContent>
+          <RightAside>
+            <Box mb={2}>
+              <Menu />
+            </Box>
+            <Filters />
+          </RightAside>
+        </DialogControlProvider>
       </FilterProvider>
     </CashBookProvider>
   )

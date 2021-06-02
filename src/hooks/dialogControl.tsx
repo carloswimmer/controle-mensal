@@ -14,6 +14,7 @@ interface DialogControlContextData {
   openCloneConfirm: boolean
   openDescriptionForm: boolean
   openBankForm: boolean
+  openLogoutConfirm: boolean
   payloadEntryForm: EntryData
   entryIdToDelete: string
   toggleEntryForm(state: boolean, payload?: EntryData): void
@@ -21,6 +22,7 @@ interface DialogControlContextData {
   toggleCloneConfirm(state: boolean): void
   toggleDescriptionForm(state: boolean): void
   toggleBankForm(state: boolean): void
+  toggleLogoutConfirm(state: boolean): void
 }
 
 const DialogControlContext = createContext<DialogControlContextData>(
@@ -33,6 +35,7 @@ const DialogControlProvider = ({ children }: PropsWithChildren<{}>) => {
   const [openCloneConfirm, setOpenCloneConfirm] = useState(false)
   const [openDescriptionForm, setOpenDescriptionForm] = useState(false)
   const [openBankForm, setOpenBankForm] = useState(false)
+  const [openLogoutConfirm, setOpenLogoutConfirm] = useState(false)
   const [payloadEntryForm, setPayloadEntryForm] =
     useState<EntryData>(initialValues)
   const [entryIdToDelete, setEntryIdToDelete] = useState('')
@@ -60,6 +63,10 @@ const DialogControlProvider = ({ children }: PropsWithChildren<{}>) => {
     setOpenBankForm(state)
   }, [])
 
+  const toggleLogoutConfirm = useCallback((state: boolean) => {
+    setOpenLogoutConfirm(state)
+  }, [])
+
   return (
     <DialogControlContext.Provider
       value={{
@@ -68,6 +75,7 @@ const DialogControlProvider = ({ children }: PropsWithChildren<{}>) => {
         openCloneConfirm,
         openDescriptionForm,
         openBankForm,
+        openLogoutConfirm,
         payloadEntryForm,
         entryIdToDelete,
         toggleEntryForm,
@@ -75,6 +83,7 @@ const DialogControlProvider = ({ children }: PropsWithChildren<{}>) => {
         toggleCloneConfirm,
         toggleDescriptionForm,
         toggleBankForm,
+        toggleLogoutConfirm,
       }}
     >
       {children}

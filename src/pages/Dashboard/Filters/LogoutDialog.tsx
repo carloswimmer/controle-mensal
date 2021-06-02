@@ -8,46 +8,49 @@ import {
 import { Button } from '../../../components/controls'
 import { GlassDialog as Dialog } from '../../../styles/GlassPaper'
 import { useDialogControl } from '../../../hooks/dialogControl'
-import { useCashBook } from '../../../hooks/cashBook'
 import { useToast } from '../../../hooks/toast'
 import handleError from '../../../utils/handleError'
 import Loading from '../../../components/Loading'
+import { useAuth } from '../../../hooks/auth'
+import { useHistory } from 'react-router'
 
-export default function DeleteDialog() {
+export default function LogoutDialog() {
   const [isLoading, setIsLoading] = useState(false)
-  const { toggleDeleteConfirm, openDeleteConfirm, entryIdToDelete } =
-    useDialogControl()
-  const { deleteEntry } = useCashBook()
+  const { toggleLogoutConfirm, openLogoutConfirm } = useDialogControl()
+  const { signOut } = useAuth()
   const { addToast } = useToast()
+  const history = useHistory()
 
-  const handleDeleteEntry = useCallback(async () => {
+  const handleLogout = useCallback(async () => {
     try {
       setIsLoading(true)
-      await deleteEntry(entryIdToDelete)
-      addToast({ severity: 'success', text: 'Lançamento removido com sucesso' })
+      await signOut()
+      history.push('/')
     } catch (error) {
       const message = handleError(error)
       addToast({ text: message })
     } finally {
-      toggleDeleteConfirm(false)
-      setIsLoading(false)
+      if (history.location.pathname === '/dashboard') {
+        toggleLogoutConfirm(false)
+        setIsLoading(false)
+      }
     }
-  }, [addToast, deleteEntry, entryIdToDelete, toggleDeleteConfirm])
+  }, [addToast, toggleLogoutConfirm, history, signOut])
 
   return (
     <>
       <Dialog
-        open={openDeleteConfirm}
-        onClose={() => toggleDeleteConfirm(false)}
+        open={openLogoutConfirm}
+        onClose={() => toggleLogoutConfirm(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         fullWidth
         maxWidth="xs"
       >
-        <DialogTitle id="alert-dialog-title">Deletar lançamento</DialogTitle>
+        <DialogTitle id="alert-dialog-title">Sair</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Deseja remover esse lançamento?
+            Deseja sair da aplicação?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -55,13 +58,13 @@ export default function DeleteDialog() {
             variant="text"
             color="primary"
             text="Não"
-            onClick={() => toggleDeleteConfirm(false)}
+            onClick={() => toggleLogoutConfirm(false)}
           />
           <Button
             variant="text"
             color="secondary"
             text="Sim"
-            onClick={handleDeleteEntry}
+            onClick={handleLogout}
           />
         </DialogActions>
         <Loading open={isLoading} />
