@@ -46,7 +46,7 @@ const Form = () => {
           <DialogContent>
             <Input
               type="text"
-              label="Descrição"
+              label="Banco"
               id="bank"
               {...handleFieldProps(formik, 'bank')}
             />
