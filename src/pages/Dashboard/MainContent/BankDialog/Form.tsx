@@ -48,6 +48,7 @@ const Form = () => {
               type="text"
               label="Banco"
               id="bank"
+              autoFocus
               {...handleFieldProps(formik, 'bank')}
             />
           </DialogContent>

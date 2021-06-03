@@ -48,6 +48,7 @@ const Form = () => {
               type="text"
               label="Descrição"
               id="description"
+              autoFocus
               {...handleFieldProps(formik, 'description')}
             />
           </DialogContent>
