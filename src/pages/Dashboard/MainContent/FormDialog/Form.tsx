@@ -19,8 +19,9 @@ import handleError from '../../../../utils/handleError'
 import Loading from '../../../../components/Loading'
 
 const payTypeItems = [
-  { id: 'credit', title: 'Crédito' },
-  { id: 'debit', title: 'Débito' },
+  { id: 'credit', title: 'Créd' },
+  { id: 'debit', title: 'Déb' },
+  { id: 'investment', title: 'Invest' },
 ]
 
 export const initialValues: EntryData = {

@@ -29,7 +29,11 @@ const Radio = (props: RadioProps) => {
   } = props
 
   return (
-    <FormControl component="fieldset" error={error} style={{ marginBottom: 6 }}>
+    <FormControl
+      component="fieldset"
+      error={error}
+      style={{ marginBottom: 6, marginRight: -12 }}
+    >
       <FormLabel component="legend">{label}</FormLabel>
       <RadioGroup
         row

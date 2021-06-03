@@ -12,7 +12,7 @@ const InvestmentCard = () => {
 
   const value = useMemo(() => {
     return filterResults
-      .map(entry => (entry.description === 'Investimento' ? entry.amount : 0))
+      .map(entry => (entry.payType === 'investment' ? entry.amount : 0))
       .reduce((acc, value) => acc + value, 0)
   }, [filterResults])
 

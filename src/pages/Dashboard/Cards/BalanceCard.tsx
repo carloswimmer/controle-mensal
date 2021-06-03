@@ -10,7 +10,7 @@ const DebitCard = () => {
   const value = useMemo(() => {
     return filterResults
       .map(entry => {
-        if (entry.description === 'Investimento') return 0
+        if (entry.payType === 'investment') return 0
         if (entry.payType === 'credit') return entry.amount
         return entry.amount * -1
       })

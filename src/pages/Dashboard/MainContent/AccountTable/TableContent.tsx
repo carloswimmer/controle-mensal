@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import {
   TableRow,
   TableCell,
@@ -5,6 +6,7 @@ import {
   IconButton,
   styled,
 } from '@material-ui/core'
+import { Theme } from '@material-ui/core/styles'
 import { EditRounded, DeleteRounded } from '@material-ui/icons'
 import NoData from '../../../../components/NoData'
 import { useCashBook } from '../../../../hooks/cashBook'
@@ -15,6 +17,18 @@ const TableContent = () => {
   const { checkEntry } = useCashBook()
   const { filterResults } = useFilter()
   const { toggleEntryForm, toggleDeleteConfirm } = useDialogControl()
+
+  const showPayType = useCallback((payType: string) => {
+    if (payType === 'credit') {
+      return <CreditCell align="center">Crédito</CreditCell>
+    }
+    if (payType === 'debit') {
+      return <DebitCell align="center">Débito</DebitCell>
+    }
+    if (payType === 'investment') {
+      return <InvestmentCell align="center">Investimento</InvestmentCell>
+    }
+  }, [])
 
   if (!filterResults.length) {
     return <NoData />
@@ -38,11 +52,7 @@ const TableContent = () => {
           <TableCell variant="head">{entry.description}</TableCell>
           <TableCell>{entry.bank}</TableCell>
           <TableCell align="center">{entry.amount.toFixed(2)}</TableCell>
-          {entry.payType === 'credit' ? (
-            <CreditCell align="center">Crédito</CreditCell>
-          ) : (
-            <DebitCell align="center">Débito</DebitCell>
-          )}
+          {showPayType(entry.payType)}
           <TableCell align="center">
             <IconButton
               aria-label="edit"
@@ -70,5 +80,9 @@ const CreditCell = styled(TableCell)({
 const DebitCell = styled(TableCell)({
   color: '#d63434',
 })
+
+const InvestmentCell = styled(TableCell)<Theme>(({ theme }) => ({
+  color: theme.palette.text.primary,
+}))
 
 export default TableContent

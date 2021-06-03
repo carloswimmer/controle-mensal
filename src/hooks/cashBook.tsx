@@ -18,7 +18,7 @@ export interface EntryData {
   bank: string
   payDay: Date
   amount: number
-  payType: 'credit' | 'debit'
+  payType: 'credit' | 'debit' | 'investment'
 }
 
 interface CashBookContextData {
