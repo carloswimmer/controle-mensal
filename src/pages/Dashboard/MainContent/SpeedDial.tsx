@@ -71,7 +71,8 @@ const SpeedDials = (): JSX.Element => {
 }
 
 const SpeedDial = styled(MuiSpeedDial)<Theme>(({ theme }) => ({
-  position: 'absolute',
+  position: 'fixed',
+
   '&.MuiSpeedDial-directionUp': {
     bottom: theme.spacing(3),
     right: theme.spacing(3) + 310,
