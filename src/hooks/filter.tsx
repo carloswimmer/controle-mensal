@@ -186,7 +186,7 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
         })
       }
 
-      if (property === 'Cred/Deb') {
+      if (property === 'Créd/Déb/Invest') {
         sorted = filterResults.sort((a, b) => {
           if (a.payType > b.payType) return 1
           if (a.payType < b.payType) return -1

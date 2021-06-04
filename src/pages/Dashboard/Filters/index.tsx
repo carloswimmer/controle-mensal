@@ -44,7 +44,7 @@ const Filters = () => {
         <Autocomplete
           id="sort-select"
           key={selectValue}
-          options={['Dia', 'Descrição', 'Cred/Deb']}
+          options={['Dia', 'Descrição', 'Créd/Déb/Invest']}
           getOptionLabel={option => option}
           onChange={(event: ChangeEvent<{}>, value: string | null) =>
             orderBy(value)
