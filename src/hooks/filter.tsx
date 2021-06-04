@@ -9,6 +9,7 @@ import {
 import { format } from 'date-fns'
 import { EntryData, useCashBook } from './cashBook'
 import { getCapitalizedMonth, getMonthNames } from '../utils/handleMonths'
+import { useDialogControl } from './dialogControl'
 
 interface FilterContextData {
   filterResults: EntryData[]
@@ -51,6 +52,7 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
   const [filters, setFilters] = useState<FilterData[]>(initialFilterValues)
   const [dashboardHeader, setDashboardHeader] = useState<string>(currentMonth)
   const { entries } = useCashBook()
+  const { toggleDescriptionForm, toggleBankForm } = useDialogControl()
 
   useEffect(() => {
     const onlyYears = entries.map(item => format(item.payDay, 'yyyy'))
@@ -132,11 +134,24 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
   const addFilter = useCallback(
     (filter: FilterData) => {
       const newFilters = filters.filter(item => item.type !== filter.type)
-      newFilters.push(filter)
+
+      switch (filter.value) {
+        case 'Nova descrição':
+          toggleDescriptionForm(true)
+          break
+
+        case 'Novo banco':
+          toggleBankForm(true)
+          break
+
+        default:
+          newFilters.push(filter)
+          break
+      }
 
       setFilters([...newFilters])
     },
-    [filters],
+    [filters, toggleBankForm, toggleDescriptionForm],
   )
 
   const removeFilters = useCallback(() => {

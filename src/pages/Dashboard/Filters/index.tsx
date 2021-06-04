@@ -94,7 +94,7 @@ const Filters = () => {
         <Autocomplete
           id="description-select"
           key={selectValue}
-          options={descriptions}
+          options={['Nova descrição', ...descriptions]}
           getOptionLabel={option => option}
           value={getSelectedValue('description')}
           onChange={(event: ChangeEvent<{}>, value: string | null) =>
@@ -109,7 +109,7 @@ const Filters = () => {
         <Autocomplete
           id="bank-select"
           key={selectValue}
-          options={banks}
+          options={['Novo banco', ...banks]}
           getOptionLabel={option => option}
           value={getSelectedValue('bank')}
           onChange={(event: ChangeEvent<{}>, value: string | null) =>
