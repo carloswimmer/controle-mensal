@@ -42,7 +42,7 @@ const EntrySchema = Yup.object({
 })
 
 const Form = () => {
-  const { payloadEntryForm, toggleEntryForm } = useDialogControl()
+  const { payloadEntry, toggleDialog } = useDialogControl()
   const { descriptions, banks } = useFilter()
   const { saveEntry } = useCashBook()
   const { addToast } = useToast()
@@ -56,15 +56,15 @@ const Form = () => {
         const message = handleError(error)
         addToast({ text: message })
       } finally {
-        toggleEntryForm(false)
+        toggleDialog('entry', false)
       }
     },
-    [saveEntry, addToast, toggleEntryForm],
+    [saveEntry, addToast, toggleDialog],
   )
 
   return (
     <Formik
-      initialValues={payloadEntryForm || initialValues}
+      initialValues={payloadEntry || initialValues}
       validationSchema={EntrySchema}
       onSubmit={(values, actions) => handleEntrySubmit(values, actions)}
     >
@@ -125,7 +125,7 @@ const Form = () => {
               variant="text"
               color="primary"
               text="Cancelar"
-              onClick={() => toggleEntryForm(false)}
+              onClick={() => toggleDialog('entry', false)}
             />
             <Button
               type="submit"

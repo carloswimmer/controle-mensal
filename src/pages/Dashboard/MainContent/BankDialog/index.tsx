@@ -14,13 +14,13 @@ const Transition = forwardRef(function Transition(
 })
 
 const BankDialog = (): JSX.Element => {
-  const { openBankForm, toggleBankForm } = useDialogControl()
+  const { isOpen, toggleDialog } = useDialogControl()
 
   return (
     <div>
       <Dialog
-        open={openBankForm}
-        onClose={() => toggleBankForm(false)}
+        open={!!isOpen['bank']}
+        onClose={() => toggleDialog('bank', false)}
         TransitionComponent={Transition}
         aria-labelledby="form-dialog-title"
         fullWidth

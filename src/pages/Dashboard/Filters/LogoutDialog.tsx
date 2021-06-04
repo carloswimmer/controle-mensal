@@ -16,7 +16,7 @@ import { useHistory } from 'react-router'
 
 export default function LogoutDialog() {
   const [isLoading, setIsLoading] = useState(false)
-  const { toggleLogoutConfirm, openLogoutConfirm } = useDialogControl()
+  const { isOpen, toggleDialog } = useDialogControl()
   const { signOut } = useAuth()
   const { addToast } = useToast()
   const history = useHistory()
@@ -31,17 +31,17 @@ export default function LogoutDialog() {
       addToast({ text: message })
     } finally {
       if (history.location.pathname === '/dashboard') {
-        toggleLogoutConfirm(false)
+        toggleDialog('logout_confirm', false)
         setIsLoading(false)
       }
     }
-  }, [addToast, toggleLogoutConfirm, history, signOut])
+  }, [addToast, toggleDialog, history, signOut])
 
   return (
     <>
       <Dialog
-        open={openLogoutConfirm}
-        onClose={() => toggleLogoutConfirm(false)}
+        open={!!isOpen['logout_confirm']}
+        onClose={() => toggleDialog('logout_confirm', false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         fullWidth
@@ -58,7 +58,7 @@ export default function LogoutDialog() {
             variant="text"
             color="primary"
             text="Não"
-            onClick={() => toggleLogoutConfirm(false)}
+            onClick={() => toggleDialog('logout_confirm', false)}
           />
           <Button
             variant="text"

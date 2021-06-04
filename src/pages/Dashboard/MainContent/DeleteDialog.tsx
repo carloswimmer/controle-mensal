@@ -15,30 +15,31 @@ import Loading from '../../../components/Loading'
 
 export default function DeleteDialog() {
   const [isLoading, setIsLoading] = useState(false)
-  const { toggleDeleteConfirm, openDeleteConfirm, entryIdToDelete } =
-    useDialogControl()
+  const { toggleDialog, isOpen, payloadEntry } = useDialogControl()
   const { deleteEntry } = useCashBook()
   const { addToast } = useToast()
 
   const handleDeleteEntry = useCallback(async () => {
+    const id = payloadEntry.id
+    toggleDialog('delete', false, payloadEntry)
+
     try {
       setIsLoading(true)
-      await deleteEntry(entryIdToDelete)
+      await deleteEntry(id!)
       addToast({ severity: 'success', text: 'Lançamento removido com sucesso' })
     } catch (error) {
       const message = handleError(error)
       addToast({ text: message })
     } finally {
-      toggleDeleteConfirm(false)
       setIsLoading(false)
     }
-  }, [addToast, deleteEntry, entryIdToDelete, toggleDeleteConfirm])
+  }, [addToast, deleteEntry, payloadEntry, toggleDialog])
 
   return (
     <>
       <Dialog
-        open={openDeleteConfirm}
-        onClose={() => toggleDeleteConfirm(false)}
+        open={!!isOpen['delete']}
+        onClose={() => toggleDialog('delete', false, payloadEntry)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         fullWidth
@@ -55,7 +56,7 @@ export default function DeleteDialog() {
             variant="text"
             color="primary"
             text="Não"
-            onClick={() => toggleDeleteConfirm(false)}
+            onClick={() => toggleDialog('delete', false, payloadEntry)}
           />
           <Button
             variant="text"

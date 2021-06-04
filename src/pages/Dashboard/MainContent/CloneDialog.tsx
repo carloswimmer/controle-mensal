@@ -18,7 +18,7 @@ import Loading from '../../../components/Loading'
 
 export default function CloneDialog() {
   const [isLoading, setIsLoading] = useState(false)
-  const { toggleCloneConfirm, openCloneConfirm } = useDialogControl()
+  const { toggleDialog, isOpen } = useDialogControl()
   const { createClone } = useCashBook()
   const { addToast } = useToast()
   const { addFilter, removeFilters } = useFilter()
@@ -28,7 +28,7 @@ export default function CloneDialog() {
       setIsLoading(true)
       const clonedDate = await createClone()
 
-      toggleCloneConfirm(false)
+      toggleDialog('clone', false)
 
       removeFilters()
       addFilter({ type: 'year', value: format(clonedDate, 'yyyy') })
@@ -39,16 +39,16 @@ export default function CloneDialog() {
       const message = handleError(error)
       addToast({ text: message })
     } finally {
-      toggleCloneConfirm(false)
+      toggleDialog('clone', false)
       setIsLoading(false)
     }
-  }, [addFilter, addToast, createClone, removeFilters, toggleCloneConfirm])
+  }, [addFilter, addToast, createClone, removeFilters, toggleDialog])
 
   return (
     <>
       <Dialog
-        open={openCloneConfirm}
-        onClose={() => toggleCloneConfirm(false)}
+        open={!!isOpen['clone']}
+        onClose={() => toggleDialog('clone', false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         fullWidth
@@ -65,7 +65,7 @@ export default function CloneDialog() {
             variant="text"
             color="primary"
             text="Não"
-            onClick={() => toggleCloneConfirm(false)}
+            onClick={() => toggleDialog('clone', false)}
           />
           <Button
             variant="text"

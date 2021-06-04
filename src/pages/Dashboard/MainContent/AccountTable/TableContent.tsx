@@ -16,7 +16,7 @@ import { useFilter } from '../../../../hooks/filter'
 const TableContent = () => {
   const { checkEntry } = useCashBook()
   const { filterResults } = useFilter()
-  const { toggleEntryForm, toggleDeleteConfirm } = useDialogControl()
+  const { toggleDialog } = useDialogControl()
 
   const showPayType = useCallback((payType: string) => {
     if (payType === 'credit') {
@@ -56,13 +56,13 @@ const TableContent = () => {
           <TableCell align="center">
             <IconButton
               aria-label="edit"
-              onClick={() => toggleEntryForm(true, entry)}
+              onClick={() => toggleDialog('entry', true, entry)}
             >
               <EditRounded fontSize="small" color="primary" />
             </IconButton>
             <IconButton
               aria-label="delete"
-              onClick={() => toggleDeleteConfirm(true, entry.id)}
+              onClick={() => toggleDialog('delete', true, entry)}
             >
               <DeleteRounded fontSize="small" color="primary" />
             </IconButton>

@@ -22,7 +22,7 @@ const EntrySchema = Yup.object({
 })
 
 const Form = () => {
-  const { toggleDescriptionForm } = useDialogControl()
+  const { toggleDialog } = useDialogControl()
   const { addDescription } = useFilter()
   const { addToast } = useToast()
 
@@ -30,9 +30,9 @@ const Form = () => {
     (values: DescriptionData, actions: FormikHelpers<DescriptionData>) => {
       addDescription(values.description)
       addToast({ severity: 'success', text: 'Descrição incluída com sucesso' })
-      toggleDescriptionForm(false)
+      toggleDialog('description', false)
     },
-    [addToast, toggleDescriptionForm, addDescription],
+    [addToast, toggleDialog, addDescription],
   )
 
   return (
@@ -57,7 +57,7 @@ const Form = () => {
               variant="text"
               color="primary"
               text="Cancelar"
-              onClick={() => toggleDescriptionForm(false)}
+              onClick={() => toggleDialog('description', false)}
             />
             <Button
               type="submit"

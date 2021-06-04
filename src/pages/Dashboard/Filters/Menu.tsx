@@ -8,7 +8,7 @@ import {
 import { useDialogControl } from '../../../hooks/dialogControl'
 
 const Menu = () => {
-  const { toggleLogoutConfirm } = useDialogControl()
+  const { toggleDialog } = useDialogControl()
   const history = useHistory()
 
   return (
@@ -25,7 +25,7 @@ const Menu = () => {
       <Grid item>
         <IconButton
           color="primary"
-          onClick={() => toggleLogoutConfirm(true)}
+          onClick={() => toggleDialog('logout_confirm', true)}
           aria-label="sair"
         >
           <PowerSettingsNewRounded fontSize="large" />

@@ -17,12 +17,7 @@ import { useDialogControl } from '../../../hooks/dialogControl'
 
 const SpeedDials = (): JSX.Element => {
   const [open, setOpen] = useState(false)
-  const {
-    toggleEntryForm,
-    toggleCloneConfirm,
-    toggleDescriptionForm,
-    toggleBankForm,
-  } = useDialogControl()
+  const { toggleDialog } = useDialogControl()
 
   const handleClose = () => {
     setOpen(false)
@@ -46,25 +41,25 @@ const SpeedDials = (): JSX.Element => {
         key={'entry'}
         icon={<LocalAtmRounded />}
         tooltipTitle={'+ Lançamentos'}
-        onClick={() => toggleEntryForm(true)}
+        onClick={() => toggleDialog('entry', true)}
       />
       <SpeedDialAction
         key={'clone'}
         icon={<QueueRounded />}
         tooltipTitle={'Clonar Mês'}
-        onClick={() => toggleCloneConfirm(true)}
+        onClick={() => toggleDialog('clone', true)}
       />
       <SpeedDialAction
         key={'description'}
         icon={<BallotRounded />}
         tooltipTitle={'+ Descrições'}
-        onClick={() => toggleDescriptionForm(true)}
+        onClick={() => toggleDialog('description', true)}
       />
       <SpeedDialAction
         key={'bank'}
         icon={<AccountBalanceRounded />}
         tooltipTitle={'+ Bancos'}
-        onClick={() => toggleBankForm(true)}
+        onClick={() => toggleDialog('bank', true)}
       />
     </SpeedDial>
   )

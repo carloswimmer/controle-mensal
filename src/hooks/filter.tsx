@@ -52,7 +52,7 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
   const [filters, setFilters] = useState<FilterData[]>(initialFilterValues)
   const [dashboardHeader, setDashboardHeader] = useState<string>(currentMonth)
   const { entries } = useCashBook()
-  const { toggleDescriptionForm, toggleBankForm } = useDialogControl()
+  const { toggleDialog } = useDialogControl()
 
   useEffect(() => {
     const onlyYears = entries.map(item => format(item.payDay, 'yyyy'))
@@ -137,11 +137,11 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
 
       switch (filter.value) {
         case 'Nova descrição':
-          toggleDescriptionForm(true)
+          toggleDialog('description', true)
           break
 
         case 'Novo banco':
-          toggleBankForm(true)
+          toggleDialog('bank', true)
           break
 
         default:
@@ -151,7 +151,7 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
 
       setFilters([...newFilters])
     },
-    [filters, toggleBankForm, toggleDescriptionForm],
+    [filters, toggleDialog],
   )
 
   const removeFilters = useCallback(() => {

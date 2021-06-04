@@ -22,7 +22,7 @@ const EntrySchema = Yup.object({
 })
 
 const Form = () => {
-  const { toggleBankForm } = useDialogControl()
+  const { toggleDialog } = useDialogControl()
   const { addBank } = useFilter()
   const { addToast } = useToast()
 
@@ -30,9 +30,9 @@ const Form = () => {
     (values: BankData, actions: FormikHelpers<BankData>) => {
       addBank(values.bank)
       addToast({ severity: 'success', text: 'Banco incluído com sucesso' })
-      toggleBankForm(false)
+      toggleDialog('bank', false)
     },
-    [addToast, toggleBankForm, addBank],
+    [addToast, toggleDialog, addBank],
   )
 
   return (
@@ -57,7 +57,7 @@ const Form = () => {
               variant="text"
               color="primary"
               text="Cancelar"
-              onClick={() => toggleBankForm(false)}
+              onClick={() => toggleDialog('bank', false)}
             />
             <Button
               type="submit"
