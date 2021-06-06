@@ -9,6 +9,10 @@ import {
 import { format } from 'date-fns'
 import { EntryData, useCashBook } from './cashBook'
 import { getCapitalizedMonth, getMonthNames } from '../utils/handleMonths'
+import {
+  setToSessionStorage,
+  getFromSessionStorage,
+} from '../utils/handleSessionStorage'
 import { useDialogControl } from './dialogControl'
 
 interface FilterContextData {
@@ -62,18 +66,40 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
   }, [entries])
 
   useEffect(() => {
-    const onlyDescriptions = entries.map(entry => entry.description)
-    const uniqueDescriptions = new Set(onlyDescriptions)
-    const arrayOfDescriptions = Array.from(uniqueDescriptions).sort()
-    setDescriptions([...arrayOfDescriptions])
+    const sessionData = getFromSessionStorage('descriptions')
+    if (sessionData?.length) {
+      setDescriptions(sessionData)
+      return
+    }
+    if (entries.length) {
+      const onlyDescriptions = entries.map(entry => entry.description)
+      const uniqueDescriptions = new Set(onlyDescriptions)
+      const arrayOfDescriptions = Array.from(uniqueDescriptions).sort()
+      setDescriptions([...arrayOfDescriptions])
+    }
   }, [entries])
 
   useEffect(() => {
-    const onlyBanks = entries.map(entry => entry.bank)
-    const uniqueBanks = new Set(onlyBanks)
-    const arrayOfBanks = Array.from(uniqueBanks).sort()
-    setBanks([...arrayOfBanks])
+    const sessionData = getFromSessionStorage('banks')
+    if (sessionData?.length) {
+      setBanks(sessionData)
+      return
+    }
+    if (entries.length) {
+      const onlyBanks = entries.map(entry => entry.bank)
+      const uniqueBanks = new Set(onlyBanks)
+      const arrayOfBanks = Array.from(uniqueBanks).sort()
+      setBanks([...arrayOfBanks])
+    }
   }, [entries])
+
+  useEffect(() => {
+    setToSessionStorage('descriptions', [...descriptions])
+  }, [descriptions])
+
+  useEffect(() => {
+    setToSessionStorage('banks', [...banks])
+  }, [banks])
 
   useEffect(() => {
     let results = [...entries]
