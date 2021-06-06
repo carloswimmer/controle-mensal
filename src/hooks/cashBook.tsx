@@ -10,6 +10,8 @@ import { addMonths, formatISO, parseISO } from 'date-fns'
 
 import { db, DocumentReference } from '../firebase'
 import { useAuth } from './auth'
+import { useDialogControl } from './dialogControl'
+import { handleFirstTime } from '../utils/handleTutorial'
 
 export interface EntryData {
   id?: string
@@ -38,6 +40,7 @@ const CashBookContext = createContext<CashBookContextData>(
 
 const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
   const { user } = useAuth()
+  const { toggleDialog } = useDialogControl()
   const [entries, setEntries] = useState<EntryData[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [entriesRef] = useState(accountsRef.doc(user.uid).collection('entries'))
@@ -54,6 +57,12 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
         } as EntryData
       })
 
+      handleFirstTime({
+        entries: dbEntries,
+        toggleFunction: toggleDialog,
+        name: 'tutorial-step1',
+        state: true,
+      })
       setEntries([...dbEntries])
       setIsLoading(false)
     })

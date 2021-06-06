@@ -19,8 +19,8 @@ import LogoutDialog from './Filters/LogoutDialog'
 
 const Dashboard = () => {
   return (
-    <CashBookProvider>
-      <DialogControlProvider>
+    <DialogControlProvider>
+      <CashBookProvider>
         <FilterProvider>
           <LeftAside>
             <Box width={200}>
@@ -46,8 +46,8 @@ const Dashboard = () => {
             <Filters />
           </RightAside>
         </FilterProvider>
-      </DialogControlProvider>
-    </CashBookProvider>
+      </CashBookProvider>
+    </DialogControlProvider>
   )
 }
 
