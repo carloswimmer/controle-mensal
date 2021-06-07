@@ -8,12 +8,13 @@ import {
 } from 'react'
 import { format } from 'date-fns'
 import { EntryData, useCashBook } from './cashBook'
+import { useDialogControl } from './dialogControl'
+import { useAuth } from './auth'
 import { getCapitalizedMonth, getMonthNames } from '../utils/handleMonths'
 import {
   setToSessionStorage,
   getFromSessionStorage,
 } from '../utils/handleSessionStorage'
-import { useDialogControl } from './dialogControl'
 
 interface FilterContextData {
   filterResults: EntryData[]
@@ -55,6 +56,7 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
   const [banks, setBanks] = useState<string[]>([])
   const [filters, setFilters] = useState<FilterData[]>(initialFilterValues)
   const [dashboardHeader, setDashboardHeader] = useState<string>(currentMonth)
+  const { user } = useAuth()
   const { entries } = useCashBook()
   const { toggleDialog } = useDialogControl()
 
@@ -66,7 +68,7 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
   }, [entries])
 
   useEffect(() => {
-    const sessionData = getFromSessionStorage('descriptions')
+    const sessionData = getFromSessionStorage(user.uid, 'descriptions')
     if (sessionData?.length) {
       setDescriptions(sessionData)
       return
@@ -77,10 +79,10 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
       const arrayOfDescriptions = Array.from(uniqueDescriptions).sort()
       setDescriptions([...arrayOfDescriptions])
     }
-  }, [entries])
+  }, [entries, user])
 
   useEffect(() => {
-    const sessionData = getFromSessionStorage('banks')
+    const sessionData = getFromSessionStorage(user.uid, 'banks')
     if (sessionData?.length) {
       setBanks(sessionData)
       return
@@ -91,15 +93,15 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
       const arrayOfBanks = Array.from(uniqueBanks).sort()
       setBanks([...arrayOfBanks])
     }
-  }, [entries])
+  }, [entries, user])
 
   useEffect(() => {
-    setToSessionStorage('descriptions', [...descriptions])
-  }, [descriptions])
+    setToSessionStorage(user.uid, 'descriptions', [...descriptions])
+  }, [descriptions, user])
 
   useEffect(() => {
-    setToSessionStorage('banks', [...banks])
-  }, [banks])
+    setToSessionStorage(user.uid, 'banks', [...banks])
+  }, [banks, user])
 
   useEffect(() => {
     let results = [...entries]
