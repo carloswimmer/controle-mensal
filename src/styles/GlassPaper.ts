@@ -1,4 +1,4 @@
-import { Container, Dialog } from '@material-ui/core'
+import { Container, Dialog, Paper } from '@material-ui/core'
 import { styled } from '@material-ui/core/styles'
 
 export const GlassContainer = styled(Container)({
@@ -15,4 +15,11 @@ export const GlassDialog = styled(Dialog)({
     backgroundColor: '#7c7c7c52',
     backdropFilter: 'blur(11px)',
   },
+})
+
+export const GlassPaper = styled(Paper)({
+  backgroundColor: '#424242a8',
+  backdropFilter: 'blur(1px)',
+  maxWidth: 540,
+  margin: '0 auto',
 })

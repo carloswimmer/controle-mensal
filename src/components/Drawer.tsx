@@ -11,13 +11,14 @@ import {
   SvgIconProps,
 } from '@material-ui/core'
 import { styled, Theme } from '@material-ui/core/styles'
-import { CloseRounded } from '@material-ui/icons'
+import { ChevronLeftRounded, ChevronRightRounded } from '@material-ui/icons'
 
 interface DrawerProps {
   ariaLabel: string
   side: 'left' | 'right'
   closeKey: 'left' | 'right'
-  icon: ReactElement<SvgIconProps>
+  smallIcon: ReactElement<SvgIconProps>
+  largeIcon: ReactElement<SvgIconProps>
 }
 
 const Drawer = ({
@@ -25,7 +26,8 @@ const Drawer = ({
   ariaLabel,
   side,
   closeKey,
-  icon,
+  smallIcon,
+  largeIcon,
 }: PropsWithChildren<DrawerProps>) => {
   const [mobileOpen, setMobileOpen] = useState(false)
 
@@ -36,14 +38,26 @@ const Drawer = ({
   return (
     <nav>
       <Hidden lgUp implementation="css">
-        <OpenButton
-          color="primary"
-          onClick={handleDrawerToggle}
-          aria-label={ariaLabel}
-          style={{ [side]: 8 }}
-        >
-          {icon}
-        </OpenButton>
+        <Hidden smUp>
+          <OpenButton
+            color="primary"
+            onClick={handleDrawerToggle}
+            aria-label={ariaLabel}
+            style={{ [side]: 4, top: 4 }}
+          >
+            {smallIcon}
+          </OpenButton>
+        </Hidden>
+        <Hidden xsDown>
+          <OpenButton
+            color="primary"
+            onClick={handleDrawerToggle}
+            aria-label={ariaLabel}
+            style={{ [side]: 8, top: 8 }}
+          >
+            {largeIcon}
+          </OpenButton>
+        </Hidden>
         <Aside
           variant="persistent"
           anchor={side}
@@ -57,7 +71,7 @@ const Drawer = ({
             aria-label="fechar painel lateral"
             style={{ [closeKey]: 4 }}
           >
-            <CloseRounded fontSize="small" />
+            {side === 'left' ? <ChevronLeftRounded /> : <ChevronRightRounded />}
           </CloseButton>
           {children}
         </Aside>
@@ -83,7 +97,6 @@ const Aside = styled(MuiDrawer)<Theme>(({ theme }) => ({
 
 const OpenButton = styled(IconButton)({
   position: 'fixed',
-  top: 8,
 })
 
 const CloseButton = styled(IconButton)({

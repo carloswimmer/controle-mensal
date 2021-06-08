@@ -31,7 +31,13 @@ const TableContent = () => {
   }, [])
 
   if (!filterResults.length) {
-    return <NoData />
+    return (
+      <TableRow>
+        <TableCell colSpan={7}>
+          <NoData />
+        </TableCell>
+      </TableRow>
+    )
   }
 
   return (
