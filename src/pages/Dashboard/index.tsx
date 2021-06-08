@@ -1,3 +1,4 @@
+import React from 'react'
 import { Box, styled, Theme } from '@material-ui/core'
 
 import { CashBookProvider } from '../../hooks/cashBook'
@@ -16,18 +17,25 @@ import DescriptionDialog from './MainContent/DescriptionDialog'
 import BankDialog from './MainContent/BankDialog'
 import CloneDialog from './MainContent/CloneDialog'
 import LogoutDialog from './Filters/LogoutDialog'
+import Drawer from '../../components/Drawer'
+import { MoreVertRounded, SpeedRounded } from '@material-ui/icons'
 
 const Dashboard = () => {
   return (
     <DialogControlProvider>
       <CashBookProvider>
         <FilterProvider>
-          <LeftAside>
+          <Drawer
+            ariaLabel="saldos"
+            side="left"
+            closeKey="right"
+            icon={<SpeedRounded fontSize="large" />}
+          >
             <Box width={200}>
               <Logo />
             </Box>
             <Cards />
-          </LeftAside>
+          </Drawer>
           <MainContent>
             <Header />
             <AccountTable />
@@ -37,48 +45,35 @@ const Dashboard = () => {
             <DescriptionDialog />
             <BankDialog />
             <CloneDialog />
-            <LogoutDialog />
           </MainContent>
-          <RightAside>
+          <Drawer
+            ariaLabel="filtros"
+            side="right"
+            closeKey="left"
+            icon={<MoreVertRounded fontSize="large" />}
+          >
             <Box mb={2}>
               <Menu />
+              <LogoutDialog />
             </Box>
             <Filters />
-          </RightAside>
+          </Drawer>
         </FilterProvider>
       </CashBookProvider>
     </DialogControlProvider>
   )
 }
 
-const LeftAside = styled('aside')<Theme>(({ theme }) => ({
-  backgroundColor: '#1111114A',
-  backdropFilter: 'blur(10px)',
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: 310,
-  height: '100vh',
-  padding: theme.spacing(2),
-}))
-
 const MainContent = styled('main')<Theme>(({ theme }) => ({
   height: 'calc(100vh - 32px)',
-  width: 'calc(100vw - 620px)',
+  width: 'auto',
   margin: '0 auto',
   paddingLeft: theme.spacing(3),
   paddingRight: theme.spacing(3),
-}))
 
-const RightAside = styled('aside')<Theme>(({ theme }) => ({
-  backgroundColor: '#1111114A',
-  backdropFilter: 'blur(10px)',
-  position: 'fixed',
-  top: 0,
-  right: 0,
-  width: 310,
-  height: '100vh',
-  padding: theme.spacing(2),
+  '@media screen and (min-width: 1280px)': {
+    width: 'calc(100vw - 620px)',
+  },
 }))
 
 export default Dashboard

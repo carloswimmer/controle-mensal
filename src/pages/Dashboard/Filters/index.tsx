@@ -68,7 +68,7 @@ const Filters = () => {
       placement="left-start"
       interactive
     >
-      <Grid container spacing={5}>
+      <Grid container spacing={4}>
         <Box px={3} pt={2}>
           <Typography variant="h4" style={{ fontSize: '1.8rem' }}>
             Classificar
@@ -76,7 +76,7 @@ const Filters = () => {
         </Box>
         <Grid item xs={12}>
           <Autocomplete
-            id="sort-select"
+            id={`sort-select-${selectValue.substr(0, 12)}`}
             key={selectValue}
             options={['Dia', 'Descrição', 'Créd/Déb/Invest']}
             getOptionLabel={option => option}
@@ -96,7 +96,7 @@ const Filters = () => {
 
         <Grid item xs={12}>
           <Autocomplete
-            id="year-select"
+            id={`year-select-${selectValue.substr(0, 12)}`}
             key={selectValue}
             options={years}
             getOptionLabel={option => option}
@@ -111,7 +111,7 @@ const Filters = () => {
         </Grid>
         <Grid item xs={12}>
           <Autocomplete
-            id="month-select"
+            id={`month-select-${selectValue.substr(0, 12)}`}
             key={selectValue}
             options={months}
             getOptionLabel={option => option}
@@ -126,7 +126,7 @@ const Filters = () => {
         </Grid>
         <Grid item xs={12}>
           <Autocomplete
-            id="description-select"
+            id={`description-select-${selectValue.substr(0, 12)}`}
             key={selectValue}
             options={['Nova descrição', ...descriptions]}
             getOptionLabel={option => option}
@@ -141,7 +141,7 @@ const Filters = () => {
         </Grid>
         <Grid item xs={12}>
           <Autocomplete
-            id="bank-select"
+            id={`bank-select-${selectValue.substr(0, 12)}`}
             key={selectValue}
             options={['Novo banco', ...banks]}
             getOptionLabel={option => option}

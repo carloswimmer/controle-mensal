@@ -99,7 +99,11 @@ const SpeedDial = styled(MuiSpeedDial)<Theme>(({ theme }) => ({
 
   '&.MuiSpeedDial-directionUp': {
     bottom: theme.spacing(3),
-    right: theme.spacing(3) + 310,
+    right: theme.spacing(3),
+
+    '@media screen and (min-width: 1280px)': {
+      right: theme.spacing(3) + 310,
+    },
   },
 }))
 
