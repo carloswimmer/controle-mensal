@@ -30,7 +30,7 @@ const Drawer = ({
   const { isOpen, toggleDialog } = useDialogControl()
 
   const handleDrawerToggle = useCallback(() => {
-    toggleDialog(name, !isOpen[name].opened)
+    toggleDialog(name, !isOpen[name]?.opened)
   }, [isOpen, toggleDialog, name])
 
   return (
