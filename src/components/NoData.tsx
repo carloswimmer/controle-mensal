@@ -1,5 +1,6 @@
 import React from 'react'
-import { Grid, Hidden, Typography } from '@material-ui/core'
+import { Grid, Hidden, Typography as MuiTypography } from '@material-ui/core'
+import { styled, Theme } from '@material-ui/core/styles'
 import NoDataImg from '../assets/no-data.svg'
 
 const NoData = () => {
@@ -23,7 +24,7 @@ const NoData = () => {
           </Grid>
         </Hidden>
         <Grid item style={{ margin: 'auto' }}>
-          <Typography variant="h5" style={{ padding: 16 }}>
+          <Typography variant="h5">
             Não existem lançamentos
             <br />
             para essa pesquisa
@@ -33,5 +34,14 @@ const NoData = () => {
     </Grid>
   )
 }
+
+const Typography = styled(MuiTypography)<Theme>(({ theme }) => ({
+  padding: theme.spacing(2),
+  textAlign: 'center',
+
+  '@media (min-width: 600px)': {
+    textAlign: 'start',
+  },
+}))
 
 export default NoData

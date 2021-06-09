@@ -42,7 +42,11 @@ const StepOne = () => {
 const TooltipLocation = styled('div')({
   position: 'fixed',
   bottom: 104,
-  right: 310,
+  right: 0,
+
+  '@media (min-width: 1280px)': {
+    right: 310,
+  },
 })
 
 export default StepOne

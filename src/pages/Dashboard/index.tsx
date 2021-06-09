@@ -83,7 +83,7 @@ const MainContent = styled('main')<Theme>(({ theme }) => ({
   paddingLeft: theme.spacing(3),
   paddingRight: theme.spacing(3),
 
-  '@media screen and (min-width: 1280px)': {
+  '@media (min-width: 1280px)': {
     width: 'calc(100vw - 620px)',
   },
 }))

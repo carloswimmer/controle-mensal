@@ -73,7 +73,7 @@ const SpeedDial = styled(MuiSpeedDial)<Theme>(({ theme }) => ({
     bottom: theme.spacing(3),
     right: theme.spacing(3),
 
-    '@media screen and (min-width: 1280px)': {
+    '@media (min-width: 1280px)': {
       right: theme.spacing(3) + 310,
     },
   },
