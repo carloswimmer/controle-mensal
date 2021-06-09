@@ -6,7 +6,7 @@ import { useDialogControl } from '../../../hooks/dialogControl'
 import { TutorialTip as Tooltip } from '../../../styles/TutorialTip'
 
 const step1 =
-  'Para começar passe o mouse sobre o botão "+", depois escolha "+Bancos" ' +
+  'Para começar, clique no botão "+" e depois escolha "+Bancos" ' +
   'para incluir seus bancos. Faça o mesmo para "+Descrições" para incluir o ' +
   'tipo de lançamento que será adicionado. Finalmente, adicione um novo ' +
   'lançamento clicando em "+Lançamentos".'
