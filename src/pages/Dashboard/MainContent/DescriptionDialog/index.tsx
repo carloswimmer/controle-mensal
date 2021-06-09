@@ -19,7 +19,7 @@ const DescriptionDialog = (): JSX.Element => {
   return (
     <div>
       <Dialog
-        open={!!isOpen['description']}
+        open={!!isOpen['description']?.opened}
         onClose={() => toggleDialog('description', false)}
         TransitionComponent={Transition}
         aria-labelledby="form-dialog-title"

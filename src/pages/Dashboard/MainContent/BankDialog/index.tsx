@@ -19,7 +19,7 @@ const BankDialog = (): JSX.Element => {
   return (
     <div>
       <Dialog
-        open={!!isOpen['bank']}
+        open={!!isOpen['bank']?.opened}
         onClose={() => toggleDialog('bank', false)}
         TransitionComponent={Transition}
         aria-labelledby="form-dialog-title"

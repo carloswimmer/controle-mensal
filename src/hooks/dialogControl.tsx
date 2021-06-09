@@ -8,12 +8,16 @@ import {
 import { initialValues } from '../pages/Dashboard/MainContent/FormDialog/Form'
 import { EntryData } from './cashBook'
 
-interface Dialogs {
-  [key: string]: boolean
+interface IsOpenValue {
+  opened: boolean
+}
+
+interface DialogsData {
+  [key: string]: IsOpenValue
 }
 
 interface DialogControlContextData {
-  isOpen: Dialogs
+  isOpen: DialogsData
   payloadEntry: EntryData
   toggleDialog(name: string, state: boolean, payload?: EntryData): void
 }
@@ -24,11 +28,13 @@ const DialogControlContext = createContext<DialogControlContextData>(
 
 const DialogControlProvider = ({ children }: PropsWithChildren<{}>) => {
   const [payloadEntry, setPayloadEntry] = useState<EntryData>(initialValues)
-  const [isOpen, setIsOpen] = useState<Dialogs>({})
+  const [isOpen, setIsOpen] = useState<DialogsData>({})
 
   const toggleDialog = useCallback(
     (name: string, state: boolean, payload?: EntryData) => {
-      setIsOpen({ [name]: state })
+      setIsOpen(prev => {
+        return { ...prev, [name]: { opened: state } }
+      })
       if (payload?.id && state) setPayloadEntry(payload)
       if (payload?.id && !state) setPayloadEntry(initialValues)
     },

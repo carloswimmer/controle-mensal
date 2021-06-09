@@ -1,9 +1,4 @@
-import React, {
-  PropsWithChildren,
-  ReactElement,
-  useCallback,
-  useState,
-} from 'react'
+import React, { PropsWithChildren, ReactElement, useCallback } from 'react'
 import {
   Hidden,
   Drawer as MuiDrawer,
@@ -12,11 +7,13 @@ import {
 } from '@material-ui/core'
 import { styled, Theme } from '@material-ui/core/styles'
 import { ChevronLeftRounded, ChevronRightRounded } from '@material-ui/icons'
+import { useDialogControl } from '../hooks/dialogControl'
 
 interface DrawerProps {
   ariaLabel: string
+  name: string
   side: 'left' | 'right'
-  closeKey: 'left' | 'right'
+  closeButton: 'left' | 'right'
   smallIcon: ReactElement<SvgIconProps>
   largeIcon: ReactElement<SvgIconProps>
 }
@@ -24,16 +21,17 @@ interface DrawerProps {
 const Drawer = ({
   children,
   ariaLabel,
+  name,
   side,
-  closeKey,
+  closeButton,
   smallIcon,
   largeIcon,
 }: PropsWithChildren<DrawerProps>) => {
-  const [mobileOpen, setMobileOpen] = useState(false)
+  const { isOpen, toggleDialog } = useDialogControl()
 
   const handleDrawerToggle = useCallback(() => {
-    setMobileOpen(state => !state)
-  }, [])
+    toggleDialog(name, !isOpen[name].opened)
+  }, [isOpen, toggleDialog, name])
 
   return (
     <nav>
@@ -61,7 +59,7 @@ const Drawer = ({
         <Aside
           variant="persistent"
           anchor={side}
-          open={mobileOpen}
+          open={!!isOpen[name]?.opened}
           onClose={handleDrawerToggle}
           ModalProps={{ keepMounted: true }}
         >
@@ -69,7 +67,7 @@ const Drawer = ({
             color="primary"
             onClick={handleDrawerToggle}
             aria-label="fechar painel lateral"
-            style={{ [closeKey]: 4 }}
+            style={{ [closeButton]: 4 }}
           >
             {side === 'left' ? <ChevronLeftRounded /> : <ChevronRightRounded />}
           </CloseButton>

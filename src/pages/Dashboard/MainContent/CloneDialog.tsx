@@ -47,7 +47,7 @@ export default function CloneDialog() {
   return (
     <>
       <Dialog
-        open={!!isOpen['clone']}
+        open={!!isOpen['clone']?.opened}
         onClose={() => toggleDialog('clone', false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"

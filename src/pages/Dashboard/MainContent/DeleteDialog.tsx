@@ -38,7 +38,7 @@ export default function DeleteDialog() {
   return (
     <>
       <Dialog
-        open={!!isOpen['delete']}
+        open={!!isOpen['delete']?.opened}
         onClose={() => toggleDialog('delete', false, payloadEntry)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"

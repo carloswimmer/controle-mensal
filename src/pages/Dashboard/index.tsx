@@ -20,6 +20,7 @@ import Menu from './Filters/Menu'
 import LogoutDialog from './Filters/LogoutDialog'
 import Filters from './Filters'
 import Cards from './Cards'
+import Tutorials from './Tutorials'
 
 const Dashboard = () => {
   return (
@@ -28,8 +29,9 @@ const Dashboard = () => {
         <FilterProvider>
           <Drawer
             ariaLabel="saldos"
+            name="cards"
             side="left"
-            closeKey="right"
+            closeButton="right"
             smallIcon={<SpeedRounded />}
             largeIcon={<SpeedRounded fontSize="large" />}
           >
@@ -55,8 +57,9 @@ const Dashboard = () => {
           </MainContent>
           <Drawer
             ariaLabel="filtros"
+            name="filters"
             side="right"
-            closeKey="left"
+            closeButton="left"
             smallIcon={<MoreVertRounded />}
             largeIcon={<MoreVertRounded fontSize="large" />}
           >
@@ -66,6 +69,7 @@ const Dashboard = () => {
             </Box>
             <Filters />
           </Drawer>
+          <Tutorials />
         </FilterProvider>
       </CashBookProvider>
     </DialogControlProvider>

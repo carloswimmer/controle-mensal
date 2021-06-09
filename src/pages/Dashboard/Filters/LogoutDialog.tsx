@@ -40,7 +40,7 @@ export default function LogoutDialog() {
   return (
     <>
       <Dialog
-        open={!!isOpen['logout_confirm']}
+        open={!!isOpen['logout_confirm']?.opened}
         onClose={() => toggleDialog('logout_confirm', false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
