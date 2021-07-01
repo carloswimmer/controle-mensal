@@ -16,7 +16,7 @@ const AccountTable = () => {
   const { isLoading } = useCashBook()
 
   return (
-    <div>
+    <Frame>
       <TableContainer component={TableBackground}>
         <Table aria-label="simple table">
           <TableHead>
@@ -35,15 +35,17 @@ const AccountTable = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+    </Frame>
   )
 }
 
-const TableBackground = styled(Paper)(() => ({
+const TableBackground = styled(Paper)({
   backgroundColor: '#424242a8',
   backdropFilter: 'blur(14px)',
   maxWidth: 880,
   margin: '0 auto',
-}))
+})
+
+const Frame = styled('div')({ paddingBottom: 104 })
 
 export default AccountTable

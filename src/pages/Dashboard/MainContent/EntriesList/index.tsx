@@ -1,5 +1,6 @@
 import React from 'react'
 import { Grid } from '@material-ui/core'
+import { styled } from '@material-ui/core/styles'
 
 import { useFilterActions } from '../../../../hooks/filterActions'
 import NoData from '../../../../components/NoData'
@@ -18,7 +19,7 @@ const EntriesList = () => {
   }
 
   return (
-    <>
+    <Frame>
       <Grid container spacing={1} direction="column">
         {filterResults.map(entry => (
           <Grid item key={entry.id}>
@@ -26,8 +27,10 @@ const EntriesList = () => {
           </Grid>
         ))}
       </Grid>
-    </>
+    </Frame>
   )
 }
+
+const Frame = styled('div')({ paddingBottom: 104 })
 
 export default EntriesList
