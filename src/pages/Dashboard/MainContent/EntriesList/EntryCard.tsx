@@ -7,11 +7,7 @@ import {
   Checkbox,
 } from '@material-ui/core'
 import { styled, Theme } from '@material-ui/core/styles'
-import {
-  MonetizationOnRounded,
-  EditRounded,
-  DeleteRounded,
-} from '@material-ui/icons'
+import { MonetizationOnRounded, DeleteRounded } from '@material-ui/icons'
 import { format } from 'date-fns'
 
 import { useDialogControl } from '../../../../hooks/dialogControl'
@@ -65,27 +61,22 @@ const EntryCard = ({ entry }: { entry: EntryData }) => {
             <Chip
               icon={showPayType(entry.payType)}
               label={entry.amount.toFixed(2)}
+              onClick={() => toggleDialog('entry', true, entry)}
             />
           </Box>
           <Box role="action" pr={0.5}>
-            <Checkbox
-              color="primary"
-              checked={entry.paid}
-              onChange={() => checkEntry(entry.id!, !entry.paid)}
-              inputProps={{ 'aria-labelledby': 'entry' + entry.id }}
-            />
-            <IconButton
-              aria-label="edit"
-              onClick={() => toggleDialog('entry', true, entry)}
-            >
-              <EditRounded fontSize="small" color="primary" />
-            </IconButton>
             <IconButton
               aria-label="delete"
               onClick={() => toggleDialog('delete', true, entry)}
             >
               <DeleteRounded fontSize="small" color="primary" />
             </IconButton>
+            <Checkbox
+              color="primary"
+              checked={entry.paid}
+              onChange={() => checkEntry(entry.id!, !entry.paid)}
+              inputProps={{ 'aria-labelledby': 'entry' + entry.id }}
+            />
           </Box>
         </FooterBox>
       </Box>
