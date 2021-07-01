@@ -9,29 +9,18 @@ import {
 import { format } from 'date-fns'
 import { EntryData, useCashBook } from './cashBook'
 import { useDialogControl } from './dialogControl'
-import { useAuth } from './auth'
-import { getCapitalizedMonth, getMonthNames } from '../utils/handleMonths'
-import {
-  setToSessionStorage,
-  getFromSessionStorage,
-} from '../utils/handleSessionStorage'
+import { getCapitalizedMonth } from '../utils/handleMonths'
 
-interface FilterContextData {
+interface FilterActionsContextData {
   filterResults: EntryData[]
-  filters: FilterData[]
-  years: string[]
-  months: string[]
-  descriptions: string[]
-  banks: string[]
+  filters: FilterActionsData[]
   dashboardHeader: string
-  addFilter(filter: FilterData): void
+  addFilter(filter: FilterActionsData): void
   removeFilters(): void
-  addDescription(description: string): void
-  addBank(bank: string): void
   orderBy(property: string | null): void
 }
 
-export interface FilterData {
+export interface FilterActionsData {
   type: string
   value: string | null
 }
@@ -40,68 +29,22 @@ const currentYear = format(new Date(), 'yyyy')
 
 const currentMonth = getCapitalizedMonth(new Date())
 
-const months = getMonthNames()
-
-export const initialFilterValues: FilterData[] = [
+export const initialFilterValues: FilterActionsData[] = [
   { type: 'year', value: currentYear },
   { type: 'month', value: currentMonth },
 ]
 
-const FilterContext = createContext<FilterContextData>({} as FilterContextData)
+const FilterActionsContext = createContext<FilterActionsContextData>(
+  {} as FilterActionsContextData,
+)
 
-const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
+const FilterActionsProvider = ({ children }: PropsWithChildren<{}>) => {
   const [filterResults, setFilterResults] = useState<EntryData[]>([])
-  const [years, setYears] = useState<string[]>([])
-  const [descriptions, setDescriptions] = useState<string[]>([])
-  const [banks, setBanks] = useState<string[]>([])
-  const [filters, setFilters] = useState<FilterData[]>(initialFilterValues)
+  const [filters, setFilters] =
+    useState<FilterActionsData[]>(initialFilterValues)
   const [dashboardHeader, setDashboardHeader] = useState<string>(currentMonth)
-  const { user } = useAuth()
   const { entries } = useCashBook()
   const { toggleDialog } = useDialogControl()
-
-  useEffect(() => {
-    const onlyYears = entries.map(item => format(item.payDay, 'yyyy'))
-    const uniqueYears = new Set(onlyYears)
-    const arrayOfYears = Array.from(uniqueYears).sort().reverse()
-    setYears([...arrayOfYears])
-  }, [entries])
-
-  useEffect(() => {
-    const sessionData = getFromSessionStorage(user.uid, 'descriptions')
-    if (sessionData?.length) {
-      setDescriptions(sessionData)
-      return
-    }
-    if (entries.length) {
-      const onlyDescriptions = entries.map(entry => entry.description)
-      const uniqueDescriptions = new Set(onlyDescriptions)
-      const arrayOfDescriptions = Array.from(uniqueDescriptions).sort()
-      setDescriptions([...arrayOfDescriptions])
-    }
-  }, [entries, user])
-
-  useEffect(() => {
-    const sessionData = getFromSessionStorage(user.uid, 'banks')
-    if (sessionData?.length) {
-      setBanks(sessionData)
-      return
-    }
-    if (entries.length) {
-      const onlyBanks = entries.map(entry => entry.bank)
-      const uniqueBanks = new Set(onlyBanks)
-      const arrayOfBanks = Array.from(uniqueBanks).sort()
-      setBanks([...arrayOfBanks])
-    }
-  }, [entries, user])
-
-  useEffect(() => {
-    setToSessionStorage(user.uid, 'descriptions', [...descriptions])
-  }, [descriptions, user])
-
-  useEffect(() => {
-    setToSessionStorage(user.uid, 'banks', [...banks])
-  }, [banks, user])
 
   useEffect(() => {
     let results = [...entries]
@@ -160,7 +103,7 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
   }, [filters])
 
   const addFilter = useCallback(
-    (filter: FilterData) => {
+    (filter: FilterActionsData) => {
       const newFilters = filters.filter(item => item.type !== filter.type)
 
       switch (filter.value) {
@@ -184,14 +127,6 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
 
   const removeFilters = useCallback(() => {
     setFilters([...initialFilterValues])
-  }, [])
-
-  const addDescription = useCallback((description: string) => {
-    setDescriptions(state => [...state, description])
-  }, [])
-
-  const addBank = useCallback((bank: string) => {
-    setBanks(state => [...state, bank])
   }, [])
 
   const orderBy = useCallback(
@@ -228,29 +163,23 @@ const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
   )
 
   return (
-    <FilterContext.Provider
+    <FilterActionsContext.Provider
       value={{
         filterResults,
         filters,
-        years,
-        months,
-        descriptions,
-        banks,
         dashboardHeader,
         addFilter,
         removeFilters,
-        addDescription,
-        addBank,
         orderBy,
       }}
     >
       {children}
-    </FilterContext.Provider>
+    </FilterActionsContext.Provider>
   )
 }
 
-const useFilter = (): FilterContextData => {
-  return useContext(FilterContext)
+const useFilterActions = (): FilterActionsContextData => {
+  return useContext(FilterActionsContext)
 }
 
-export { FilterProvider, useFilter }
+export { FilterActionsProvider, useFilterActions }

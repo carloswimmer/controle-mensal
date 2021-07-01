@@ -6,7 +6,7 @@ import * as Yup from 'yup'
 import { Input, Button } from '../../../../components/controls'
 import { handleFieldProps } from '../../../../components/controls/utils'
 import { useDialogControl } from '../../../../hooks/dialogControl'
-import { useFilter } from '../../../../hooks/filter'
+import { useFilterOptions } from '../../../../hooks/filterOptions'
 import { useToast } from '../../../../hooks/toast'
 
 interface BankData {
@@ -23,7 +23,7 @@ const EntrySchema = Yup.object({
 
 const Form = () => {
   const { toggleDialog } = useDialogControl()
-  const { addBank } = useFilter()
+  const { addBank } = useFilterOptions()
   const { addToast } = useToast()
 
   const handleBankSubmit = useCallback(

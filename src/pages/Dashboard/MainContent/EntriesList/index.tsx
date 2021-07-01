@@ -1,13 +1,13 @@
 import React from 'react'
 import { Grid } from '@material-ui/core'
 
-import { useFilter } from '../../../../hooks/filter'
+import { useFilterActions } from '../../../../hooks/filterActions'
 import NoData from '../../../../components/NoData'
 import EntryCard from './EntryCard'
 import { GlassPaper } from '../../../../styles/GlassPaper'
 
 const EntriesList = () => {
-  const { filterResults } = useFilter()
+  const { filterResults } = useFilterActions()
 
   if (!filterResults.length) {
     return (

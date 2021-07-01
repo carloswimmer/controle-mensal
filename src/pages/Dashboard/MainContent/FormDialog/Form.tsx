@@ -13,7 +13,7 @@ import {
 import { handleFieldProps } from '../../../../components/controls/utils'
 import { EntryData, useCashBook } from '../../../../hooks/cashBook'
 import { useDialogControl } from '../../../../hooks/dialogControl'
-import { useFilter } from '../../../../hooks/filter'
+import { useFilterOptions } from '../../../../hooks/filterOptions'
 import { useToast } from '../../../../hooks/toast'
 import handleError from '../../../../utils/handleError'
 import Loading from '../../../../components/Loading'
@@ -43,7 +43,7 @@ const EntrySchema = Yup.object({
 
 const Form = () => {
   const { payloadEntry, toggleDialog } = useDialogControl()
-  const { descriptions, banks } = useFilter()
+  const { descriptions, banks } = useFilterOptions()
   const { saveEntry } = useCashBook()
   const { addToast } = useToast()
 

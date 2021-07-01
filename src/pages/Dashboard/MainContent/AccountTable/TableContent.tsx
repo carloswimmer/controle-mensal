@@ -11,11 +11,11 @@ import { EditRounded, DeleteRounded } from '@material-ui/icons'
 import NoData from '../../../../components/NoData'
 import { useCashBook } from '../../../../hooks/cashBook'
 import { useDialogControl } from '../../../../hooks/dialogControl'
-import { useFilter } from '../../../../hooks/filter'
+import { useFilterActions } from '../../../../hooks/filterActions'
 
 const TableContent = () => {
   const { checkEntry } = useCashBook()
-  const { filterResults } = useFilter()
+  const { filterResults } = useFilterActions()
   const { toggleDialog } = useDialogControl()
 
   const showPayType = useCallback((payType: string) => {

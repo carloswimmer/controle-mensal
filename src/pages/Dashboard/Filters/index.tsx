@@ -3,19 +3,13 @@ import { Grid, TextField, Typography, Box, Button } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
 import { v4 as uuidv4 } from 'uuid'
 
-import { useFilter } from '../../../hooks/filter'
+import { useFilterActions } from '../../../hooks/filterActions'
+import { useFilterOptions } from '../../../hooks/filterOptions'
 
 const Filters = () => {
-  const {
-    filters,
-    years,
-    months,
-    descriptions,
-    banks,
-    addFilter,
-    removeFilters,
-    orderBy,
-  } = useFilter()
+  const { filters, addFilter, removeFilters, orderBy } = useFilterActions()
+
+  const { years, months, descriptions, banks } = useFilterOptions()
 
   const [selectValue, setSelectValue] = useState(uuidv4())
 

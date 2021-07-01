@@ -3,7 +3,8 @@ import { Box, Hidden, styled, Theme } from '@material-ui/core'
 import { MoreVertRounded, SpeedRounded } from '@material-ui/icons'
 
 import { CashBookProvider } from '../../hooks/cashBook'
-import { FilterProvider } from '../../hooks/filter'
+import { FilterActionsProvider } from '../../hooks/filterActions'
+import { FilterOptionsProvider } from '../../hooks/filterOptions'
 import { DialogControlProvider } from '../../hooks/dialogControl'
 import Logo from '../../components/Logo'
 import Drawer from '../../components/Drawer'
@@ -26,51 +27,53 @@ const Dashboard = () => {
   return (
     <DialogControlProvider>
       <CashBookProvider>
-        <FilterProvider>
-          <Drawer
-            ariaLabel="saldos"
-            name="cards"
-            side="left"
-            closeButton="right"
-            smallIcon={<SpeedRounded />}
-            largeIcon={<SpeedRounded fontSize="large" />}
-          >
-            <Box width={200}>
-              <Logo />
-            </Box>
-            <Cards />
-          </Drawer>
-          <MainContent>
-            <Header />
-            <Hidden smDown>
-              <AccountTable />
-            </Hidden>
-            <Hidden mdUp>
-              <EntriesList />
-            </Hidden>
-            <SpeedDial />
-            <FormDialog />
-            <DeleteDialog />
-            <DescriptionDialog />
-            <BankDialog />
-            <CloneDialog />
-          </MainContent>
-          <Drawer
-            ariaLabel="filtros"
-            name="filters"
-            side="right"
-            closeButton="left"
-            smallIcon={<MoreVertRounded />}
-            largeIcon={<MoreVertRounded fontSize="large" />}
-          >
-            <Box mb={2}>
-              <Menu />
-              <LogoutDialog />
-            </Box>
-            <Filters />
-          </Drawer>
-          <Tutorials />
-        </FilterProvider>
+        <FilterActionsProvider>
+          <FilterOptionsProvider>
+            <Drawer
+              ariaLabel="saldos"
+              name="cards"
+              side="left"
+              closeButton="right"
+              smallIcon={<SpeedRounded />}
+              largeIcon={<SpeedRounded fontSize="large" />}
+            >
+              <Box width={200}>
+                <Logo />
+              </Box>
+              <Cards />
+            </Drawer>
+            <MainContent>
+              <Header />
+              <Hidden smDown>
+                <AccountTable />
+              </Hidden>
+              <Hidden mdUp>
+                <EntriesList />
+              </Hidden>
+              <SpeedDial />
+              <FormDialog />
+              <DeleteDialog />
+              <DescriptionDialog />
+              <BankDialog />
+              <CloneDialog />
+            </MainContent>
+            <Drawer
+              ariaLabel="filtros"
+              name="filters"
+              side="right"
+              closeButton="left"
+              smallIcon={<MoreVertRounded />}
+              largeIcon={<MoreVertRounded fontSize="large" />}
+            >
+              <Box mb={2}>
+                <Menu />
+                <LogoutDialog />
+              </Box>
+              <Filters />
+            </Drawer>
+            <Tutorials />
+          </FilterOptionsProvider>
+        </FilterActionsProvider>
       </CashBookProvider>
     </DialogControlProvider>
   )

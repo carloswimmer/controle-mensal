@@ -5,10 +5,10 @@ import {
   AccountBalanceRounded,
   MonetizationOnRounded,
 } from '@material-ui/icons'
-import { useFilter } from '../../../hooks/filter'
+import { useFilterActions } from '../../../hooks/filterActions'
 
 const InvestmentCard = () => {
-  const { filterResults } = useFilter()
+  const { filterResults } = useFilterActions()
 
   const value = useMemo(() => {
     return filterResults

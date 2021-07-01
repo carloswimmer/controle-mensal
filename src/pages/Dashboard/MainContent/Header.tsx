@@ -1,9 +1,9 @@
 import React from 'react'
 import { Box, Hidden, Typography } from '@material-ui/core'
-import { useFilter } from '../../../hooks/filter'
+import { useFilterActions } from '../../../hooks/filterActions'
 
 const Header = () => {
-  const { dashboardHeader } = useFilter()
+  const { dashboardHeader } = useFilterActions()
 
   return (
     <Box m={4} display="flex" justifyContent="center">

@@ -10,7 +10,7 @@ import { GlassDialog as Dialog } from '../../../styles/GlassPaper'
 import { useDialogControl } from '../../../hooks/dialogControl'
 import { useCashBook } from '../../../hooks/cashBook'
 import { useToast } from '../../../hooks/toast'
-import { useFilter } from '../../../hooks/filter'
+import { useFilterActions } from '../../../hooks/filterActions'
 import handleError from '../../../utils/handleError'
 import { format } from 'date-fns'
 import { getCapitalizedMonth } from '../../../utils/handleMonths'
@@ -21,7 +21,7 @@ export default function CloneDialog() {
   const { toggleDialog, isOpen } = useDialogControl()
   const { createClone } = useCashBook()
   const { addToast } = useToast()
-  const { addFilter, removeFilters } = useFilter()
+  const { addFilter, removeFilters } = useFilterActions()
 
   const handleCreateClone = useCallback(async () => {
     try {
