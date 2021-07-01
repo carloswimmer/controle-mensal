@@ -41,7 +41,7 @@ const Drawer = ({
             color="primary"
             onClick={handleDrawerToggle}
             aria-label={ariaLabel}
-            style={{ [side]: 4, top: 4 }}
+            style={{ [side]: 4, top: 4, zIndex: 1 }}
           >
             {smallIcon}
           </OpenButton>
@@ -51,7 +51,7 @@ const Drawer = ({
             color="primary"
             onClick={handleDrawerToggle}
             aria-label={ariaLabel}
-            style={{ [side]: 8, top: 8 }}
+            style={{ [side]: 8, top: 8, zIndex: 1 }}
           >
             {largeIcon}
           </OpenButton>
