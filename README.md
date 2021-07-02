@@ -1,6 +1,6 @@
 # Controle Mensal
 
-Have some control about your fixed expenses and earns.
+Have some control over your fixed expenses and earns.
 
 ## How to access it?
 
