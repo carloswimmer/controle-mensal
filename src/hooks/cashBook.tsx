@@ -12,6 +12,7 @@ import { db, DocumentReference } from '../firebase'
 import { useAuth } from './auth'
 import { useDialogControl } from './dialogControl'
 import { handleFirstTime } from '../utils/handleTutorial'
+import handleDataLayer from '../utils/handleDataLayer'
 
 export interface EntryData {
   id?: string
@@ -46,6 +47,7 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
   const [entriesRef] = useState(accountsRef.doc(user.uid).collection('entries'))
 
   useEffect(() => {
+    handleDataLayer('login', { email: user.email })
     setIsLoading(true)
     const cleanup = entriesRef.orderBy('payDay').onSnapshot(snapshot => {
       const dbEntries = snapshot.docs.map(doc => {
