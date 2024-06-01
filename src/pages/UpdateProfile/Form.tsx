@@ -51,7 +51,7 @@ const Form = () => {
 
       const promises = []
 
-      if (email !== user.email) {
+      if (email !== user?.email) {
         promises.push(updateEmail(email))
       }
 
@@ -74,12 +74,12 @@ const Form = () => {
           actions.setSubmitting(false)
       }
     },
-    [updateEmail, updatePassword, addToast, history, user.email],
+    [updateEmail, updatePassword, addToast, history, user?.email],
   )
 
   return (
     <Formik
-      initialValues={{ ...initialValues, email: user.email! }}
+      initialValues={{ ...initialValues, email: user?.email || '' }}
       validationSchema={updateProfileSchema}
       onSubmit={(values, actions) => handleUpdateProfileSubmit(values, actions)}
     >

@@ -8,7 +8,23 @@ import {
 } from 'react'
 import { addMonths, formatISO, parseISO } from 'date-fns'
 
-import { db, DocumentReference } from '../firebase'
+import { db } from '../firebase'
+import {
+  collection,
+  doc,
+  DocumentReference,
+  onSnapshot,
+  orderBy,
+  query,
+  setDoc,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  limit,
+  getDocs,
+  where,
+  writeBatch,
+} from 'firebase/firestore'
 import { useAuth } from './auth'
 import { useDialogControl } from './dialogControl'
 import { handleFirstTime } from '../utils/handleTutorial'
@@ -33,7 +49,7 @@ interface CashBookContextData {
   createClone(): Promise<Date>
 }
 
-const accountsRef = db.collection('accounts')
+const accountsRef = collection(db, 'accounts')
 
 const CashBookContext = createContext<CashBookContextData>(
   {} as CashBookContextData,
@@ -44,12 +60,15 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
   const { toggleDialog } = useDialogControl()
   const [entries, setEntries] = useState<EntryData[]>([])
   const [isLoading, setIsLoading] = useState(false)
-  const [entriesRef] = useState(accountsRef.doc(user.uid).collection('entries'))
+  const [entriesDb] = useState(
+    collection(doc(accountsRef, user?.uid), 'entries'),
+  )
 
   useEffect(() => {
-    handleDataLayer('login', { email: user.email })
+    handleDataLayer('login', { email: user?.email })
     setIsLoading(true)
-    const cleanup = entriesRef.orderBy('payDay').onSnapshot(snapshot => {
+    const sorted = query(entriesDb, orderBy('payDay'))
+    const cleanup = onSnapshot(sorted, snapshot => {
       const dbEntries = snapshot.docs.map(doc => {
         const entry = doc.data()
         return {
@@ -82,55 +101,58 @@ const CashBookProvider = ({ children }: PropsWithChildren<{}>) => {
       delete payload.id
 
       if (values.id) {
-        return entriesRef.doc(values.id).set(payload)
+        return setDoc(doc(entriesDb, values.id), payload)
       }
 
-      return entriesRef.add(payload)
+      return addDoc(entriesDb, payload)
     },
-    [entriesRef],
+    [entriesDb],
   )
 
   const checkEntry = useCallback(
     (id: string, value: boolean) => {
-      return entriesRef.doc(id).update({ paid: value })
+      return updateDoc(doc(entriesDb, id), { paid: value })
     },
-    [entriesRef],
+    [entriesDb],
   )
 
   const deleteEntry = useCallback(
     (id: string) => {
-      return entriesRef.doc(id).delete()
+      return deleteDoc(doc(entriesDb, id))
     },
-    [entriesRef],
+    [entriesDb],
   )
 
   const createClone = useCallback(async () => {
-    const lastDoc = await entriesRef.orderBy('payDay', 'desc').limit(1).get()
+    const sorted = query(entriesDb, orderBy('payDay', 'desc'), limit(1))
+    const lastDoc = await getDocs(sorted)
     const lastPayDay = lastDoc.docs[0].data().payDay
     const clonedDate = addMonths(parseISO(lastPayDay), 1)
 
-    const lastMonthDocs = await entriesRef
-      .where('payDay', '>=', lastPayDay.substr(0, 8) + '01')
-      .where('payDay', '<=', lastPayDay.substr(0, 8) + '31')
-      .get()
+    const queryMonths = query(
+      entriesDb,
+      where('payDay', '>=', lastPayDay.substr(0, 8) + '01'),
+      where('payDay', '<=', lastPayDay.substr(0, 8) + '31'),
+    )
+    const lastMonthDocs = await getDocs(queryMonths)
 
-    const batch = db.batch()
+    const batch = writeBatch(db)
 
-    lastMonthDocs.forEach(doc => {
-      const entry = doc.data()
+    lastMonthDocs.forEach(itemDoc => {
+      const entry = itemDoc.data()
       const newDate = addMonths(parseISO(entry.payDay), 1)
       entry.payDay = formatISO(newDate, { representation: 'date' })
       entry.paid = false
       entry.amount = 0
 
-      const entryDoc = entriesRef.doc()
+      const entryDoc = doc(entriesDb)
       batch.set(entryDoc, entry)
     })
 
     await batch.commit()
 
     return clonedDate
-  }, [entriesRef])
+  }, [entriesDb])
 
   return (
     <CashBookContext.Provider

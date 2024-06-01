@@ -45,7 +45,9 @@ const FilterOptionsProvider = ({ children }: PropsWithChildren<{}>) => {
   }, [entries])
 
   useEffect(() => {
-    const sessionData = getFromSessionStorage(user.uid, 'descriptions')
+    const sessionData = user
+      ? getFromSessionStorage(user.uid, 'descriptions')
+      : null
     if (sessionData?.length) {
       setDescriptions(sessionData)
       return
@@ -59,7 +61,7 @@ const FilterOptionsProvider = ({ children }: PropsWithChildren<{}>) => {
   }, [entries, user])
 
   useEffect(() => {
-    const sessionData = getFromSessionStorage(user.uid, 'banks')
+    const sessionData = user ? getFromSessionStorage(user.uid, 'banks') : null
     if (sessionData?.length) {
       setBanks(sessionData)
       return
@@ -73,11 +75,11 @@ const FilterOptionsProvider = ({ children }: PropsWithChildren<{}>) => {
   }, [entries, user])
 
   useEffect(() => {
-    setToSessionStorage(user.uid, 'descriptions', [...descriptions])
+    user && setToSessionStorage(user.uid, 'descriptions', [...descriptions])
   }, [descriptions, user])
 
   useEffect(() => {
-    setToSessionStorage(user.uid, 'banks', [...banks])
+    user && setToSessionStorage(user.uid, 'banks', [...banks])
   }, [banks, user])
 
   const addDescription = useCallback((description: string) => {

@@ -1,13 +1,21 @@
 import {
   createContext,
   PropsWithChildren,
-  useCallback,
   useContext,
   useEffect,
   useState,
 } from 'react'
-import { User, UserCredential } from '@firebase/auth-types'
+import { User as FirebaseUser, UserCredential } from 'firebase/auth'
 import { auth } from '../firebase'
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signOut as signOutFirebase,
+  updateEmail as updateFirebaseEmail,
+  updatePassword as updateFirebasePassword,
+} from 'firebase/auth'
 
 export interface AuthData {
   email: string
@@ -15,10 +23,10 @@ export interface AuthData {
 }
 
 interface AuthContextData {
-  user: User
+  user: FirebaseUser | null
   signUp(data: AuthData): Promise<UserCredential>
   signIn(data: AuthData): Promise<UserCredential>
-  signOut(): Promise<void>
+  signOut(): void
   resetPassword(email: string): Promise<void>
   updateEmail(email: string): void
   updatePassword(password: string): void
@@ -27,46 +35,41 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
-  const [user, setUser] = useState({} as User)
+  const [user, setUser] = useState<FirebaseUser | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
+    const unsubscribe = onAuthStateChanged(auth, user => {
       user && setUser(user)
       setLoading(false)
     })
+
     return unsubscribe
   }, [])
 
-  const signUp = useCallback(({ email, password }: AuthData) => {
-    return auth.createUserWithEmailAndPassword(email, password)
-  }, [])
+  const signUp = async ({ email, password }: AuthData) => {
+    return await createUserWithEmailAndPassword(auth, email, password)
+  }
 
-  const signIn = useCallback(({ email, password }: AuthData) => {
-    return auth.signInWithEmailAndPassword(email, password)
-  }, [])
+  const signIn = async ({ email, password }: AuthData) => {
+    return await signInWithEmailAndPassword(auth, email, password)
+  }
 
-  const signOut = useCallback(() => {
-    return auth.signOut()
-  }, [])
+  const signOut = () => {
+    signOutFirebase(auth)
+  }
 
-  const resetPassword = useCallback((email: string) => {
-    return auth.sendPasswordResetEmail(email)
-  }, [])
+  const resetPassword = async (email: string) => {
+    return await sendPasswordResetEmail(auth, email)
+  }
 
-  const updateEmail = useCallback(
-    (email: string) => {
-      user.updateEmail(email)
-    },
-    [user],
-  )
+  const updateEmail = (email: string) => {
+    user && updateFirebaseEmail(user, email)
+  }
 
-  const updatePassword = useCallback(
-    (password: string) => {
-      user.updatePassword(password)
-    },
-    [user],
-  )
+  const updatePassword = (password: string) => {
+    user && updateFirebasePassword(user, password)
+  }
 
   return (
     <AuthContext.Provider
