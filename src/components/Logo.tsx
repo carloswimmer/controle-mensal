@@ -1,4 +1,4 @@
-import { styled, Theme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import LogoImage from '../assets/logo.svg'
 
 const Logo = () => {
@@ -9,7 +9,7 @@ const Logo = () => {
   )
 }
 
-const Container = styled('div')<Theme>(({ theme }) => ({
+const Container = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   marginBottom: theme.spacing(4),

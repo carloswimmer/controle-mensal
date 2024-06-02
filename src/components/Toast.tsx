@@ -1,14 +1,15 @@
-import { SyntheticEvent, useCallback, useEffect, useState } from 'react'
-import { Box, Slide, Snackbar } from '@mui/material'
-import { TransitionProps } from '@mui/material/transitions/transition'
-import { Alert } from '@mui/lab'
+import { ReactElement, SyntheticEvent, useState } from 'react'
+import { Alert, Box, Slide, Snackbar } from '@mui/material'
 import { ToastMessage } from '../hooks/toast'
+import { TransitionProps } from '@mui/material/transitions'
 
 interface ToastProps {
   messages: ToastMessage[]
 }
 
-function SlideTransition(props: TransitionProps) {
+function Transition(
+  props: TransitionProps & { children: ReactElement<any, any> },
+) {
   return <Slide {...props} direction="left" />
 }
 
@@ -16,41 +17,41 @@ const Toast = ({ messages }: ToastProps) => {
   const [open, setOpen] = useState(false)
   const [message, setMessage] = useState<ToastMessage>({} as ToastMessage)
 
-  const handleOpen = useCallback(() => {
+  const handleOpen = () => {
     if (messages.length) {
       setMessage(messages[0])
       setOpen(true)
     }
-  }, [messages])
+  }
 
-  useEffect(() => {
-    handleOpen()
-  }, [handleOpen])
-
-  const handleClose = useCallback((event?: SyntheticEvent, reason?: string) => {
+  const handleClose = (
+    event: Event | SyntheticEvent<any, Event>,
+    reason?: string,
+  ) => {
     if (reason === 'clickaway') {
       return
     }
 
     setOpen(false)
-  }, [])
+  }
 
-  const handleExited = useCallback(() => {
+  const handleExited = () => {
     messages.splice(0, 1)
 
     handleOpen()
-  }, [messages, handleOpen])
+  }
 
   return (
     <Snackbar
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={open}
       autoHideDuration={5000}
-      TransitionComponent={SlideTransition}
+      TransitionComponent={Transition}
       onClose={handleClose}
       TransitionProps={{
-        onExited: handleExited
-      }}>
+        onExited: handleExited,
+      }}
+    >
       <Box maxWidth={375}>
         <Alert
           severity={message.severity || 'error'}
@@ -62,7 +63,7 @@ const Toast = ({ messages }: ToastProps) => {
         </Alert>
       </Box>
     </Snackbar>
-  );
+  )
 }
 
 export default Toast

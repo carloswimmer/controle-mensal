@@ -7,7 +7,7 @@ import { useDialogControl } from '../../../../hooks/dialogControl'
 import Form from './Form'
 
 const Transition = forwardRef(function Transition(
-  props: TransitionProps & { children?: ReactElement<any, any> },
+  props: TransitionProps & { children: ReactElement<any, any> },
   ref: Ref<unknown>,
 ) {
   return <Slide direction="up" ref={ref} {...props} />

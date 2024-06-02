@@ -1,10 +1,10 @@
 import { useCallback, useState } from 'react'
-import { Theme, styled } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import {
   SpeedDial as MuiSpeedDial,
   SpeedDialIcon,
   SpeedDialAction,
-} from '@mui/lab'
+} from '@mui/material'
 import {
   AddRounded,
   LocalAtmRounded,
@@ -39,42 +39,42 @@ const SpeedDials = (): JSX.Element => {
       FabProps={{ color: 'secondary' }}
     >
       <SpeedDialAction
-        key={'entry'}
+        key="entry"
         icon={<LocalAtmRounded />}
-        tooltipTitle={'+ Lançamentos'}
+        tooltipTitle="+ Lançamentos"
         onClick={() => toggleDialog('entry', true)}
       />
       <SpeedDialAction
-        key={'clone'}
+        key="clone"
         icon={<QueueRounded />}
-        tooltipTitle={'Clonar Mês'}
+        tooltipTitle="Clonar Mês"
         onClick={() => toggleDialog('clone', true)}
       />
       <SpeedDialAction
-        key={'description'}
+        key="description"
         icon={<BallotRounded />}
-        tooltipTitle={'+ Descrições'}
+        tooltipTitle="+ Descrições"
         onClick={() => toggleDialog('description', true)}
       />
       <SpeedDialAction
-        key={'bank'}
+        key="bank"
         icon={<AccountBalanceRounded />}
-        tooltipTitle={'+ Bancos'}
+        tooltipTitle="+ Bancos"
         onClick={() => toggleDialog('bank', true)}
       />
     </SpeedDial>
   )
 }
 
-const SpeedDial = styled(MuiSpeedDial)<Theme>(({ theme }) => ({
+const SpeedDial = styled(MuiSpeedDial)(({ theme: { spacing } }) => ({
   position: 'fixed',
 
   '&.MuiSpeedDial-directionUp': {
-    bottom: theme.spacing(3),
-    right: theme.spacing(3),
+    bottom: spacing(3),
+    right: spacing(3),
 
     '@media (min-width: 1280px)': {
-      right: theme.spacing(3) + 310,
+      right: `calc(${spacing(3)} + 310px)`,
     },
   },
 }))

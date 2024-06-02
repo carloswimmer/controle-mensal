@@ -1,5 +1,5 @@
 import { Tooltip } from '@mui/material'
-import { withStyles } from '@mui/material/styles'
+import { withStyles } from '@mui/styles'
 
 export const TutorialTip = withStyles(() => ({
   tooltip: {

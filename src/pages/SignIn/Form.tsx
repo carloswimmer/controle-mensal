@@ -7,7 +7,6 @@ import {
   IconButton,
   InputAdornment,
   styled,
-  Theme,
 } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { Formik, FormikHelpers } from 'formik'
@@ -101,7 +100,8 @@ const Form = () => {
                     onMouseDown={handleMouseDownPassword}
                     edge="end"
                     style={darkMode ? { color: '#ffffffb0' } : {}}
-                    size="large">
+                    size="large"
+                  >
                     {showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
@@ -124,7 +124,7 @@ const Form = () => {
         </SignInForm>
       )}
     </Formik>
-  );
+  )
 }
 
 const SignInForm = styled('form')(() => ({
@@ -149,7 +149,7 @@ const ButtonContainer = styled(Box)(() => ({
   },
 }))
 
-const ButtonBackdrop = styled(Backdrop)<Theme>(({ theme }) => ({
+const ButtonBackdrop = styled(Backdrop)(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
   color: '#fff',
 }))

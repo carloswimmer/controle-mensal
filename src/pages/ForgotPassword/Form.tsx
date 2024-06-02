@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Backdrop, Box, CircularProgress, styled, Theme } from '@mui/material'
+import { Backdrop, Box, CircularProgress, styled } from '@mui/material'
 import { Formik, FormikHelpers } from 'formik'
 import * as Yup from 'yup'
 
@@ -112,7 +112,7 @@ const ButtonContainer = styled(Box)(() => ({
   },
 }))
 
-const ButtonBackdrop = styled(Backdrop)<Theme>(({ theme }) => ({
+const ButtonBackdrop = styled(Backdrop)(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
   color: '#fff',
 }))

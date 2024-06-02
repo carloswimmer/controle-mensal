@@ -31,7 +31,6 @@ const StepThree = () => {
       }
       TransitionComponent={Zoom}
       placement="right"
-      interactive
     >
       <TooltipLocation />
     </Tooltip>

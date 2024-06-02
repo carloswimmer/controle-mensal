@@ -4,7 +4,7 @@ import {
   Typography,
   Box,
 } from '@mui/material'
-import { styled, Theme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 
 import { GlassContainer as Container } from '../../styles/GlassPaper'
 import Logo from '../../components/Logo'
@@ -36,7 +36,7 @@ const Viewport = styled('div')({
   height: '100vh',
 })
 
-const CardContent = styled(MuiCardContent)<Theme>(({ theme }) => ({
+const CardContent = styled(MuiCardContent)(({ theme }) => ({
   padding: theme.spacing(3),
 
   '&:last-child': {

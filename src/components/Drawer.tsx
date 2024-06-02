@@ -5,7 +5,7 @@ import {
   IconButton,
   SvgIconProps,
 } from '@mui/material'
-import { styled, Theme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import { ChevronLeftRounded, ChevronRightRounded } from '@mui/icons-material'
 import { useDialogControl } from '../hooks/dialogControl'
 
@@ -83,7 +83,7 @@ const Drawer = ({
   )
 }
 
-const Aside = styled(MuiDrawer)<Theme>(({ theme }) => ({
+const Aside = styled(MuiDrawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
     backgroundColor: '#1111114A',
     backdropFilter: 'blur(10px)',

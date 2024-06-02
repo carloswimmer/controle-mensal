@@ -1,12 +1,11 @@
 import { PropsWithChildren, useMemo } from 'react'
 import { CssBaseline } from '@mui/material'
 import {
-  createMuiTheme,
+  createTheme,
   ThemeProvider as MuiThemeProvider,
   Theme,
   StyledEngineProvider,
-  adaptV4Theme,
-} from '@mui/material/styles';
+} from '@mui/material/styles'
 import '@fontsource/open-sans/300.css'
 import '@fontsource/open-sans'
 import '@fontsource/open-sans/600.css'
@@ -14,18 +13,16 @@ import '@fontsource/open-sans/700.css'
 
 import { useDarkMode } from './darkMode'
 
-
 declare module '@mui/styles/defaultTheme' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface DefaultTheme extends Theme {}
 }
 
-
 export const ThemeProvider = ({ children }: PropsWithChildren<{}>) => {
   const { darkMode } = useDarkMode()
 
   const theme = useMemo(() => {
-    return createMuiTheme(adaptV4Theme({
+    return createTheme({
       palette: {
         mode: darkMode ? 'dark' : 'light',
         primary: {
@@ -58,7 +55,7 @@ export const ThemeProvider = ({ children }: PropsWithChildren<{}>) => {
         fontWeightMedium: 600,
         fontWeightBold: 700,
       },
-    }));
+    })
   }, [darkMode])
 
   return (
@@ -68,5 +65,5 @@ export const ThemeProvider = ({ children }: PropsWithChildren<{}>) => {
         <CssBaseline />
       </MuiThemeProvider>
     </StyledEngineProvider>
-  );
+  )
 }

@@ -138,7 +138,7 @@ const Form = () => {
         </form>
       )}
     </Formik>
-  );
+  )
 }
 
 export default Form

@@ -6,7 +6,7 @@ import {
   IconButton,
   Checkbox,
 } from '@mui/material'
-import { styled, Theme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import { MonetizationOnRounded, DeleteRounded } from '@mui/icons-material'
 import { format } from 'date-fns'
 
@@ -68,7 +68,8 @@ const EntryCard = ({ entry }: { entry: EntryData }) => {
             <IconButton
               aria-label="delete"
               onClick={() => toggleDialog('delete', true, entry)}
-              size="large">
+              size="large"
+            >
               <DeleteRounded fontSize="small" color="primary" />
             </IconButton>
             <Checkbox
@@ -81,7 +82,7 @@ const EntryCard = ({ entry }: { entry: EntryData }) => {
         </FooterBox>
       </Box>
     </Paper>
-  );
+  )
 }
 
 const Overline = styled(Typography)({ fontSize: '0.72rem' })
@@ -96,7 +97,7 @@ const CreditIcon = styled(MonetizationOnRounded)({ color: '#57dd57' })
 
 const DebitIcon = styled(MonetizationOnRounded)({ color: '#d63434' })
 
-const InvetmentIcon = styled(MonetizationOnRounded)<Theme>(({ theme }) => ({
+const InvetmentIcon = styled(MonetizationOnRounded)(({ theme }) => ({
   color: theme.palette.text.primary,
 }))
 

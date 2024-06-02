@@ -7,11 +7,11 @@ import {
   SelectProps,
 } from '@mui/material'
 
-interface MuiSelectProps extends SelectProps {
+type MuiSelectProps = {
   options: Array<any>
   error?: boolean
   helperText?: string | false
-}
+} & SelectProps
 
 const Select = (props: MuiSelectProps) => {
   const {
@@ -37,7 +37,8 @@ const Select = (props: MuiSelectProps) => {
         value={value}
         onChange={onChange}
         onBlur={onBlur}
-        {...others}>
+        {...others}
+      >
         <MenuItem value="">None</MenuItem>
         {options.map(item => (
           <MenuItem key={item} value={item}>
@@ -47,7 +48,7 @@ const Select = (props: MuiSelectProps) => {
       </MuiSelect>
       {error && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
-  );
+  )
 }
 
 export default Select

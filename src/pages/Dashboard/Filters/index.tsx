@@ -1,6 +1,12 @@
 import React, { ChangeEvent, useCallback, useState } from 'react'
-import { Grid, TextField, Typography, Box, Button } from '@mui/material'
-import { Autocomplete } from '@mui/lab'
+import {
+  Grid,
+  TextField,
+  Typography,
+  Box,
+  Button,
+  Autocomplete,
+} from '@mui/material'
 import { v4 as uuidv4 } from 'uuid'
 
 import { useFilterActions } from '../../../hooks/filterActions'
@@ -122,7 +128,7 @@ const Filters = () => {
         </Grid>
       </Grid>
     </Grid>
-  );
+  )
 }
 
 export default Filters

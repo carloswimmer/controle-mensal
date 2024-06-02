@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { Paper as MuiPaper, Box, Typography, Chip } from '@mui/material'
-import { styled, Theme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import { TrendingDownRounded, MonetizationOnRounded } from '@mui/icons-material'
 import { useFilterActions } from '../../../hooks/filterActions'
 
@@ -33,13 +33,13 @@ const DebitCard = () => {
   )
 }
 
-const Paper = styled(MuiPaper)<Theme>(({ theme }) => ({
+const Paper = styled(MuiPaper)(({ theme }) => ({
   padding: theme.spacing(2),
   backgroundColor: '#424242a8',
   backdropFilter: 'blur(1px)',
 }))
 
-const IconContainer = styled('div')<Theme>(({ theme }) => ({
+const IconContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

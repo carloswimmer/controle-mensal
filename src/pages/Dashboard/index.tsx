@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, styled, Theme } from '@mui/material'
+import { Box, styled } from '@mui/material'
 import { MoreVertRounded, SpeedRounded } from '@mui/icons-material'
 
 import { CashBookProvider } from '../../hooks/cashBook'
@@ -79,7 +79,7 @@ const Dashboard = () => {
   )
 }
 
-const MainContent = styled('main')<Theme>(({ theme }) => ({
+const MainContent = styled('main')(({ theme }) => ({
   height: 'calc(100vh - 32px)',
   width: 'auto',
   margin: '0 auto',

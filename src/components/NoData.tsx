@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Box, Typography as MuiTypography } from '@mui/material'
-import { styled, Theme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import NoDataImg from '../assets/no-data.svg'
 
 const NoData = () => {
@@ -32,10 +32,10 @@ const NoData = () => {
         </Grid>
       </Grid>
     </Grid>
-  );
+  )
 }
 
-const Typography = styled(MuiTypography)<Theme>(({ theme }) => ({
+const Typography = styled(MuiTypography)(({ theme }) => ({
   padding: theme.spacing(2),
   textAlign: 'center',
 
