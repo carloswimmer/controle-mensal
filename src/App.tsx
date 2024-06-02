@@ -1,6 +1,9 @@
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import { BrowserRouter } from 'react-router-dom'
 import AppProvider from './hooks'
 import Routes from './routes'
+
+const theme = createMuiTheme()
 
 declare global {
   interface Window {
@@ -10,11 +13,13 @@ declare global {
 
 function App() {
   return (
-    <BrowserRouter>
-      <AppProvider>
-        <Routes />
-      </AppProvider>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <AppProvider>
+          <Routes />
+        </AppProvider>
+      </BrowserRouter>
+    </ThemeProvider>
   )
 }
 
