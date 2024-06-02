@@ -84,7 +84,7 @@ const Form = () => {
                 container
                 xs={12}
                 sm={6}
-                justify="center"
+                justifyContent="center"
                 alignItems="center"
               >
                 <Radio
@@ -138,7 +138,7 @@ const Form = () => {
         </form>
       )}
     </Formik>
-  )
+  );
 }
 
 export default Form

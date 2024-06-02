@@ -30,10 +30,10 @@ const Radio = (props: RadioProps) => {
 
   return (
     <FormControl
+      variant="standard"
       component="fieldset"
       error={error}
-      style={{ marginBottom: 6, marginRight: -12 }}
-    >
+      style={{ marginBottom: 6, marginRight: -12 }}>
       <FormLabel component="legend">{label}</FormLabel>
       <RadioGroup
         row
@@ -55,7 +55,7 @@ const Radio = (props: RadioProps) => {
       </RadioGroup>
       {error && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
-  )
+  );
 }
 
 export default Radio

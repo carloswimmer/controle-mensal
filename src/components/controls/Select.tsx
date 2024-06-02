@@ -30,14 +30,14 @@ const Select = (props: MuiSelectProps) => {
     <FormControl variant="outlined" fullWidth error={error}>
       <InputLabel id={`${name}-select-label`}>{label}</InputLabel>
       <MuiSelect
+        variant="standard"
         labelId={`${name}-select-label`}
         label={label}
         name={name}
         value={value}
         onChange={onChange}
         onBlur={onBlur}
-        {...others}
-      >
+        {...others}>
         <MenuItem value="">None</MenuItem>
         {options.map(item => (
           <MenuItem key={item} value={item}>
@@ -47,7 +47,7 @@ const Select = (props: MuiSelectProps) => {
       </MuiSelect>
       {error && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
-  )
+  );
 }
 
 export default Select

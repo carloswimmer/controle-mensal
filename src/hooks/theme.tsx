@@ -3,7 +3,10 @@ import { CssBaseline } from '@mui/material'
 import {
   createMuiTheme,
   ThemeProvider as MuiThemeProvider,
-} from '@mui/material/styles'
+  Theme,
+  StyledEngineProvider,
+  adaptV4Theme,
+} from '@mui/material/styles';
 import '@fontsource/open-sans/300.css'
 import '@fontsource/open-sans'
 import '@fontsource/open-sans/600.css'
@@ -11,13 +14,20 @@ import '@fontsource/open-sans/700.css'
 
 import { useDarkMode } from './darkMode'
 
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
+
 export const ThemeProvider = ({ children }: PropsWithChildren<{}>) => {
   const { darkMode } = useDarkMode()
 
   const theme = useMemo(() => {
-    return createMuiTheme({
+    return createMuiTheme(adaptV4Theme({
       palette: {
-        type: darkMode ? 'dark' : 'light',
+        mode: darkMode ? 'dark' : 'light',
         primary: {
           light: '#62efff',
           main: '#00bcd4',
@@ -48,13 +58,15 @@ export const ThemeProvider = ({ children }: PropsWithChildren<{}>) => {
         fontWeightMedium: 600,
         fontWeightBold: 700,
       },
-    })
+    }));
   }, [darkMode])
 
   return (
-    <MuiThemeProvider theme={theme}>
-      {children}
-      <CssBaseline />
-    </MuiThemeProvider>
-  )
+    <StyledEngineProvider injectFirst>
+      <MuiThemeProvider theme={theme}>
+        {children}
+        <CssBaseline />
+      </MuiThemeProvider>
+    </StyledEngineProvider>
+  );
 }

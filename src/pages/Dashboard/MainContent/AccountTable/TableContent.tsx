@@ -40,43 +40,41 @@ const TableContent = () => {
     )
   }
 
-  return (
-    <>
-      {filterResults.map(entry => (
-        <TableRow key={entry.id}>
-          <TableCell padding="checkbox">
-            <Checkbox
-              color="primary"
-              checked={entry.paid}
-              onChange={() => checkEntry(entry.id!, !entry.paid)}
-              inputProps={{ 'aria-labelledby': 'entry' + entry.id }}
-            />
-          </TableCell>
-          <TableCell component="th" scope="row">
-            {entry.payDay.getUTCDate().toString()}
-          </TableCell>
-          <TableCell variant="head">{entry.description}</TableCell>
-          <TableCell>{entry.bank}</TableCell>
-          <TableCell align="center">{entry.amount.toFixed(2)}</TableCell>
-          {showPayType(entry.payType)}
-          <TableCell align="center">
-            <IconButton
-              aria-label="edit"
-              onClick={() => toggleDialog('entry', true, entry)}
-            >
-              <EditRounded fontSize="small" color="primary" />
-            </IconButton>
-            <IconButton
-              aria-label="delete"
-              onClick={() => toggleDialog('delete', true, entry)}
-            >
-              <DeleteRounded fontSize="small" color="primary" />
-            </IconButton>
-          </TableCell>
-        </TableRow>
-      ))}
-    </>
-  )
+  return <>
+    {filterResults.map(entry => (
+      <TableRow key={entry.id}>
+        <TableCell padding="checkbox">
+          <Checkbox
+            color="primary"
+            checked={entry.paid}
+            onChange={() => checkEntry(entry.id!, !entry.paid)}
+            inputProps={{ 'aria-labelledby': 'entry' + entry.id }}
+          />
+        </TableCell>
+        <TableCell component="th" scope="row">
+          {entry.payDay.getUTCDate().toString()}
+        </TableCell>
+        <TableCell variant="head">{entry.description}</TableCell>
+        <TableCell>{entry.bank}</TableCell>
+        <TableCell align="center">{entry.amount.toFixed(2)}</TableCell>
+        {showPayType(entry.payType)}
+        <TableCell align="center">
+          <IconButton
+            aria-label="edit"
+            onClick={() => toggleDialog('entry', true, entry)}
+            size="large">
+            <EditRounded fontSize="small" color="primary" />
+          </IconButton>
+          <IconButton
+            aria-label="delete"
+            onClick={() => toggleDialog('delete', true, entry)}
+            size="large">
+            <DeleteRounded fontSize="small" color="primary" />
+          </IconButton>
+        </TableCell>
+      </TableRow>
+    ))}
+  </>;
 }
 
 const CreditCell = styled(TableCell)({

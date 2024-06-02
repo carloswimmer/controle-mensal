@@ -8,7 +8,7 @@ const NoData = () => {
     <Grid
       container
       alignItems="center"
-      justify="center"
+      justifyContent="center"
       style={{ minHeight: '198px' }}
     >
       <Grid
@@ -32,7 +32,7 @@ const NoData = () => {
         </Grid>
       </Grid>
     </Grid>
-  )
+  );
 }
 
 const Typography = styled(MuiTypography)<Theme>(({ theme }) => ({

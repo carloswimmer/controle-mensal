@@ -8,18 +8,16 @@ interface ContentProps {
 }
 
 const TutorialContent = ({ text, buttonLabel, onClick }: ContentProps) => {
-  return (
-    <>
-      <Typography variant="body2">{text}</Typography>
-      <Grid container justify="flex-end">
-        <Grid item>
-          <Button size="small" onClick={onClick}>
-            {buttonLabel}
-          </Button>
-        </Grid>
+  return <>
+    <Typography variant="body2">{text}</Typography>
+    <Grid container justifyContent="flex-end">
+      <Grid item>
+        <Button size="small" onClick={onClick}>
+          {buttonLabel}
+        </Button>
       </Grid>
-    </>
-  )
+    </Grid>
+  </>;
 }
 
 export default TutorialContent

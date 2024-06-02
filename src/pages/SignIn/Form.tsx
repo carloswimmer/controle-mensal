@@ -101,7 +101,7 @@ const Form = () => {
                     onMouseDown={handleMouseDownPassword}
                     edge="end"
                     style={darkMode ? { color: '#ffffffb0' } : {}}
-                  >
+                    size="large">
                     {showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
@@ -124,7 +124,7 @@ const Form = () => {
         </SignInForm>
       )}
     </Formik>
-  )
+  );
 }
 
 const SignInForm = styled('form')(() => ({

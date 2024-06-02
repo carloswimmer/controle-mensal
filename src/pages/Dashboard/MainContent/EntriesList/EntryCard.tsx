@@ -68,7 +68,7 @@ const EntryCard = ({ entry }: { entry: EntryData }) => {
             <IconButton
               aria-label="delete"
               onClick={() => toggleDialog('delete', true, entry)}
-            >
+              size="large">
               <DeleteRounded fontSize="small" color="primary" />
             </IconButton>
             <Checkbox
@@ -81,7 +81,7 @@ const EntryCard = ({ entry }: { entry: EntryData }) => {
         </FooterBox>
       </Box>
     </Paper>
-  )
+  );
 }
 
 const Overline = styled(Typography)({ fontSize: '0.72rem' })

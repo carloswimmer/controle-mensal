@@ -48,8 +48,9 @@ const Toast = ({ messages }: ToastProps) => {
       autoHideDuration={5000}
       TransitionComponent={SlideTransition}
       onClose={handleClose}
-      onExited={handleExited}
-    >
+      TransitionProps={{
+        onExited: handleExited
+      }}>
       <Box maxWidth={375}>
         <Alert
           severity={message.severity || 'error'}
@@ -61,7 +62,7 @@ const Toast = ({ messages }: ToastProps) => {
         </Alert>
       </Box>
     </Snackbar>
-  )
+  );
 }
 
 export default Toast

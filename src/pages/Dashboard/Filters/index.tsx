@@ -114,7 +114,7 @@ const Filters = () => {
           )}
         />
       </Grid>
-      <Grid container item xs={12} justify="flex-end">
+      <Grid container item xs={12} justifyContent="flex-end">
         <Grid item>
           <Button variant="outlined" color="primary" onClick={clearFilters}>
             Limpar
@@ -122,7 +122,7 @@ const Filters = () => {
         </Grid>
       </Grid>
     </Grid>
-  )
+  );
 }
 
 export default Filters

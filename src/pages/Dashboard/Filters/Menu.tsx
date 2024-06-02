@@ -12,13 +12,13 @@ const Menu = () => {
   const history = useHistory()
 
   return (
-    <Grid container justify="flex-end">
+    <Grid container justifyContent="flex-end">
       <Grid item>
         <IconButton
           color="primary"
           onClick={() => history.push('/update-profile')}
           aria-label="perfil"
-        >
+          size="large">
           <AccountCircleRounded fontSize="large" />
         </IconButton>
       </Grid>
@@ -27,12 +27,12 @@ const Menu = () => {
           color="primary"
           onClick={() => toggleDialog('logout_confirm', true)}
           aria-label="sair"
-        >
+          size="large">
           <PowerSettingsNewRounded fontSize="large" />
         </IconButton>
       </Grid>
     </Grid>
-  )
+  );
 }
 
 export default Menu
