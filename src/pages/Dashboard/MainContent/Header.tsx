@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Hidden, Typography } from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core'
 import { useFilterActions } from '../../../hooks/filterActions'
 
 const Header = () => {
@@ -7,12 +7,12 @@ const Header = () => {
 
   return (
     <Box m={4} display="flex" justifyContent="center">
-      <Hidden smUp>
+      <Box display={{ xs: 'block', sm: 'none' }}>
         <Typography variant="h2">{dashboardHeader}</Typography>
-      </Hidden>
-      <Hidden xsDown>
+      </Box>
+      <Box display={{ xs: 'none', sm: 'block' }}>
         <Typography variant="h1">{dashboardHeader}</Typography>
-      </Hidden>
+      </Box>
     </Box>
   )
 }

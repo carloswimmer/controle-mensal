@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Hidden, styled, Theme } from '@material-ui/core'
+import { Box, styled, Theme } from '@material-ui/core'
 import { MoreVertRounded, SpeedRounded } from '@material-ui/icons'
 
 import { CashBookProvider } from '../../hooks/cashBook'
@@ -44,12 +44,12 @@ const Dashboard = () => {
             </Drawer>
             <MainContent>
               <Header />
-              <Hidden smDown>
+              <Box display={{ xs: 'none', md: 'block' }}>
                 <AccountTable />
-              </Hidden>
-              <Hidden mdUp>
+              </Box>
+              <Box display={{ xs: 'block', md: 'none' }}>
                 <EntriesList />
-              </Hidden>
+              </Box>
               <SpeedDial />
               <FormDialog />
               <DeleteDialog />

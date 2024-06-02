@@ -1,9 +1,14 @@
-import { Redirect, Route, RouteProps } from 'react-router-dom'
+import {
+  Redirect,
+  Route,
+  RouteProps,
+  RouteComponentProps,
+} from 'react-router-dom'
 import { useAuth } from '../hooks/auth'
 
 interface PrivateRouteProps {
   path: RouteProps['path']
-  component: React.ElementType
+  component: (props: RouteComponentProps) => JSX.Element
 }
 
 const PrivateRoute = ({ component: Component, ...rest }: PrivateRouteProps) => {

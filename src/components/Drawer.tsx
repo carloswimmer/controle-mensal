@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, ReactElement, useCallback } from 'react'
 import {
-  Hidden,
+  Box,
   Drawer as MuiDrawer,
   IconButton,
   SvgIconProps,
@@ -35,8 +35,8 @@ const Drawer = ({
 
   return (
     <nav>
-      <Hidden lgUp implementation="css">
-        <Hidden smUp>
+      <Box display={{ xs: 'block', lg: 'none' }}>
+        <Box display={{ xs: 'block', sm: 'none' }}>
           <OpenButton
             color="primary"
             onClick={handleDrawerToggle}
@@ -45,8 +45,8 @@ const Drawer = ({
           >
             {smallIcon}
           </OpenButton>
-        </Hidden>
-        <Hidden xsDown>
+        </Box>
+        <Box display={{ xs: 'none', sm: 'block' }}>
           <OpenButton
             color="primary"
             onClick={handleDrawerToggle}
@@ -55,7 +55,7 @@ const Drawer = ({
           >
             {largeIcon}
           </OpenButton>
-        </Hidden>
+        </Box>
         <Aside
           variant="persistent"
           anchor={side}
@@ -73,12 +73,12 @@ const Drawer = ({
           </CloseButton>
           {children}
         </Aside>
-      </Hidden>
-      <Hidden mdDown implementation="css">
+      </Box>
+      <Box display={{ xs: 'none', md: 'none', lg: 'block' }}>
         <Aside variant="permanent" anchor={side} open>
           {children}
         </Aside>
-      </Hidden>
+      </Box>
     </nav>
   )
 }
