@@ -1,7 +1,7 @@
 import { SyntheticEvent, useCallback, useEffect, useState } from 'react'
-import { Box, Slide, Snackbar } from '@material-ui/core'
-import { TransitionProps } from '@material-ui/core/transitions/transition'
-import { Alert } from '@material-ui/lab'
+import { Box, Slide, Snackbar } from '@mui/material'
+import { TransitionProps } from '@mui/material/transitions/transition'
+import { Alert } from '@mui/lab'
 import { ToastMessage } from '../hooks/toast'
 
 interface ToastProps {

@@ -1,10 +1,10 @@
 import { useCallback, useState } from 'react'
-import { Theme, styled } from '@material-ui/core/styles'
+import { Theme, styled } from '@mui/material/styles'
 import {
   SpeedDial as MuiSpeedDial,
   SpeedDialIcon,
   SpeedDialAction,
-} from '@material-ui/lab'
+} from '@mui/lab'
 import {
   AddRounded,
   LocalAtmRounded,
@@ -12,7 +12,7 @@ import {
   QueueRounded,
   AccountBalanceRounded,
   BallotRounded,
-} from '@material-ui/icons'
+} from '@mui/icons-material'
 
 import { useDialogControl } from '../../../hooks/dialogControl'
 

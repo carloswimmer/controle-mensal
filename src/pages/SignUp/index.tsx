@@ -3,8 +3,8 @@ import {
   CardContent as MuiCardContent,
   Typography,
   Box,
-} from '@material-ui/core'
-import { styled, Theme } from '@material-ui/core/styles'
+} from '@mui/material'
+import { styled, Theme } from '@mui/material/styles'
 
 import { GlassContainer as Container } from '../../styles/GlassPaper'
 import Logo from '../../components/Logo'

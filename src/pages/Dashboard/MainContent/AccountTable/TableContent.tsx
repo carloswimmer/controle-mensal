@@ -5,9 +5,9 @@ import {
   Checkbox,
   IconButton,
   styled,
-} from '@material-ui/core'
-import { Theme } from '@material-ui/core/styles'
-import { EditRounded, DeleteRounded } from '@material-ui/icons'
+} from '@mui/material'
+import { Theme } from '@mui/material/styles'
+import { EditRounded, DeleteRounded } from '@mui/icons-material'
 import NoData from '../../../../components/NoData'
 import { useCashBook } from '../../../../hooks/cashBook'
 import { useDialogControl } from '../../../../hooks/dialogControl'

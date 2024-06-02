@@ -8,8 +8,8 @@ import {
   InputAdornment,
   styled,
   Theme,
-} from '@material-ui/core'
-import { Visibility, VisibilityOff } from '@material-ui/icons'
+} from '@mui/material'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { Formik, FormikHelpers } from 'formik'
 import * as Yup from 'yup'
 

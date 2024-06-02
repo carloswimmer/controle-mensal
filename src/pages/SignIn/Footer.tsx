@@ -1,4 +1,4 @@
-import { Grid, Box, Typography, Link } from '@material-ui/core'
+import { Grid, Box, Typography, Link } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
 
 const Footer = () => {

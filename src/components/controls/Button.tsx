@@ -1,4 +1,4 @@
-import { Button as MuiButton, ButtonProps } from '@material-ui/core'
+import { Button as MuiButton, ButtonProps } from '@mui/material'
 
 interface MuiButtonProps extends ButtonProps {
   text: string

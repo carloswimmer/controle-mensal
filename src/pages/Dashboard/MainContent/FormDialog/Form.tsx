@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { DialogContent, DialogActions, Grid } from '@material-ui/core'
+import { DialogContent, DialogActions, Grid } from '@mui/material'
 import { Formik, FormikHelpers } from 'formik'
 import * as Yup from 'yup'
 

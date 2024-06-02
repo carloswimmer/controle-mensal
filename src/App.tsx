@@ -1,4 +1,4 @@
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import { ThemeProvider, createMuiTheme } from '@mui/material/styles'
 import { BrowserRouter } from 'react-router-dom'
 import AppProvider from './hooks'
 import Routes from './routes'

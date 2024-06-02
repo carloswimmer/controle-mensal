@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
-import { Zoom } from '@material-ui/core'
-import { styled } from '@material-ui/core/styles'
+import { Zoom } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import TutorialContent from '../../../components/TutorialContent'
 import { useDialogControl } from '../../../hooks/dialogControl'
 import { TutorialTip as Tooltip } from '../../../styles/TutorialTip'

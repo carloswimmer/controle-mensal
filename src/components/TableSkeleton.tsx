@@ -1,5 +1,5 @@
-import { TableRow, TableCell } from '@material-ui/core'
-import { Skeleton } from '@material-ui/lab'
+import { TableRow, TableCell } from '@mui/material'
+import { Skeleton } from '@mui/lab'
 
 const TableSkeleton = () => {
   return (

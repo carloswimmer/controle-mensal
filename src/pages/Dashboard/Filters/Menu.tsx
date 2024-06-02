@@ -1,9 +1,9 @@
 import { useHistory } from 'react-router-dom'
-import { Grid, IconButton } from '@material-ui/core'
+import { Grid, IconButton } from '@mui/material'
 import {
   PowerSettingsNewRounded,
   AccountCircleRounded,
-} from '@material-ui/icons'
+} from '@mui/icons-material'
 
 import { useDialogControl } from '../../../hooks/dialogControl'
 

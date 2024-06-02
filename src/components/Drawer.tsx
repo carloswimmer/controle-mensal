@@ -4,9 +4,9 @@ import {
   Drawer as MuiDrawer,
   IconButton,
   SvgIconProps,
-} from '@material-ui/core'
-import { styled, Theme } from '@material-ui/core/styles'
-import { ChevronLeftRounded, ChevronRightRounded } from '@material-ui/icons'
+} from '@mui/material'
+import { styled, Theme } from '@mui/material/styles'
+import { ChevronLeftRounded, ChevronRightRounded } from '@mui/icons-material'
 import { useDialogControl } from '../hooks/dialogControl'
 
 interface DrawerProps {

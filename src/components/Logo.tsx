@@ -1,4 +1,4 @@
-import { styled, Theme } from '@material-ui/core/styles'
+import { styled, Theme } from '@mui/material/styles'
 import LogoImage from '../assets/logo.svg'
 
 const Logo = () => {

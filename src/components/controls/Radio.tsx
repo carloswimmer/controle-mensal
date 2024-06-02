@@ -6,7 +6,7 @@ import {
   Radio as MuiRadio,
   FormHelperText,
   RadioGroupProps,
-} from '@material-ui/core'
+} from '@mui/material'
 
 interface RadioProps extends RadioGroupProps {
   label: string

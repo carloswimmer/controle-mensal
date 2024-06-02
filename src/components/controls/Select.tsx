@@ -5,7 +5,7 @@ import {
   MenuItem,
   Select as MuiSelect,
   SelectProps,
-} from '@material-ui/core'
+} from '@mui/material'
 
 interface MuiSelectProps extends SelectProps {
   options: Array<any>

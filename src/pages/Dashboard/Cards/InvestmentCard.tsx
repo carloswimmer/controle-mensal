@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
-import { Paper as MuiPaper, Box, Typography, Chip } from '@material-ui/core'
-import { styled, Theme } from '@material-ui/core/styles'
+import { Paper as MuiPaper, Box, Typography, Chip } from '@mui/material'
+import { styled, Theme } from '@mui/material/styles'
 import {
   AccountBalanceRounded,
   MonetizationOnRounded,
-} from '@material-ui/icons'
+} from '@mui/icons-material'
 import { useFilterActions } from '../../../hooks/filterActions'
 
 const InvestmentCard = () => {

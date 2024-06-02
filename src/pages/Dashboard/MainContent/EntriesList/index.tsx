@@ -1,6 +1,6 @@
 import React from 'react'
-import { Grid } from '@material-ui/core'
-import { styled } from '@material-ui/core/styles'
+import { Grid } from '@mui/material'
+import { styled } from '@mui/material/styles'
 
 import { useFilterActions } from '../../../../hooks/filterActions'
 import NoData from '../../../../components/NoData'

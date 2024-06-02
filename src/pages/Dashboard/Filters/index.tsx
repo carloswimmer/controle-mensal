@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useCallback, useState } from 'react'
-import { Grid, TextField, Typography, Box, Button } from '@material-ui/core'
-import { Autocomplete } from '@material-ui/lab'
+import { Grid, TextField, Typography, Box, Button } from '@mui/material'
+import { Autocomplete } from '@mui/lab'
 import { v4 as uuidv4 } from 'uuid'
 
 import { useFilterActions } from '../../../hooks/filterActions'

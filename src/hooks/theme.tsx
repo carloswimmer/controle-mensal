@@ -1,9 +1,9 @@
 import { PropsWithChildren, useMemo } from 'react'
-import { CssBaseline } from '@material-ui/core'
+import { CssBaseline } from '@mui/material'
 import {
   createMuiTheme,
   ThemeProvider as MuiThemeProvider,
-} from '@material-ui/core/styles'
+} from '@mui/material/styles'
 import '@fontsource/open-sans/300.css'
 import '@fontsource/open-sans'
 import '@fontsource/open-sans/600.css'

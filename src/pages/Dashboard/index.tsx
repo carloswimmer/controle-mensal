@@ -1,6 +1,6 @@
 import React from 'react'
-import { Box, styled, Theme } from '@material-ui/core'
-import { MoreVertRounded, SpeedRounded } from '@material-ui/icons'
+import { Box, styled, Theme } from '@mui/material'
+import { MoreVertRounded, SpeedRounded } from '@mui/icons-material'
 
 import { CashBookProvider } from '../../hooks/cashBook'
 import { FilterActionsProvider } from '../../hooks/filterActions'

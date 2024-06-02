@@ -1,4 +1,4 @@
-import { styled } from '@material-ui/core/styles'
+import { styled } from '@mui/material/styles'
 import image from '../assets/big-image.jpg'
 
 const Background = () => {

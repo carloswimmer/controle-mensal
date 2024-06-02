@@ -1,4 +1,4 @@
-import { styled } from '@material-ui/core/styles'
+import { styled } from '@mui/material/styles'
 import {
   Table,
   TableBody,
@@ -6,8 +6,8 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from '@material-ui/core'
-import Paper from '@material-ui/core/Paper'
+} from '@mui/material'
+import Paper from '@mui/material/Paper'
 import { useCashBook } from '../../../../hooks/cashBook'
 import TableSkeleton from '../../../../components/TableSkeleton'
 import TableContent from './TableContent'

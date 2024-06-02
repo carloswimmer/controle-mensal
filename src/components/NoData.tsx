@@ -1,6 +1,6 @@
 import React from 'react'
-import { Grid, Box, Typography as MuiTypography } from '@material-ui/core'
-import { styled, Theme } from '@material-ui/core/styles'
+import { Grid, Box, Typography as MuiTypography } from '@mui/material'
+import { styled, Theme } from '@mui/material/styles'
 import NoDataImg from '../assets/no-data.svg'
 
 const NoData = () => {

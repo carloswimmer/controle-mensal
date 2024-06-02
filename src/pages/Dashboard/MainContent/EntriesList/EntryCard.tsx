@@ -5,9 +5,9 @@ import {
   Chip as MuiChip,
   IconButton,
   Checkbox,
-} from '@material-ui/core'
-import { styled, Theme } from '@material-ui/core/styles'
-import { MonetizationOnRounded, DeleteRounded } from '@material-ui/icons'
+} from '@mui/material'
+import { styled, Theme } from '@mui/material/styles'
+import { MonetizationOnRounded, DeleteRounded } from '@mui/icons-material'
 import { format } from 'date-fns'
 
 import { useDialogControl } from '../../../../hooks/dialogControl'

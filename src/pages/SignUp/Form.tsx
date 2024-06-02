@@ -1,12 +1,6 @@
 import { useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
-import {
-  Backdrop,
-  Box,
-  CircularProgress,
-  styled,
-  Theme,
-} from '@material-ui/core'
+import { Backdrop, Box, CircularProgress, styled, Theme } from '@mui/material'
 import { Formik, FormikHelpers } from 'formik'
 import * as Yup from 'yup'
 
