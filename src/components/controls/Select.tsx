@@ -30,7 +30,7 @@ const Select = (props: MuiSelectProps) => {
     <FormControl variant="outlined" fullWidth error={error}>
       <InputLabel id={`${name}-select-label`}>{label}</InputLabel>
       <MuiSelect
-        variant="standard"
+        variant="outlined"
         labelId={`${name}-select-label`}
         label={label}
         name={name}

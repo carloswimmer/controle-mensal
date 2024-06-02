@@ -33,7 +33,7 @@ const SpeedDials = (): JSX.Element => {
       ariaLabel="SpeedDial example"
       icon={<SpeedDialIcon icon={<AddRounded />} openIcon={<MoreVert />} />}
       onClose={handleClose}
-      onOpen={handleOpen}
+      onClick={handleOpen}
       open={open}
       direction="up"
       FabProps={{ color: 'secondary' }}

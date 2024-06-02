@@ -5,10 +5,10 @@ import * as Yup from 'yup'
 
 import {
   Button,
-  DatePicker,
   Select,
   Radio,
   Currency,
+  InputDate,
 } from '../../../../components/controls'
 import { handleFieldProps } from '../../../../components/controls/utils'
 import { EntryData, useCashBook } from '../../../../hooks/cashBook'
@@ -73,7 +73,7 @@ const Form = () => {
           <DialogContent>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
-                <DatePicker
+                <InputDate
                   label="Dia do pagamento"
                   id="payDay"
                   {...handleFieldProps(formik, 'payDay')}

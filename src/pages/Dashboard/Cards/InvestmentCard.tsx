@@ -40,7 +40,7 @@ const InvestmentCard = () => {
 
 const Paper = styled(MuiPaper)(({ theme }) => ({
   padding: theme.spacing(2),
-  backgroundColor: '#424242a8',
+  backgroundColor: '#323232a8',
   backdropFilter: 'blur(1px)',
 }))
 
