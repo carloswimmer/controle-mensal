@@ -7,6 +7,19 @@
 
 A modern, responsive, and intuitive web application to take control of your monthly expenses, earnings, and investments. Built with **React**, **TypeScript**, and **Firebase**.
 
+## 📸 Screenshots
+
+<table width="100%">
+  <tr>
+    <td align="left" width="50%">
+      <img src="src/assets/screenshots/desktop.jpg" width="92%" alt="Desktop View" />
+    </td>
+    <td align="right" width="50%">
+      <img src="src/assets/screenshots/mobile.jpg" width="100%" alt="Mobile View" />
+    </td>
+  </tr>
+</table>
+
 ---
 
 ## ✨ Features
