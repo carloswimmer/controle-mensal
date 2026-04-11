@@ -1,24 +1,13 @@
 # 📊 Controle Mensal
 
+<img src="src/assets/screenshots/desktop.jpg" alt="Desktop — dashboard Controle Mensal" />
+
 [![Project Status](https://img.shields.io/badge/Status-Active-brightgreen.svg)]()
 [![React Version](https://img.shields.io/badge/React-18.x-blue.svg)]()
 [![Firebase](https://img.shields.io/badge/Firebase-10.x-orange.svg)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A modern, responsive, and intuitive web application to take control of your monthly expenses, earnings, and investments. Built with **React**, **TypeScript**, and **Firebase**.
-
-## 📸 Screenshots
-
-<table width="100%">
-  <tr>
-    <td align="left" width="50%">
-      <img src="src/assets/screenshots/desktop.jpg" width="92%" alt="Desktop View" />
-    </td>
-    <td align="right" width="50%">
-      <img src="src/assets/screenshots/mobile.jpg" width="100%" alt="Mobile View" />
-    </td>
-  </tr>
-</table>
 
 ---
 
